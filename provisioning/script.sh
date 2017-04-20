@@ -11,6 +11,8 @@ echo $LOCALE_FIX >> /etc/environment
 
 apt-get update
 apt-get upgrade -y
+apt-get install -y fish
+fish
 
 # apt-get install language-pack-UTF-8
 apt-get install -y emacs
@@ -28,9 +30,20 @@ apt-get install -y libwebp-dev
 apt-get install -y tcl8.6-dev
 apt-get install -y tk8.6-dev
 apt-get install -y python-tk
-apt-get install -y fish
 
-fish
+# install postGres db
+apt-get install -y libpq-dev
+apt-get install -y postgresql
+apt-get install -y postgresql-contrib
+# installation
+sudo su - postgres
+psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'evocaDB'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE evocaDB"
+psql -c "CREATE USER root WITH PASSWORD 'root';"
+psql -c "ALTER ROLE root SET client_encoding TO 'utf8';"
+psql -c "ALTER ROLE root SET default_transaction_isolation TO 'read committed';"
+psql -c "ALTER ROLE root SET timezone TO 'UTC';"
+psql -c "GRANT ALL PRIVILEGES ON DATABASE evocaDB TO root;"
+pip install psycopg2
 
 # Permissions
 chown -R vagrant:vagrant /var/www/html/

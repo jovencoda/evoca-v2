@@ -20,7 +20,7 @@ EVOCA .v2
 - Hostname: localhost or 127.0.0.1
 - Username: root
 - Password: root
-- Database: scotchbox
+- Database: evocaDB
 - Port: 5432
 
 
