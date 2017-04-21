@@ -5,15 +5,15 @@ EVOCA .v2
 
 ## Get Started
 
-* Download and Install [Vagrant][3]
-* Download and Install [VirtualBox][4]
-* Clone the Scotch Box [GitHub Repository](https://github.com/scotch-io/scotch-box)
+* Download and Install [Vagrant](https://www.vagrantup.com/downloads.html)
+* Download and Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * Run ``` vagrant up ```
-* Access Your Project at  [http://192.168.33.10/][14]
 * Run ```vagrant ssh```
+* Run ```python manage.py runserver 0.0.0.0:8000```
+* Access Your Project at  [http://192.168.33.10:8000](http://192.168.33.10:8000)
 
 
-## Database Access
+## Default Access
 
 ### PostgreSQL
 
@@ -23,12 +23,18 @@ EVOCA .v2
 - Database: evocaDB
 - Port: 5432
 
-
-## SSH Access
+### SSH Access
 
 - Hostname: 127.0.0.1:2222
 - Username: vagrant
 - Password: vagrant
+
+### Default Django superUser
+######Go to /provisioning/createsuperuser.py
+
+- Username: root
+- Password: password
+- email: myemail@test.com
 
 
 ## Setting a Hostname
