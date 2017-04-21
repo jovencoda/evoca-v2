@@ -19,6 +19,9 @@ class TimeBot(models.Model):
 class Channel(TimeBot, models.Model):
 	name = models.CharField(max_length=255)
 
+	def __unicode__(self):
+		return self.name
+
 class Record(TimeBot, models.Model):
 	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='record_author')
@@ -36,7 +39,7 @@ class OjovozRecord(Record):
 
 # ----------- END RECORD TYPES ------------->
 
-class Dimensions(models.Model):
+class Dimension(models.Model):
 	pass
 
 class ChannelType(models.Model):
