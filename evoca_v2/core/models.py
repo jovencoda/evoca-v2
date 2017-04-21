@@ -3,4 +3,17 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
+# Available Models
+
+class Channel(models.Model):
+	pass
+
+class Incident(models.Model):
+	pass
+
+class ChannelSettings(models.Model):
+	pass
+
+
+
+
