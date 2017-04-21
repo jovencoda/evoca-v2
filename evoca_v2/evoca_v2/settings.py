@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'django.contrib.gis',
 	'rest_framework',
 	'rest_framework.authtoken',
 	'core',
@@ -87,6 +88,7 @@ DATABASES = {
 	}
 }
 
+POSTGIS_VERSION = (2, 1, 3)
 ALLOWED_HOSTS = ['192.168.33.10']
 
 
