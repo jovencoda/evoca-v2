@@ -91,3 +91,6 @@ ENV/
 .DS_STORE
 # Vagrant folder
 .vagrant
+
+# Attachments
+evoca_v2/attachments/*

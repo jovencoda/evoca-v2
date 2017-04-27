@@ -15,9 +15,30 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework.routers import DefaultRouter
+from rest_framework_nested import routers
+from rest_framework.authtoken import views
+
+from core.views import *
+
+
+# ------ API First level routing ------
+
+router = DefaultRouter()
+router.register(r'channel', ChannelAPIView)
+router.register(r'ojovozrecord', OjoVozRecordAPIView)
+
+# ------ API Second level routing ------
+
+channel_router = routers.NestedSimpleRouter(router, r'channel', lookup='channel')
+channel_router.register(r'records', OjoVozRecordAPIView, base_name='records')
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+	url(r'^api-token-auth/', views.obtain_auth_token),
+	url(r'^api/v1/', include(router.urls)),
+	url(r'^api/v1/', include(channel_router.urls)),
+
 ]
