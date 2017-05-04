@@ -28,14 +28,10 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
-        migrations.RemoveField(
-            model_name='channel',
-            name='id',
-        ),
         migrations.AddField(
             model_name='channel',
             name='uniqueID',
-            field=models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False),
+            field=models.UUIDField(default=uuid.uuid4, editable=False, serialize=False),
         ),
         migrations.AddField(
             model_name='membership',
