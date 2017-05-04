@@ -21,7 +21,7 @@ class ChannelAPIView(viewsets.ModelViewSet):
 
 	def retrieve(self, request, pk=None):
 		queryset = Channel.objects.filter()
-		channel = get_object_or_404(queryset, id=pk)
+		channel = get_object_or_404(queryset, uniqueID=pk)
 		serializer = ChannelSerializer(channel)
 		return Response(serializer.data)
 

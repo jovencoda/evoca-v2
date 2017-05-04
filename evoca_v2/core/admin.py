@@ -6,6 +6,7 @@ from core.models import *
 
 # Register your models here.
 admin.site.register(Channel)
+admin.site.register(Membership)
 admin.site.register(Dimension)
 admin.site.register(ChannelType)
 

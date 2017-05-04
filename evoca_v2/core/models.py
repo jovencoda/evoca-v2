@@ -17,11 +17,18 @@ class TimeBot(models.Model):
 		abstract = True
 
 class Channel(TimeBot):
+	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=255)
 	about = models.TextField(max_length=255, blank=True)
+	members = models.ManyToManyField(User, through='Membership', through_fields=('channel', 'user'), related_name='channel_members')
 
 	def __unicode__(self):
 		return self.name
+
+class Membership(TimeBot):
+    channel = models.ForeignKey(Channel)
+    user = models.ForeignKey(User)
+
 
 class Record(TimeBot):
 	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
