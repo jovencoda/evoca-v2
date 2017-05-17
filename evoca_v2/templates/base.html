@@ -1,5 +1,25 @@
 {% load render_bundle from webpack_loader %}
 
-<div id="container"></div>
-{% render_bundle 'main' %}
+<!DOCTYPE html>
+<html lang="en">
+	<!-- I see that you are trying to read the code ;) -->
+	<!-- feel free to contact me: @jovencoda -->
+<head>	
+	<!---- Start header ---->
+    <title>{% block title %}Evoca{% endblock %}</title>
+</head>
+
+<body>
+	<!---- React container ---->
+	<div id="container"></div>
+	{% render_bundle 'main' %}
+</body>
+
+<footer>
+	<!---- Start footer ---->
+	{% block footer %}{% endblock %}
+</footer>
+
+</html>
+
 
