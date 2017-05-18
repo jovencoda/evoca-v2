@@ -9,11 +9,6 @@ from rest_framework.response import Response
 from core.models import *
 from core.serializers import *
 
-# Main React View
-
-class MainView(TemplateView):
-	template_name = "base.html"
-
 # API VIEWS.
 
 class ChannelAPIView(viewsets.ModelViewSet):
