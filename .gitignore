@@ -95,5 +95,5 @@ ENV/
 # Attachments
 evoca_v2/attachments/*
 node_modules/
-assets/bundles
+assets/bundles/*
 *.save

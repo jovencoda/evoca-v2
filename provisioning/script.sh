@@ -32,7 +32,7 @@ apt-get install -y libwebp-dev
 apt-get install -y tcl8.6-dev
 apt-get install -y tk8.6-dev
 apt-get install -y python-tk
-apt-get install libpq-dev 
+apt-get install libpq-dev
 
 # Install postGIS
 echo "### Installing postGIS ###"
@@ -66,3 +66,8 @@ echo "### Patch profile ###"
 PROFILE_PATCH='source /var/www/html/evoca/provisioning/user_profile.sh'
 echo $PROFILE_PATCH >> /home/vagrant/.profile
 
+# install react cli for web-client
+cd /var/www/html/evoca/web-client
+sudo npm install -g npm@latest
+rm -rf node_modules/ && npm cache clean && npm install
+sudo npm install -g react-scripts
