@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// Import Rebass Components
+import { Button, Badge } from 'rebass'
+
+
 class App extends Component {
   render() {
     return (
@@ -13,6 +17,11 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <div>
+          <h2>Rebass Component Test</h2>
+          <Button>Click here</Button>
+          <Badge>Badge</Badge>
+        </div>
       </div>
     );
   }
