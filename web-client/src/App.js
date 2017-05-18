@@ -4,12 +4,16 @@ import './App.css';
 
 // Import Rebass Components
 import { Button, Badge } from 'rebass'
+// Customized components
+import Navbar from './Navbar'
 
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+		
+		 <Navbar />
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
