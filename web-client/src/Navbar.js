@@ -1,4 +1,5 @@
 import React from 'react'
+import FaAngleRight from 'react-icons/lib/fa/angle-right'
 
 import {
   Fixed,
@@ -6,6 +7,8 @@ import {
   Space,
   Toolbar
 } from 'rebass'
+
+
 
 const Navbar = ({
   config,
@@ -20,7 +23,7 @@ const Navbar = ({
 		EVOCA
 	  </NavItem>
 	  <NavItem is="a">
-		NavItem
+		<FaAngleRight /> Proyecto Pance
 	  </NavItem>
 	  <Space
 		auto
