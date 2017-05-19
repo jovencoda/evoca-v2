@@ -1,14 +1,20 @@
 import React from 'react'
 import FaAngleRight from 'react-icons/lib/fa/angle-right'
 
+// see reference for future development
+//https://github.com/jxnblk/rebass/blob/master/demo/components/Navbar.js
+
 import {
+  Arrow,
+  Dropdown,
+  DropdownMenu,
   Fixed,
   NavItem,
   Space,
   Toolbar
 } from 'rebass'
 
-
+import SubNavbar from './SubNavbar'
 
 const Navbar = ({
   config,
@@ -22,17 +28,31 @@ const Navbar = ({
 	  <NavItem is="a">
 		EVOCA
 	  </NavItem>
-	  <NavItem is="a">
-		<FaAngleRight /> Proyecto Pance
+	<Dropdown>
+	  <NavItem>
+		<FaAngleRight /> Proyecto Pance <Arrow />
 	  </NavItem>
+	  <DropdownMenu onDismiss={function noRefCheck() {}}>
+		  <NavItem is="a">Poject R</NavItem>
+		  <NavItem is="a">Project Z</NavItem>
+	  </DropdownMenu>
+	</Dropdown>
 	  <Space
 		auto
 		x={1}
 	  />
-	  <NavItem is="a">
-		NavItem
+	<Dropdown>
+	  <NavItem>
+		captain <Arrow />
 	  </NavItem>
+      <DropdownMenu onDismiss={function noRefCheck() {}}>
+		  <NavItem is="a">account</NavItem>
+		  <NavItem is="a">Logout</NavItem>
+      </DropdownMenu>
+	</Dropdown>
+
 	</Toolbar>
+	<SubNavbar />
   </Fixed>
 )
 
