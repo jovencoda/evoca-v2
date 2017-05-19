@@ -5,14 +5,16 @@ import './App.css';
 // Import Rebass Components
 import { Button, Badge } from 'rebass'
 // Customized components
-import Navbar from './Navbar'
+import Topbar from './Topbar'
 
 
 class App extends Component {
+
   render() {
     return (
+
       <div className="App">
-		<Navbar />
+		    <Topbar />
 
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
