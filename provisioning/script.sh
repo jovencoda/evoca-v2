@@ -68,6 +68,6 @@ echo $PROFILE_PATCH >> /home/vagrant/.profile
 
 # install react cli for web-client
 cd /var/www/html/evoca/web-client
-sudo npm install -g npm@latest
-rm -rf node_modules/ && npm cache clean && npm install
-sudo npm install -g react-scripts
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
