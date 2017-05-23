@@ -21,49 +21,38 @@ const Topbar = ({
   toggle,
   title = "EVOCA",
   activeChannel = "Proyecto Pance",
-  channels = ["Proyecto X", "Proyecto Y", "Proyecto Z"]
+  channels = ["Proyecto X", "Proyecto Y", "Proyecto Z"],
+  views = ["Timeline", "Map", "Categories"]
 }) => (
   <Fixed top left right zIndex={1}>
     <Toolbar>
-    <NavItem is="a">{title} {dropdownOpen}</NavItem>
+      <NavItem is="a">{title} {dropdownOpen}</NavItem>
+      <Dropdown>
+        <NavItem onClick={toggle('dropdownOpen')}>
+          <FaAngleRight /> {activeChannel}<Arrow />
+        </NavItem>
+        <DropdownMenu onDismiss={toggle('dropdownOpen')} open={dropdownOpen} right>
+            {channels.map(function(channel) {return <NavItem key={channel} is="a">{ channel }</NavItem>})}
+        </DropdownMenu>
+      </Dropdown>
 
-    <Dropdown>
-      <NavItem onClick={toggle('dropdownOpen')}>
-      <FaAngleRight /> {activeChannel}<Arrow />
-      </NavItem>
-      <DropdownMenu onDismiss={toggle('dropdownOpen')} open={dropdownOpen} right>
-          {
-          channels.map(function(channel) {
-            return <NavItem key={channel} is="a">{ channel }</NavItem>
-          })
-         }
-      </DropdownMenu>
-    </Dropdown>
+      <Space auto x={1} />
 
-    <Space auto x={1} />
-  <Dropdown>
-    <NavItem>
-    captain <Arrow />
-    </NavItem>
-      <DropdownMenu open={false} onDismiss={function noRefCheck() {}}>
-      <NavItem is="a">account</NavItem>
-      <NavItem is="a">Logout</NavItem>
-      </DropdownMenu>
-  </Dropdown>
+      <Dropdown>
+        <NavItem>
+          captain <Arrow />
+        </NavItem>
+        <DropdownMenu open={false} onDismiss={function noRefCheck() {}}>
+          <NavItem is="a">account</NavItem>
+          <NavItem is="a">Logout</NavItem>
+        </DropdownMenu>
+      </Dropdown>
+    </Toolbar>
 
-  </Toolbar>
-
-  <Toolbar backgroundColor="secondary">
-    <NavItem is="a">
-    Dimension X
-    </NavItem>
-    <NavItem is="a">
-    Dimension Y
-    </NavItem>
-    <NavItem is="a">
-    Dimension Z
-    </NavItem>
-  </Toolbar>
+    <Toolbar backgroundColor="secondary">
+      <NavItem is="div">vista:</NavItem>
+      {views.map(function(view) {return <NavItem key={view} is="a">{ view }</NavItem>})}
+    </Toolbar>
 
   </Fixed>
 )
