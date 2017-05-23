@@ -17,7 +17,7 @@ import {
 
 
 const Topbar = ({
-  dropdownOpen,
+  dropdownChannelOpen,
   toggle,
   title = "EVOCA",
   activeChannel = "Proyecto Pance",
@@ -26,12 +26,12 @@ const Topbar = ({
 }) => (
   <Fixed top left right zIndex={1}>
     <Toolbar>
-      <NavItem is="a">{title} {dropdownOpen}</NavItem>
+      <NavItem is="a">{title}</NavItem>
       <Dropdown>
-        <NavItem onClick={toggle('dropdownOpen')}>
+        <NavItem onClick={toggle('dropdownChannelOpen')}>
           <FaAngleRight /> {activeChannel}<Arrow />
         </NavItem>
-        <DropdownMenu onDismiss={toggle('dropdownOpen')} open={dropdownOpen} right>
+        <DropdownMenu onDismiss={toggle('dropdownChannelOpen')} open={dropdownChannelOpen} right>
             {channels.map(function(channel) {return <NavItem key={channel} is="a">{ channel }</NavItem>})}
         </DropdownMenu>
       </Dropdown>

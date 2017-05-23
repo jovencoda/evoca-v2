@@ -30,7 +30,6 @@ class App extends Component {
 
       <div className="App">
 		    <Topbar {...this.state} toggle={this.toggle} />
-
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
@@ -42,6 +41,7 @@ class App extends Component {
           <h2>Rebass Component Test</h2>
           <Button>Click here</Button>
           <Badge>Badge</Badge>
+          <p>{this.state.dropdownChannelOpen ? 'ON' : 'OFF'}</p>
         </div>
       </div>
     );
