@@ -7,7 +7,9 @@
     "react-dom": "^15.5.4",
     "react-icons": "^2.2.5",
     "react-scripts": "^0.9.5",
-    "rebass": "^0.3.4"
+    "react-switch-case": "^1.0.2",
+    "rebass": "^0.3.4",
+    "reflexbox": "^2.2.3"
   },
   "devDependencies": {},
   "scripts": {

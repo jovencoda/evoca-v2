@@ -6,7 +6,7 @@ import './App.css';
 import { Button, Badge } from 'rebass'
 // Customized components
 import Topbar from './Topbar'
-
+import ViewControl from './View'
 
 class App extends Component {
   constructor () {
@@ -35,19 +35,7 @@ class App extends Component {
 
       <div className="App">
 		    <Topbar {...this.state} toggle={this.toggle} />
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div>
-          <h2>Rebass Component Test</h2>
-          <Button>Click here</Button>
-          <Badge>Badge</Badge>
-          <p>{this.state.dropdownChannelOpen ? 'ON' : 'OFF'}</p>
-        </div>
+        <ViewControl {...this.state} toggle={this.toggle}/>
       </div>
     );
   }
