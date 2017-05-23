@@ -20,7 +20,7 @@ class App extends Component {
         views: ["Timeline", "Map", "Categories"]
     }
     this.toggle = this.toggle.bind(this)
-    this.setKey = this.setKey.bind(this)
+    this.updateState = this.updateState.bind(this)
   }
 
   // Generic toggle class
@@ -30,9 +30,9 @@ class App extends Component {
       this.setState({ [key]: val })
     }
   }
-  setKey (key) {
+  updateState (key, state) {
     return (e) => {
-      this.setState({ activeView: key })
+      this.setState({ [state]: key })
     }
   }
 
@@ -40,7 +40,7 @@ class App extends Component {
     return (
 
       <div className="App">
-		    <Topbar {...this.state} toggle={this.toggle} setKey={this.setKey}/>
+		    <Topbar {...this.state} toggle={this.toggle} updateState={this.updateState}/>
         <ViewControl {...this.state} toggle={this.toggle}/>
       </div>
     );

@@ -19,7 +19,7 @@ import {
 const Topbar = ({
   dropdownChannelOpen,
   toggle,
-  setKey,
+  updateState,
   title,
   activeChannel,
   activeView,
@@ -57,7 +57,7 @@ const Topbar = ({
 
     <Toolbar backgroundColor="secondary">
       <NavItem is="div">vista:</NavItem>
-      {views.map(function(view) {return <NavItem key={view} is="a" onClick={setKey(view)}>{ view }</NavItem>})}
+      {views.map(function(view) {return <NavItem key={view} is="a" onClick={updateState(view, 'activeView')}>{ view }</NavItem>})}
     </Toolbar>
 
   </Fixed>
