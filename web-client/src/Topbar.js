@@ -19,8 +19,10 @@ import {
 const Topbar = ({
   dropdownChannelOpen,
   toggle,
+  setKey,
   title,
   activeChannel,
+  activeView,
   channels,
   views
 }) => (
@@ -32,7 +34,11 @@ const Topbar = ({
           <FaAngleRight /> {activeChannel}<Arrow />
         </NavItem>
         <DropdownMenu onDismiss={toggle('dropdownChannelOpen')} open={dropdownChannelOpen} right>
-            {channels.map(function(channel) {return <NavItem key={channel} is="a">{ channel }</NavItem>})}
+            {
+              channels.map(function(channel) {
+              return <NavItem key={channel} is="a">{ channel }</NavItem>
+              })
+            }
         </DropdownMenu>
       </Dropdown>
 
@@ -51,7 +57,7 @@ const Topbar = ({
 
     <Toolbar backgroundColor="secondary">
       <NavItem is="div">vista:</NavItem>
-      {views.map(function(view) {return <NavItem key={view} is="a">{ view }</NavItem>})}
+      {views.map(function(view) {return <NavItem key={view} is="a" onClick={setKey(view)}>{ view }</NavItem>})}
     </Toolbar>
 
   </Fixed>
