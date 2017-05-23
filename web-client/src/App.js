@@ -9,12 +9,27 @@ import Topbar from './Topbar'
 
 
 class App extends Component {
+  constructor () {
+    super()
+    this.state = {
+        dropdownChannelOpen: false,
+    }
+    this.toggle = this.toggle.bind(this)
+  }
+
+  // Generic toggle class
+  toggle (key) {
+    return (e) => {
+      const val = !this.state[key]
+      this.setState({ [key]: val })
+    }
+  }
 
   render() {
     return (
 
       <div className="App">
-		    <Topbar />
+		    <Topbar {...this.state} toggle={this.toggle} />
 
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
