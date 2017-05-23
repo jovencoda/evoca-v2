@@ -12,7 +12,12 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
+        title:"EVOCA",
         dropdownChannelOpen: false,
+        activeChannel: "Proyecto Pance",
+        activeView: "Timeline",
+        channels: ["Proyecto X", "Proyecto Y", "Proyecto Z"],
+        views: ["Timeline", "Map", "Categories"]
     }
     this.toggle = this.toggle.bind(this)
   }

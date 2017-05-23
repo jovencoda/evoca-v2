@@ -19,10 +19,10 @@ import {
 const Topbar = ({
   dropdownChannelOpen,
   toggle,
-  title = "EVOCA",
-  activeChannel = "Proyecto Pance",
-  channels = ["Proyecto X", "Proyecto Y", "Proyecto Z"],
-  views = ["Timeline", "Map", "Categories"]
+  title,
+  activeChannel,
+  channels,
+  views
 }) => (
   <Fixed top left right zIndex={1}>
     <Toolbar>
