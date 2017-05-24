@@ -22,7 +22,6 @@ class App extends Component {
     this.toggle = this.toggle.bind(this)
     this.updateState = this.updateState.bind(this)
   }
-
   // Generic toggle class
   toggle (key) {
     return (e) => {
@@ -30,15 +29,14 @@ class App extends Component {
       this.setState({ [key]: val })
     }
   }
+  // Generic State update class
   updateState (key, state) {
     return (e) => {
       this.setState({ [state]: key })
     }
   }
-
   render() {
     return (
-
       <div className="App">
 		    <Topbar {...this.state} toggle={this.toggle} updateState={this.updateState}/>
         <ViewControl {...this.state} toggle={this.toggle}/>

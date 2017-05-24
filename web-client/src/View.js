@@ -4,17 +4,6 @@ import FaAngleRight from 'react-icons/lib/fa/angle-right'
 import { Flex, Box } from 'reflexbox'
 
 import Switch, {Case, Default} from 'react-switch-case';
-import {
-  Arrow,
-  Dropdown,
-  DropdownMenu,
-  Fixed,
-  NavItem,
-  Space,
-  Toolbar,
-  Button,
-  Badge
-} from 'rebass'
 
 const ViewControl = ({
   toggle,
