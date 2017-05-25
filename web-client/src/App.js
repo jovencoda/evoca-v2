@@ -8,6 +8,9 @@ import { Button, Badge } from 'rebass'
 import Topbar from './Topbar'
 import ViewControl from './View'
 
+const api_url_root = "http://192.168.33.10:8000/api/v1";
+const token = "35427ad7a7f39c92e86437fb03ef3bf83e66f52c";
+
 class App extends Component {
   constructor () {
     super()
@@ -21,6 +24,19 @@ class App extends Component {
     }
     this.toggle = this.toggle.bind(this)
     this.updateState = this.updateState.bind(this)
+  }
+  componentWillMount() {
+    fetch(api_url_root + "/channel/", {
+      headers: {
+        'X-CSRF-Token': token,
+      },
+    })
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        this.setState({ channels: response })
+      })
   }
   // Generic toggle class
   toggle (key) {
