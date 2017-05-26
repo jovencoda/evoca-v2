@@ -36,8 +36,12 @@ class App extends Component {
         return response.json()
       })
       .then((response) => {
-        console.log(response)
-        //this.setState({ channels: response })
+        var channels_names = []
+        response.map((channel_name) => {
+          channels_names.push(channel_name['name'])
+        })
+        //console.log(channels_names)
+        this.setState({ channels: channels_names })
       })
   }
   // Generic toggle class
