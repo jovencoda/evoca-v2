@@ -9,7 +9,7 @@ import Topbar from './Topbar'
 import ViewControl from './View'
 
 const api_url_root = "http://192.168.33.10:8000/api/v1";
-const token = "35427ad7a7f39c92e86437fb03ef3bf83e66f52c";
+const token = "Token 123c991d6919d069364b7d1594a5a62fbaf6821b";
 
 class App extends Component {
   constructor () {
@@ -28,14 +28,16 @@ class App extends Component {
   componentWillMount() {
     fetch(api_url_root + "/channel/", {
       headers: {
-        'X-CSRF-Token': token,
+        'Authorization': token,
       },
+       credentials: 'include'
     })
       .then((response) => {
         return response.json()
       })
       .then((response) => {
-        this.setState({ channels: response })
+        console.log(response)
+        //this.setState({ channels: response })
       })
   }
   // Generic toggle class
