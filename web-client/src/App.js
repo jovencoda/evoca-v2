@@ -9,7 +9,6 @@ import Topbar from './Topbar'
 import ViewControl from './View'
 
 const api_url_root = "http://192.168.33.10:8000/api/v1";
-const token = "Token 123c991d6919d069364b7d1594a5a62fbaf6821b";
 
 class App extends Component {
   constructor () {
@@ -26,12 +25,7 @@ class App extends Component {
     this.updateState = this.updateState.bind(this)
   }
   componentWillMount() {
-    fetch(api_url_root + "/channel/", {
-      headers: {
-        'Authorization': token,
-      },
-       credentials: 'include'
-    })
+    fetch(api_url_root + "/channel/")
       .then((response) => {
         return response.json()
       })
