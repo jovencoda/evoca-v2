@@ -1,6 +1,7 @@
 
 import React from 'react'
 import FaAngleRight from 'react-icons/lib/fa/angle-right'
+import FaSignIn from 'react-icons/lib/fa/sign-in'
 
 // see reference for future development
 //https://github.com/jxnblk/rebass/blob/master/demo/components/Navbar.js
@@ -24,6 +25,7 @@ const Topbar = ({
   activeChannel,
   activeView,
   channels,
+  admin_url,
   views
 }) => (
   <Fixed top left right zIndex={1}>
@@ -44,15 +46,9 @@ const Topbar = ({
 
       <Space auto x={1} />
 
-      <Dropdown>
-        <NavItem>
-          captain <Arrow />
-        </NavItem>
-        <DropdownMenu open={false} onDismiss={function noRefCheck() {}}>
-          <NavItem is="a">account</NavItem>
-          <NavItem is="a">Logout</NavItem>
-        </DropdownMenu>
-      </Dropdown>
+      <NavItem>
+        <FaSignIn /><a href={admin_url}><Space x={1} />Log in</a>
+      </NavItem>
     </Toolbar>
 
     <Toolbar backgroundColor="secondary">

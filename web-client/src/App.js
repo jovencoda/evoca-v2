@@ -15,6 +15,7 @@ class App extends Component {
     super()
     this.state = {
         title:"EVOCA",
+        admin_url: "http://192.168.33.10:8000/admin/",
         dropdownChannelOpen: false,
         activeChannel: "Proyecto Pance",
         activeView: "Timeline",
