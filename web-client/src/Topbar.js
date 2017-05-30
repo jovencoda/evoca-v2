@@ -33,7 +33,7 @@ const Topbar = ({
       <NavItem is="a">{title}</NavItem>
       <Dropdown>
         <NavItem onClick={toggle('dropdownChannelOpen')}>
-          <FaAngleRight /> {activeChannel}<Arrow />
+          <FaAngleRight /><Space x={1} />{activeChannel}<Arrow />
         </NavItem>
         <DropdownMenu onDismiss={toggle('dropdownChannelOpen')} open={dropdownChannelOpen} right>
             {
