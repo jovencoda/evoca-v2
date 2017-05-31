@@ -6,7 +6,7 @@ class ChannelSerializer(serial.ModelSerializer):
 
 	class Meta:
 		model = Channel
-		fields = ('name', 'about', 'created_at', 'updated_at')
+		fields = ('name', 'about', 'dimensions', 'created_at', 'updated_at')
 		read_only_fields = ('created_at', 'updated_at',)
 
 class OjovozRecordSerializer(serial.ModelSerializer):
@@ -15,5 +15,3 @@ class OjovozRecordSerializer(serial.ModelSerializer):
 		model = OjovozRecord
 		fields = ('uniqueID', 'author', 'channel', 'location', 'about', 'image', 'created_at', 'updated_at', )
 		read_only_fields = ('created_at', 'updated_at',)
-
-

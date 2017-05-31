@@ -4,6 +4,7 @@ import uuid
 from django.db import models
 from django.contrib.gis.db import models as modelsGIS
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 # Available Models
 
@@ -16,11 +17,24 @@ class TimeBot(models.Model):
 	class Meta:
 		abstract = True
 
+class Dimension(models.Model):
+	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
+	name = models.CharField(max_length=255)
+	slug = models.SlugField(blank=True, null=True)
+
+	def save(self, *args, **kwargs):
+	    self.slug = slugify(self.name)
+	    super(Dimension, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+		return self.name
+
 class Channel(TimeBot):
 	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=255)
 	about = models.TextField(max_length=255, blank=True)
 	members = models.ManyToManyField(User, through='Membership', through_fields=('channel', 'user'), related_name='channel_members')
+	dimensions = models.ManyToManyField(Dimension, related_name='channel_dimensions', blank=True)
 
 	def __unicode__(self):
 		return self.name
@@ -51,14 +65,6 @@ class OjovozRecord(Record):
 
 # ----------- END RECORD TYPES ------------->
 
-class Dimension(models.Model):
-	pass
 
 class ChannelType(models.Model):
 	pass
-
-
-
-
-
-
