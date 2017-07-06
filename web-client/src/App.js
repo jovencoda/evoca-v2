@@ -56,7 +56,10 @@ class App extends Component {
     return (
       <div className="App">
 		    <Topbar {...this.state} toggle={this.toggle} updateState={this.updateState}/>
-        <ViewControl {...this.state} toggle={this.toggle}/>
+        <main>
+         {this.props.children}
+        </main>
+        /*<MainLayout {...this.state} toggle={this.toggle}/>*/
       </div>
     );
   }
