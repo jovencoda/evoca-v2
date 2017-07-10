@@ -19,6 +19,9 @@
       {% endblock %}
   </body>
   <footer>
+      {% block scripts%}
+        <script src="/static/js/app.js"></script>
+      {% endblock%}
       {% block footer %}{% endblock %}
   </footer>
 </html>
