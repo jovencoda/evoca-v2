@@ -20,6 +20,7 @@ from rest_framework_nested import routers
 from rest_framework.authtoken import views
 
 from core.views import *
+from web_client.views import *
 
 
 # ------ API First level routing ------
@@ -40,5 +41,9 @@ urlpatterns = [
 	url(r'^api-token-auth/', views.obtain_auth_token),
 	url(r'^api/v1/', include(router.urls)),
 	url(r'^api/v1/', include(channel_router.urls)),
+
+    # ----------- Web-Client URLS ---------
+
+    url(r'^$', ChannelsView.as_view(), name='channel-view')
 
 ]
