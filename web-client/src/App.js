@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import { BrowserRouter, Route } from 'react-router-dom';
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -56,9 +59,9 @@ class App extends Component {
     return (
       <div className="App">
 		    <Topbar {...this.state} toggle={this.toggle} updateState={this.updateState}/>
-        <main>
-         {this.props.children}
-        </main>
+        <BrowserRouter>
+            <MainLayout {...this.state} toggle={this.toggle}/>
+        </BrowserRouter>
         {/*<MainLayout {...this.state} toggle={this.toggle}/>*/}
       </div>
     );
