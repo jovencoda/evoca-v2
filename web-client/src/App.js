@@ -59,7 +59,7 @@ class App extends Component {
         <main>
          {this.props.children}
         </main>
-        /*<MainLayout {...this.state} toggle={this.toggle}/>*/
+        {/*<MainLayout {...this.state} toggle={this.toggle}/>*/}
       </div>
     );
   }
