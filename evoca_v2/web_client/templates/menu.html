@@ -1,3 +1,4 @@
+{% load web_client_tags %}
 {% block menu %}
 
 <div class="ui top attached menu">
@@ -5,30 +6,11 @@
     EVOCA
   </div>
   <div class="ui dropdown icon item">
-    <i class="wrench icon"></i>
+    <i class="hashtag icon"></i>&nbsp;&nbsp;&nbsp;Canal Regional&nbsp;&nbsp;<i class="angle down icon"></i>
     <div class="menu">
-      <div class="item">
-        <i class="dropdown icon"></i>
-        <span class="text">New</span>
-        <div class="menu">
-          <div class="item">Document</div>
-          <div class="item">Image</div>
-        </div>
-      </div>
-      <div class="item">
-        Open...
-      </div>
-      <div class="item">
-        Save...
-      </div>
-      <div class="item">Edit Permissions</div>
-      <div class="divider"></div>
-      <div class="header">
-        Export
-      </div>
-      <div class="item">
-        Share...
-      </div>
+      {% for channel in get_channels_list %}
+      <div class="item"><span class="text"><i class="hashtag icon"></i>{{ channel.name }}</span></div>
+      {% endfor %}
     </div>
   </div>
   <div class="right menu">
@@ -41,8 +23,25 @@
     </div>
   </div>
 </div>
-<div class="ui bottom attached segment">
-  <p>hello</p>
+<div class="ui bottom attached">
+
+  <div class="ui secondary pointing menu">
+    <a class="item">
+      Timeline
+    </a>
+    <a class="item active">
+      Map
+    </a>
+    <a class="item">
+      Tags
+    </a>
+    <div class="right menu">
+      <a class="ui item">
+        Logout
+      </a>
+    </div>
+  </div>
+
 </div>
 
 {% endblock %}

@@ -1,7 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Channels{% endblock %}
 
 {% block body %}
-<h1>THis is cool</h1>
+
+<div id="main-container">
+  <h1 class="ui header"><i class="hashtag icon"></i>Channels</h1>
+  <div class="ui cards">
+
+    {% for channel in object_list %}
+      <div class="card">
+        <div class="content">
+          <div class="header">{{ channel.name }}</div>
+          <div class="meta">{{ channel.created_at }}</div>
+          <div class="description">
+            {{ channel.about }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+</div>
+
 {% endblock %}
