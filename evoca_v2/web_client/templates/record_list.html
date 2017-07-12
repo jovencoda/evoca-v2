@@ -1,20 +1,19 @@
 {% extends "base.html" %}
-{% load web_client_tags %}
 
-{% block title %}Channels{% endblock %}
+{% block title %}Channel xx{% endblock %}
 
 {% block body %}
 
   <h1 class="ui header"><i class="hashtag icon"></i>Channels</h1>
   <div class="ui cards">
 
-    {% for channel in object_list %}
+    {% for record in object_list %}
       <div class="card">
         <div class="content">
-          <div class="header">{{ channel.name }}</div>
+          <div class="header">{{ record.location }}</div>
           <div class="meta">{{ channel.created_at }}</div>
           <div class="description">
-            {{ channel.about }}
+            {{ record.about }}
           </div>
         </div>
       </div>

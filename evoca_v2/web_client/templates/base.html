@@ -15,11 +15,11 @@
     {% block header %}{% endblock %}
   </head>
   <body>
-      {% include 'menu.html' %}
-      {% block body %}
-
-
-      {% endblock %}
+      {% include 'menu.html' with channels=get_channels_list %}
+      <div id="main-container">
+        {% block body %}
+        {% endblock %}
+      </div>
   </body>
   <footer>
       {% block scripts%}

@@ -44,6 +44,7 @@ urlpatterns = [
 
     # ----------- Web-Client URLS ---------
 
-    url(r'^$', ChannelsListView.as_view(), name='channel-view')
+    url(r'^$', ChannelsListView.as_view(), name='channel-view'),
+    url(r'^(?P<channel>\w+)/$', RecordsListView.as_view(), name='records-list-view')
 
 ]

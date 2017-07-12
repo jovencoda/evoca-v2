@@ -8,7 +8,7 @@
   <div class="ui dropdown icon item">
     <i class="hashtag icon"></i>&nbsp;&nbsp;&nbsp;Canal Regional&nbsp;&nbsp;<i class="angle down icon"></i>
     <div class="menu">
-      {% for channel in get_channels_list %}
+      {% for channel in channels %}
       <div class="item"><span class="text"><i class="hashtag icon"></i>{{ channel.name }}</span></div>
       {% endfor %}
     </div>
