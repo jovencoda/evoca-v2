@@ -9,7 +9,7 @@
   <div class="ui cards">
 
     {% for channel in object_list %}
-      <div class="card">
+      <a class="ui card" href="/{{ channel.slug }}">
         <div class="content">
           <div class="header">{{ channel.name }}</div>
           <div class="meta">{{ channel.created_at }}</div>
@@ -17,7 +17,7 @@
             {{ channel.about }}
           </div>
         </div>
-      </div>
+      </a>
     {% endfor %}
 
   </div>
