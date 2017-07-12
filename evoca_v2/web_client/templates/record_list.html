@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Channel xx{% endblock %}
+{% block title %}# {{ active_channel_name }}{% endblock %}
 
 {% block body %}
 
-  <h1 class="ui header"><i class="hashtag icon"></i>Channels</h1>
+  <h1 class="ui header"><i class="hashtag icon"></i>{{ active_channel_name }}</h1>
   <div class="ui cards">
 
     {% for record in object_list %}
       <div class="card">
         <div class="content">
           <div class="header">{{ record.location }}</div>
-          <div class="meta">{{ channel.created_at }}</div>
+          <div class="meta">{{ record.created_at }}</div>
           <div class="description">
             {{ record.about }}
           </div>

@@ -18,9 +18,12 @@ class RecordsListView(ListView):
     template_name = 'record_list.html'
 
     def get_queryset(self):
-        queryset = super(RecordListView, self).get_queryset()
-        return queryset.filter(channel=self.kwargs['channel'])
+        queryset = super(RecordsListView, self).get_queryset()
+        return queryset.filter(channel__slug=self.kwargs['channel'])
 
     def get_context_data(self, **kwargs):
-        context = super(RecordListView, self).get_context_data(**kwargs)
+        context = super(RecordsListView, self).get_context_data(**kwargs)
+        # Pass channel data to context
+        context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
+        context['active_channel_slug'] = slug=self.kwargs['channel']
         return context
