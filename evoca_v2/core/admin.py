@@ -3,10 +3,12 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from core.models import *
+from world.models import WorldBorder
 
 # Register your models here.
 admin.site.register(Dimension)
 admin.site.register(ChannelType)
+admin.site.register(WorldBorder)
 
 class MembershipAdmin(admin.ModelAdmin):
 	list_display = ('channel', 'user', 'created_at', 'updated_at' )
@@ -29,4 +31,3 @@ class RecordAdmin(admin.ModelAdmin):
 	list_per_page = 50
 
 admin.site.register(OjovozRecord, RecordAdmin)
-

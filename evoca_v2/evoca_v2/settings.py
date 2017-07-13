@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'core',
     'web_client',
+    'world'
 ]
 
 MIDDLEWARE = [
