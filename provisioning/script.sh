@@ -39,6 +39,9 @@ echo "### Installing postGIS ###"
 apt-get install -y postgis postgresql-9.3-postgis-2.1
 sudo -u postgres psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology; CREATE EXTENSION fuzzystrmatch; CREATE EXTENSION postgis_tiger_geocoder" scotchbox
 
+# Install proj.4
+apt-get install libproj-dev proj-data proj-bin
+
 # Create and activate virtual enviroment
 virtualenv /home/vagrant/env
 chown -R vagrant:vagrant /home/vagrant/env

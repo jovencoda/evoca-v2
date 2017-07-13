@@ -2,7 +2,7 @@
 
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import veredasCOL
+from .models import VeredasColombia
 
 veredascol_mapping = {
     'dptompio' : 'DPTOMPIO',
@@ -18,8 +18,9 @@ veredascol_mapping = {
     'cod_dpto' : 'COD_DPTO',
     'shape_area' : 'SHAPE_AREA',
     'shape_len' : 'SHAPE_LEN',
-    'geom' : 'MULTIPOLYGON25D',
+    'geom' : 'MULTIPOLYGON',
 }
+
 
 veredasCOL_shp = os.path.abspath(
     os.path.join(os.path.dirname(__file__), 'data', 'veredas.shp'),
@@ -28,7 +29,7 @@ veredasCOL_shp = os.path.abspath(
 
 def run(verbose=True):
     lm = LayerMapping(
-        veredasCOL, veredasCOL_shp, veredascol_mapping,
-        transform=False, encoding='iso-8859-1',
+        VeredasColombia, veredasCOL_shp, veredascol_mapping,
+        transform=False, encoding='UTF-8',
     )
     lm.save(strict=True, verbose=verbose)

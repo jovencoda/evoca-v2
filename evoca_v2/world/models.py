@@ -26,12 +26,12 @@ class WorldBorder(models.Model):
     def __str__(self):
         return self.name
 
-class veredasCOL(models.Model):
+class VeredasColombia(models.Model):
     # Download GIS Data source http://rni.unidadvictimas.gov.co/node/521
     # extract & copy to wold/data folder
     # python manage.py shell
     # from world import load_veredascol
-    # load_veredascol.run()
+    # load_veredas.run()
     dptompio = models.CharField(max_length=5)
     codigo_ver = models.CharField(max_length=11)
     nom_dep = models.CharField(max_length=50)
@@ -45,7 +45,11 @@ class veredasCOL(models.Model):
     cod_dpto = models.CharField(max_length=2)
     shape_area = models.FloatField()
     shape_len = models.FloatField()
-    geom = models.MultiPolygonField(srid=4326)
+    geom = models.MultiPolygonField(srid=3857)
+
+    def __unicode__(self):
+        return u'{a}/{b}/{c}/{d}/{e}/{f}/{g}/{h}/{i}/{j}'.format(a=self.dptompio, b=self.codigo_ver, c=self.nom_dep,
+        d=self.nomb_mpio, e=self.nombre_ver, f=self.vigencia, g=self.fuente, h=self.descripcio, i=self.seudonimos, j=self.cod_dpto)
 
     # Returns the string representation of the model.
     def __str__(self):
