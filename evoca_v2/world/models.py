@@ -6,6 +6,7 @@ from django.contrib.gis.db import models
 class WorldBorder(models.Model):
     # Regular Django fields corresponding to the attributes in the
     # world borders shapefile.
+    # https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/#putting-your-data-on-the-map
     name = models.CharField(max_length=50)
     area = models.IntegerField()
     pop2005 = models.IntegerField('Population 2005')
@@ -24,3 +25,28 @@ class WorldBorder(models.Model):
     # Returns the string representation of the model.
     def __str__(self):
         return self.name
+
+class veredasCOL(models.Model):
+    # Download GIS Data source http://rni.unidadvictimas.gov.co/node/521
+    # extract & copy to wold/data folder
+    # python manage.py shell
+    # from world import load_veredascol
+    # load_veredascol.run()
+    dptompio = models.CharField(max_length=5)
+    codigo_ver = models.CharField(max_length=11)
+    nom_dep = models.CharField(max_length=50)
+    nomb_mpio = models.CharField(max_length=50)
+    nombre_ver = models.CharField(max_length=50)
+    vigencia = models.CharField(max_length=4)
+    fuente = models.CharField(max_length=50)
+    descripcio = models.CharField(max_length=50)
+    seudonimos = models.CharField(max_length=250)
+    area_ha = models.FloatField()
+    cod_dpto = models.CharField(max_length=2)
+    shape_area = models.FloatField()
+    shape_len = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    # Returns the string representation of the model.
+    def __str__(self):
+        return self.nombre_ver

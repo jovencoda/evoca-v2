@@ -2,13 +2,15 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
+from django.contrib.gis import admin as geoAdmin
 from core.models import *
-from world.models import WorldBorder
+from world.models import WorldBorder, veredasCOL
 
 # Register your models here.
 admin.site.register(Dimension)
 admin.site.register(ChannelType)
-admin.site.register(WorldBorder)
+admin.site.register(WorldBorder, geoAdmin.OSMGeoAdmin)
+admin.site.register(veredasCOL, geoAdmin.OSMGeoAdmin)
 
 class MembershipAdmin(admin.ModelAdmin):
 	list_display = ('channel', 'user', 'created_at', 'updated_at' )
@@ -24,7 +26,7 @@ class ChannelAdmin(admin.ModelAdmin):
 
 admin.site.register(Channel, ChannelAdmin)
 
-class RecordAdmin(admin.ModelAdmin):
+class RecordAdmin(geoAdmin.OSMGeoAdmin):
 	list_display = ('uniqueID', 'author', 'channel', 'created_at', 'updated_at', 'location' )
 	list_display_links = ('uniqueID',)
 	search_fields = ('uniqueID',)
