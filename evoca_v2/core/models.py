@@ -3,8 +3,11 @@ from __future__ import unicode_literals
 import uuid
 from django.db import models
 from django.contrib.gis.db import models as modelsGIS
+from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+# Import GIS data
+from world.models import WorldBorder, VeredasColombia
 
 # Available Models
 
@@ -58,6 +61,11 @@ class Record(TimeBot):
 	class Meta:
 		abstract = True
 
+	def transformToEPSG(self):
+		ct = CoordTransform(SpatialReference(4326), SpatialReference(3857))
+		print(self.location.transform(ct))
+		return self.location.transform(ct)
+
 	def __unicode__(self):
 		return unicode(self.uniqueID)
 
@@ -65,8 +73,17 @@ class Record(TimeBot):
 
 # Default record type, from Ojovoz App
 class OjovozRecord(Record):
+	country = models.CharField(max_length=50, blank=True)
 	about = models.TextField(max_length=255, blank=False)
 	image = models.ImageField(upload_to='attachments/img/%Y/%m/%d/', null=False, max_length=255)
+
+	def save(self, *args, **kwargs):
+		try:
+			self.country = WorldBorder.objects.get(mpoly__intersects=self.location).name
+		except Exception as e:
+			print(e)
+		super(OjovozRecord, self).save(*args, **kwargs)
+
 
 # ----------- END RECORD TYPES ------------->
 
