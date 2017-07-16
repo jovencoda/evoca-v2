@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView
 from django.shortcuts import render
 
 # Import models
-from core.models import Channel, OjovozRecord
+from core.models import Channel, Record
 
 class ChannelsListView(ListView):
     model = Channel
@@ -14,7 +14,7 @@ class ChannelsListView(ListView):
         return context
 
 class RecordsListView(ListView):
-    model = OjovozRecord
+    model = Record
     template_name = 'record_list.html'
 
     def get_queryset(self):

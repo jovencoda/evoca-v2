@@ -51,38 +51,57 @@ class Membership(TimeBot):
     channel = models.ForeignKey(Channel)
     user = models.ForeignKey(User)
 
+# ----------- RECORD ------------->
 
 class Record(TimeBot):
 	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='record_author')
 	channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='record_channel')
 	location = modelsGIS.PointField(max_length=40, null=False)
-
-	class Meta:
-		abstract = True
-
-	def transformToEPSG(self):
-		ct = CoordTransform(SpatialReference(4326), SpatialReference(3857))
-		print(self.location.transform(ct))
-		return self.location.transform(ct)
-
-	def __unicode__(self):
-		return unicode(self.uniqueID)
-
-# ----------- RECORD TYPES ------------->
-
-# Default record type, from Ojovoz App
-class OjovozRecord(Record):
 	country = models.CharField(max_length=50, blank=True)
-	about = models.TextField(max_length=255, blank=False)
-	image = models.ImageField(upload_to='attachments/img/%Y/%m/%d/', null=False, max_length=255)
+	description = models.TextField(max_length=255, blank=True)
 
 	def save(self, *args, **kwargs):
 		try:
 			self.country = WorldBorder.objects.get(mpoly__intersects=self.location).name
 		except Exception as e:
 			print(e)
-		super(OjovozRecord, self).save(*args, **kwargs)
+		super(Record, self).save(*args, **kwargs)
+
+	def transformToEPSG(self):
+		ct = CoordTransform(SpatialReference(4326), SpatialReference(3857))
+		print(self.location.transform(ct))
+		return self.location.transform(ct)
+
+	def get_Attachments(self):
+		return Attachment.objects.all().filter(related_record__uniqueID=self.uniqueID)
+
+	def __unicode__(self):
+		return unicode(self.uniqueID)
+
+
+# ----------- ATTACHMENTS ------------->
+
+class Attachment(TimeBot):
+
+	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachment_author')
+	name = models.CharField(max_length=200, null=False)
+	hashName = models.UUIDField(default=uuid.uuid4, editable=False)
+	isActive = models.BooleanField(default=True)
+	related_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=False, related_name='related_record')
+
+	# FIle type types
+	ATTACHMENT_TYPE_CHOICES = (
+	(0, 'image'),
+	(1, 'video'),
+	(2, 'file'),
+	)
+	attachment_type = models.PositiveSmallIntegerField(default=0, choices=ATTACHMENT_TYPE_CHOICES)
+
+	def __unicode__(self):
+		return self.name
+
+# ----------- RECORD TYPES ------------->
 
 
 # ----------- END RECORD TYPES ------------->

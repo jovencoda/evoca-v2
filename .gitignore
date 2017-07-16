@@ -98,3 +98,5 @@ evoca_v2/world/data/*
 node_modules/
 assets/bundles/*
 *.save
+evoca_v2/01/*
+proyectopance.sql

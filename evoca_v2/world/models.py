@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.gis.db import models
-from django.contrib.gis.gdal import SpatialReference, CoordTransform
 
 class WorldBorder(models.Model):
     # Regular Django fields corresponding to the attributes in the

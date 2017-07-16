@@ -27,12 +27,12 @@ from web_client.views import *
 
 router = DefaultRouter()
 router.register(r'channel', ChannelAPIView)
-router.register(r'ojovozrecord', OjoVozRecordAPIView)
+router.register(r'records', RecordAPIView)
 
 # ------ API Second level routing ------
 
 channel_router = routers.NestedSimpleRouter(router, r'channel', lookup='channel')
-channel_router.register(r'records', OjoVozRecordAPIView, base_name='records')
+channel_router.register(r'records', RecordAPIView, base_name='records')
 
 
 urlpatterns = [
