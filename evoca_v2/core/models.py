@@ -12,7 +12,6 @@ from world.models import WorldBorder, VeredasColombia
 # Available Models
 
 class TimeBot(models.Model):
-
 	created_at = models.DateTimeField(auto_now_add=True, editable=False)
 	updated_at = models.DateTimeField(auto_now=True)
 	deleted_at = models.DateTimeField(blank=True, null=True)
@@ -83,7 +82,6 @@ class Record(TimeBot):
 # ----------- ATTACHMENTS ------------->
 
 class Attachment(TimeBot):
-
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachment_author')
 	name = models.CharField(max_length=200, null=False)
 	hashName = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -100,11 +98,6 @@ class Attachment(TimeBot):
 
 	def __unicode__(self):
 		return self.name
-
-# ----------- RECORD TYPES ------------->
-
-
-# ----------- END RECORD TYPES ------------->
 
 
 class ChannelType(models.Model):

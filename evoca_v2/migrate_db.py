@@ -3,7 +3,31 @@
 
 #!/usr/bin/python
 import MySQLdb
-from core.models import OjovozRecord
+import uuid
+from django.contrib.gis.geos import Point
+# Import models
+from core.models import Record, Attachment
+from django.contrib.auth.models import User
+
+def ran_str(string_length=10):
+    """Returns a random string of length string_length."""
+    random = str(uuid.uuid4()) # Convert UUID format to a Python string.
+    random = random.upper() # Make all characters uppercase.
+    random = random.replace("-","") # Remove the UUID '-'.
+    return random[0:string_length] # Return the random string.
+
+def get_location(attachments):
+    location = {}
+    for attachment in attachments:
+        if len(attachment[7]) >= 1:
+            location['lat'] = attachment[7]
+        if len(attachment[8]) >= 1:
+            location['lon'] = attachment[8]
+    if not location:
+        return None
+    else:
+        pnt = Point(float(location.get('lon', None)), float(location.get('lat', None)))
+        return pnt
 
 def run(verbose=True):
     db = MySQLdb.connect(host="localhost",    # your host, usually localhost
@@ -12,12 +36,17 @@ def run(verbose=True):
                          db="old_ojovoz")        # name of the data base
 
     cur = db.cursor()
-
     cur.execute("SELECT * FROM `message`")
 
-    # print all the first cell of all the rows
-    for row in cur.fetchall():
-        print row[4]
+    for message in cur.fetchall():
+        try:
+            #author = User.get_or_create(username=message[4], password=ran_str(6))
+            attachments = db.cursor()
+            attachments.execute("SELECT * FROM `attachment` WHERE `message_id` = %(message_id)s", {'message_id': message[0]})
+            get_location(attachments)
+            #record = Record.get_or_create(author=author, channel=1, location=Point(attachment[9], attachment[8]))
+        except Exception as e:
+            raise
 
     db.close()
 
