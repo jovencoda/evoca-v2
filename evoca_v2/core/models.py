@@ -83,7 +83,7 @@ class Record(TimeBot):
 
 class Attachment(TimeBot):
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attachment_author')
-	name = models.CharField(max_length=200, null=False)
+	url = models.CharField(max_length=200, null=False)
 	hashName = models.UUIDField(default=uuid.uuid4, editable=False)
 	isActive = models.BooleanField(default=True)
 	related_record = models.ForeignKey(Record, on_delete=models.CASCADE, null=False, related_name='related_record')
@@ -93,11 +93,12 @@ class Attachment(TimeBot):
 	(0, 'image'),
 	(1, 'video'),
 	(2, 'file'),
+	(3, 'sound'),
 	)
 	attachment_type = models.PositiveSmallIntegerField(default=0, choices=ATTACHMENT_TYPE_CHOICES)
 
 	def __unicode__(self):
-		return self.name
+		return self.url
 
 
 class ChannelType(models.Model):
