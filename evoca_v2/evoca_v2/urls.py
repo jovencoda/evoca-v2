@@ -20,18 +20,19 @@ from rest_framework_nested import routers
 from rest_framework.authtoken import views
 
 from core.views import *
+from web_client.views import *
 
 
 # ------ API First level routing ------
 
 router = DefaultRouter()
 router.register(r'channel', ChannelAPIView)
-router.register(r'ojovozrecord', OjoVozRecordAPIView)
+router.register(r'records', RecordAPIView)
 
 # ------ API Second level routing ------
 
 channel_router = routers.NestedSimpleRouter(router, r'channel', lookup='channel')
-channel_router.register(r'records', OjoVozRecordAPIView, base_name='records')
+channel_router.register(r'records', RecordAPIView, base_name='records')
 
 
 urlpatterns = [
@@ -40,5 +41,10 @@ urlpatterns = [
 	url(r'^api-token-auth/', views.obtain_auth_token),
 	url(r'^api/v1/', include(router.urls)),
 	url(r'^api/v1/', include(channel_router.urls)),
+
+    # ----------- Web-Client URLS ---------
+
+    url(r'^$', ChannelsListView.as_view(), name='channel-view'),
+    url(r'^(?P<channel>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view')
 
 ]
