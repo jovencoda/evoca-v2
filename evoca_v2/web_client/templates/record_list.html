@@ -12,7 +12,7 @@
       <div class="event">
         {{ record.author|flavatar }}
         <div class="content">
-          <div class="location"><i class="marker icon"></i>{{ record.country }}</div>
+          <div class="location"><i class="marker icon"></i>{{ record.location }}</div>
           <div class="summary">
             <a>{{ record.author }}</a> added <a>2 new illustrations</a> <div class="date">{{ record.created_at }}</div>
           </div>
@@ -20,8 +20,9 @@
             {{ record.about }}
           </div>
           <div class="extra images">
-            <a><img src="https://semantic-ui.com/images/wireframe/image.png"></a>
-            <a><img src="https://semantic-ui.com/images/wireframe/image.png"></a>
+            {% for attachment in record.get_Attachments %}
+              <a><img src="{{ attachment.url }}"></a>
+            {% endfor %}
           </div>
           <div class="meta">
             <a class="like">

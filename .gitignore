@@ -96,7 +96,7 @@ ENV/
 evoca_v2/attachments/*
 evoca_v2/world/data/*
 evoca_v2/web_client/static/semantic/*
-node_modules/
+evoca_v2/web_client/static/node_modules/*
 assets/bundles/*
 *.save
 evoca_v2/01/*
