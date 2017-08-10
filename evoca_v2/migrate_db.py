@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # install mysql for python
 # sudo apt-get install python-mysqldb
 # copy the old DB to attachments/old_data/*
@@ -9,6 +11,7 @@
 import MySQLdb
 import uuid
 from django.contrib.gis.geos import Point
+from django.contrib.auth.hashers import make_password
 # Import models
 from core.models import Record, Attachment, Channel
 from django.contrib.auth.models import User
@@ -34,18 +37,21 @@ def get_location(attachments):
         return pnt
 
 def create_record(author, location):
-    # to do --> Check that location != None
     record = Record(location=location)
     record.author = author
-    record.channel = Channel.objects.get(pk=1)
+    record.channel = Channel.objects.get(name="Proyecto Pance")
     record.save()
+    return record
 
 def create_attachments(attachments, author, record):
     for attachment in attachments:
-        content_type = 0 if attachment[3] == 1 else 1
+        if attachment[3] is "1":
+            content_type = 0
+        else:
+            content_type = 3
         # 01 stands for the channel in the old system
-        new_url = attachment[2].replace("01", "attachments/old_data")
-        new_attachment = Attachment(url=attachment[2], attachment_type=content_type)
+        new_url = "http://tejiendofuturopance.org/proyectopance/channels/" + attachment[2]
+        new_attachment = Attachment(url=new_url, attachment_type=content_type)
         new_attachment.author = author
         new_attachment.related_record = record
         new_attachment.save()
@@ -59,14 +65,21 @@ def run(verbose=True):
     cur = db.cursor()
     cur.execute("SELECT * FROM `message`")
 
+    # Create default channel
+    channel = Channel.objects.create(name="Proyecto Pance")
+
     for message in cur.fetchall():
         try:
-            author = User.objects.create(username=message[4], password=ran_str(6))
+            author = User.objects.get(username=message[4].decode('utf_8', 'ignore'))
+        except User.DoesNotExist:
+            author = User.objects.create(username=message[4].decode('utf_8', 'ignore'), password=make_password(ran_str(8)))
+        try:
             attachments = db.cursor()
             attachments.execute("SELECT * FROM `attachment` WHERE `message_id` = %(message_id)s", {'message_id': message[0]})
-            create_record(author, get_location(attachments))
-            create_attachments(attachments, author, record)
-            print("check :)")
+            location = get_location(attachments)
+            if location:
+                create_attachments(attachments, author, create_record(author, location))
+                print("check :)")
         except Exception as e:
             raise
 
