@@ -10,6 +10,7 @@
 #!/usr/bin/python
 import MySQLdb
 import uuid
+from django.conf import settings;
 from django.contrib.gis.geos import Point
 from django.contrib.auth.hashers import make_password
 # Import models
@@ -50,7 +51,7 @@ def create_attachments(attachments, author, record):
         else:
             content_type = 3
         # 01 stands for the channel in the old system
-        new_url = "http://tejiendofuturopance.org/proyectopance/channels/" + attachment[2]
+        new_url = "/static/old_data/" + attachment[2]
         new_attachment = Attachment(url=new_url, attachment_type=content_type)
         new_attachment.author = author
         new_attachment.related_record = record

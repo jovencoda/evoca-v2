@@ -16,7 +16,7 @@
   </head>
   <body>
       {% include 'menu.html' with channels=get_channels_list %}
-      <div id="main-container">
+      <div class="ui container" id="main-container">
         {% block body %}
         {% endblock %}
       </div>

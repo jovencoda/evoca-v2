@@ -19,6 +19,9 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
 from rest_framework.authtoken import views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from core.views import *
 from web_client.views import *
 
@@ -47,4 +50,4 @@ urlpatterns = [
     url(r'^$', ChannelsListView.as_view(), name='channel-view'),
     url(r'^(?P<channel>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view')
 
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

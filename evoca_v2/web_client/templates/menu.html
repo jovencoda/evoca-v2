@@ -2,44 +2,40 @@
 {% block menu %}
 
 <div class="ui top fixed menu">
-  <div class="header item">
-    EVOCA
-  </div>
-  <div class="ui dropdown icon item">
-    <i class="hashtag icon"></i>&nbsp;&nbsp;&nbsp;Canal Regional&nbsp;&nbsp;<i class="angle down icon"></i>
-    <div class="menu">
-      {% for channel in channels %}
-      <div class="item"><span class="text"><i class="hashtag icon"></i>{{ channel.name }}</span></div>
-      {% endfor %}
+  <div class="ui container">
+    <div class="header item">
+      EVOCA
     </div>
-  </div>
-  <div class="right menu">
-    <div class="ui right aligned category search item">
-      <div class="ui transparent icon input">
-        <input class="prompt" placeholder="Search animals..." type="text">
-        <i class="search link icon"></i>
+    <div class="ui dropdown icon item">
+      <i class="hashtag icon"></i>&nbsp;&nbsp;&nbsp;Canal Regional&nbsp;&nbsp;<i class="angle down icon"></i>
+      <div class="menu">
+        {% for channel in channels %}
+        <div class="item"><span class="text"><i class="hashtag icon"></i>{{ channel.name }}</span></div>
+        {% endfor %}
       </div>
-      <div class="results"></div>
     </div>
-  </div>
-</div>
-<div class="ui bottom attached">
-
-  <div class="ui secondary pointing menu">
-    <a class="item">
-      Timeline
-    </a>
-    <a class="item active">
-      Map
-    </a>
-    <a class="item">
-      Tags
-    </a>
-    <div class="right menu">
-      <a class="ui item">
-        Logout
+    <div class="ui secondary pointing menu">
+      <a class="item">
+        Timeline
+      </a>
+      <a class="item active">
+        Map
+      </a>
+      <a class="item">
+        Tags
       </a>
     </div>
+    <div class="right menu">
+      <div class="ui right aligned category search item">
+        <div class="ui transparent icon input">
+          <input class="prompt" placeholder="Search animals..." type="text">
+          <i class="search link icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
+    </div>
+
+
   </div>
 
 </div>

@@ -4,35 +4,33 @@
 
 {% block body %}
 
-  <h1 class="ui header"><i class="hashtag icon"></i>{{ active_channel_name }}</h1>
+<h1 class="ui header"><i class="hashtag icon"></i>{{ active_channel_name }}</h1>
 
-    <div class="ui feed">
-    {% for record in object_list %}
 
-      <div class="event">
-        {{ record.author|flavatar }}
-        <div class="content">
-          <div class="location"><i class="marker icon"></i>{{ record.location }}</div>
-          <div class="summary">
-            <a>{{ record.author }}</a> added <a>2 new illustrations</a> <div class="date">{{ record.created_at }}</div>
-          </div>
-          <div class="extra text">
-            {{ record.about }}
-          </div>
-          <div class="extra images">
-            {% for attachment in record.get_Attachments %}
-              <a><img src="{{ attachment.url }}"></a>
-            {% endfor %}
-          </div>
-          <div class="meta">
-            <a class="like">
-              <i class="like icon"></i> 1 Like
-            </a>
-          </div>
-        </div>
-      </div>
+  <div class="ui link cards ">
+  {% for record in object_list %}
 
-    {% endfor %}
+  <div class="ui card">
+    <div class="content">
+      <div class="right floated meta">14h</div>
+      <i class="spy icon"></i> {{ record.author }}
     </div>
+    <div class="image">
+      {% for attachment in record.get_Attachments %}
+        {% if attachment.attachment_type == 0 %}
+        <a><img class="card-img" src="{{ attachment.url }}"></a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="content">
+      <i class="map pin icon"></i> {{ record.location }}
+    </div>
+    <div class="extra content">
+      {{ record.about }}
+    </div>
+  </div>
+
+  {% endfor %}
+  </div>
 
 {% endblock %}
