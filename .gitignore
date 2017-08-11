@@ -93,11 +93,9 @@ ENV/
 .vagrant
 
 # Attachments
-evoca_v2/attachments/*
-evoca_v2/world/data/*
-evoca_v2/web_client/static/semantic/*
-evoca_v2/web_client/static/node_modules/*
-assets/bundles/*
+evoca_v2/attachments/
+evoca_v2/world/data/
+evoca_v2/web_client/static/semantic/
+evoca_v2/web_client/static/node_modules/
+evoca_v2/web_client/static/old_data/
 *.save
-evoca_v2/01/*
-proyectopance.sql
