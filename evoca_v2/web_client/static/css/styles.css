@@ -1,13 +1,20 @@
 
 #main-container{
   padding-top: 60px;
-  padding-bottom: 20px;
+  padding-bottom: 80px;
 }
 
 .card-img{
   width: 100%;
   height: 200px;
 }
+
+audio, video {
+    width: 100%;
+    margin-bottom: -6px;
+    margin-top: -6px;
+}
+
 
 .location{
   margin: -.5rem 0 0;

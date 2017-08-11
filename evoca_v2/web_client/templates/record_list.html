@@ -6,14 +6,13 @@
 
 <h1 class="ui header"><i class="hashtag icon"></i>{{ active_channel_name }}</h1>
 
-
-  <div class="ui link cards ">
+<div class="ui link cards">
   {% for record in object_list %}
 
   <div class="ui card">
     <div class="content">
       <div class="right floated meta">14h</div>
-      <i class="spy icon"></i> {{ record.author }}
+      <i class="at icon"></i>{{ record.author }}
     </div>
     <div class="image">
       {% for attachment in record.get_Attachments %}
@@ -21,8 +20,16 @@
         <a><img class="card-img" src="{{ attachment.url }}"></a>
         {% endif %}
       {% endfor %}
+      {% for attachment in record.get_Attachments %}
+        {% if attachment.attachment_type == 3 %}
+          <audio controls>
+           <source src="{{ attachment.url }}" type="audio/mpeg">
+          Your browser does not support the audio element.
+          </audio>
+        {% endif %}
+      {% endfor %}
     </div>
-    <div class="content">
+    <div class="content black">
       <i class="map pin icon"></i> {{ record.location }}
     </div>
     <div class="extra content">
