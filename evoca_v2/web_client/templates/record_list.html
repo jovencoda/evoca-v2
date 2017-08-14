@@ -18,19 +18,14 @@
       <img width="290" src="https://api.mapbox.com/v4/mapbox.run-bike-hike/pin-s-camera+21ba45({{ record.getRawLocation }})/{{ record.getRawLocation }},13/290x80@2x.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg" alt="Mapbox Map of {{ record.getRawLocation }}">
     </div>
     <div class="image">
-      {% for attachment in record.get_Attachments %}
-        {% if attachment.attachment_type == 0 %}
-        <a><img class="card-img" src="{{ attachment.url }}"></a>
-        {% endif %}
-      {% endfor %}
-      {% for attachment in record.get_Attachments %}
-        {% if attachment.attachment_type == 3 %}
+
+      <a><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
+
           <!--<audio controls>
            <source src="{{ attachment.url }}" type="audio/mpeg">
           Your browser does not support the audio element.
         </audio>-->
-        {% endif %}
-      {% endfor %}
+
     </div>
     <div class="extra content">
       {{ record.about }}

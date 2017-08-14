@@ -105,8 +105,12 @@ class Record(TimeBot):
 	def getRawLocation(self):
 		return str(self.location.x) + "," + str(self.location.y);
 
-	def get_Attachments(self):
-		return Attachment.objects.all().filter(related_record__uniqueID=self.uniqueID)
+	def getAttachedImage(self):
+		return Attachment.objects.values('url').filter(attachment_type=0).filter(related_record__uniqueID=self.uniqueID).first()
+
+	def getAttachedAudio(self):
+		return Attachment.objects.values('url').filter(attachment_type=3).filter(related_record__uniqueID=self.uniqueID).first()
+
 
 	def __unicode__(self):
 		return unicode(self.uniqueID)
