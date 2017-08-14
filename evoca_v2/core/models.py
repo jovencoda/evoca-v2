@@ -8,8 +8,7 @@ from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 # Import GIS data
-from mapbox import Geocoder
-from world.models import WorldBorder, VeredasColombia
+import googlemaps
 
 # Available Models
 
@@ -68,32 +67,31 @@ class Record(TimeBot):
 	description = models.TextField(max_length=255, blank=True)
 
 	def save(self, *args, **kwargs):
-		# Get any Available geo data
-		self.country = self.getWorldData('country')
-		self.region = self.getWorldData('region')
-		self.city = self.getWorldData('place')
-		self.postal_code = self.getWorldData('postcode')
-		self.neighborhood = self.getWorldData('neighborhood')
-		self.address = self.getWorldData('address')
 		try:
-			print(VeredasColombia.objects.get(geom__intersects=self.location).name)
+			# Googlemaps data
+			gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_ACCESS_TOKEN)
+			data = gmaps.reverse_geocode((self.location.y, self.location.x))[0]['address_components']
+			self.address = self.getWorldData(data, 'route') + " " + self.getWorldData(data, 'street_number')
+			self.neighborhood = self.getWorldData(data, 'locality')
+			self.city = self.getWorldData(data, 'administrative_area_level_2')
+			self.region = self.getWorldData(data, 'administrative_area_level_1')
+			self.country = self.getWorldData(data, 'country')
+			self.postal_code = self.getWorldData(data, 'postal_code')
 		except Exception as e:
-			print("no vereda")
+			print(e)
 			pass
 
-		#self.country = WorldBorder.objects.get(mpoly__intersects=self.location).name
 		super(Record, self).save(*args, **kwargs)
 
-	def getWorldData(self, type):
-		try:
-			geocoder = Geocoder(access_token=settings.MAPBOX_ACCESS_TOKEN)
-			response = geocoder.reverse(lon=self.location.x, lat=self.location.y, limit=1, types=[type])
-			features = sorted(response.geojson()['features'], key=lambda x: x['place_name'])
-			return features[0]['text']
-		except Exception as e:
-			pass
-			return ""
-
+	def getWorldData(self, data, type):
+		result = ""
+		for f in data:
+			try:
+				if(f['types'][0] == type):
+					result =  f['long_name']
+			except Exception as e:
+				raise
+		return result
 
 	def transformToEPSG(self):
 		ct = CoordTransform(SpatialReference(4326), SpatialReference(3857))
