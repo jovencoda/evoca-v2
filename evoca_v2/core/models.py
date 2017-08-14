@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import uuid
+from django.conf import settings
 from django.db import models
 from django.contrib.gis.db import models as modelsGIS
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 # Import GIS data
+from mapbox import Geocoder
 from world.models import WorldBorder, VeredasColombia
 
 # Available Models
@@ -58,11 +60,28 @@ class Record(TimeBot):
 	channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='record_channel')
 	location = modelsGIS.PointField(max_length=40, null=False)
 	country = models.CharField(max_length=50, blank=True)
+	region = models.CharField(max_length=50, blank=True)
+	city = models.CharField(max_length=50, blank=True)
 	description = models.TextField(max_length=255, blank=True)
 
 	def save(self, *args, **kwargs):
 		try:
-			self.country = WorldBorder.objects.get(mpoly__intersects=self.location).name
+			# Get Country, Region and City
+			geocoder = Geocoder(access_token=settings.MAPBOX_ACCESS_TOKEN)
+			response = geocoder.reverse(lon=self.location.x, lat=self.location.y)
+			features = sorted(response.geojson()['features'], key=lambda x: x['place_name'])
+			print(features)
+			#print(features[0]['text'])
+			self.city = features[0]['text']
+			#self.region =
+			#self.country =
+
+			print(features[0]['context'][0])
+			print(features[0]['context'][1])
+			#_features.split(',')
+
+
+			#self.country = WorldBorder.objects.get(mpoly__intersects=self.location).name
 		except Exception as e:
 			print(e)
 		super(Record, self).save(*args, **kwargs)
@@ -71,6 +90,9 @@ class Record(TimeBot):
 		ct = CoordTransform(SpatialReference(4326), SpatialReference(3857))
 		print(self.location.transform(ct))
 		return self.location.transform(ct)
+
+	def getRawLocation(self):
+		return str(self.location.x) + "," + str(self.location.y);
 
 	def get_Attachments(self):
 		return Attachment.objects.all().filter(related_record__uniqueID=self.uniqueID)
