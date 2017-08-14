@@ -13,9 +13,13 @@ import googlemaps
 # Available Models
 
 class TimeBot(models.Model):
-	created_at = models.DateTimeField(auto_now_add=True, editable=False)
+	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	deleted_at = models.DateTimeField(blank=True, null=True)
+
+	def updateCreationDate(self, date):
+		self.created_at = date
+		self.save()
 
 	class Meta:
 		abstract = True

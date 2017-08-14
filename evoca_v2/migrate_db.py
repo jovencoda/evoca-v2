@@ -13,6 +13,7 @@ import uuid
 from django.conf import settings;
 from django.contrib.gis.geos import Point
 from django.contrib.auth.hashers import make_password
+from datetime import datetime
 # Import models
 from core.models import Record, Attachment, Channel
 from django.contrib.auth.models import User
@@ -37,11 +38,12 @@ def get_location(attachments):
         pnt = Point(float(location.get('lon', None)), float(location.get('lat', None)))
         return pnt
 
-def create_record(author, location):
+def create_record(author, location, date):
     record = Record(location=location)
     record.author = author
     record.channel = Channel.objects.get(name="Proyecto Pance")
     record.save()
+    record.updateCreationDate(date)
     return record
 
 def create_attachments(attachments, author, record):
@@ -78,8 +80,9 @@ def run(verbose=True):
             attachments = db.cursor()
             attachments.execute("SELECT * FROM `attachment` WHERE `message_id` = %(message_id)s", {'message_id': message[0]})
             location = get_location(attachments)
+            #date = datetime.strptime(message[3], '%Y-%m-%d %H:%M:%S')
             if location:
-                create_attachments(attachments, author, create_record(author, location))
+                create_attachments(attachments, author, create_record(author, location, message[3]))
                 print("check :)")
         except Exception as e:
             raise
