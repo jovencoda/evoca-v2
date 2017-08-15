@@ -105,6 +105,9 @@ class Record(TimeBot):
 	def getRawLocation(self):
 		return str(self.location.x) + "," + str(self.location.y);
 
+	def getLongPlace(self):
+		return self.address + ", " + self.region + ", " + self.city + ", " + self.country
+
 	def getAttachedImage(self):
 		return Attachment.objects.values('url').filter(attachment_type=0).filter(related_record__uniqueID=self.uniqueID).first()
 

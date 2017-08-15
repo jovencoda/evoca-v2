@@ -18,7 +18,7 @@ class ChannelAPIView(viewsets.ModelViewSet):
 	serializer_class = ChannelSerializer
 
 	def list(self, request,):
-		queryset = Channel.objects.all()
+		queryset = Channel.objects.all().order_by('created_at')
 		serializer = ChannelSerializer(queryset, many=True)
 		return Response(serializer.data)
 
@@ -33,12 +33,12 @@ class RecordAPIView(viewsets.ModelViewSet):
 	serializer_class = RecordSerializer
 
 	def list(self, request, channel_pk=None):
-		queryset = Record.objects.all()
+		queryset = Record.objects.all().order_by('created_at')
 		serializer = RecordSerializer(queryset, many=True)
 		return Response(serializer.data)
 
 	def retrieve(self, request, pk=None, channel_pk=None):
-		queryset = Record.objects.filter()
+		queryset = Record.objects.filter().order_by('created_at')
 		ojoVozRecord = get_object_or_404(queryset, uniqueID=pk, channel=channel_pk)
 		serializer = RecordSerializer(Record)
 		return Response(serializer.data)

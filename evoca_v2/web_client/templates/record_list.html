@@ -11,25 +11,29 @@
 
   <div class="ui card">
     <div class="content">
-      <div class="right floated meta">14h</div>
+      <div class="right floated meta">{{ record.created_at }}</div>
       <i class="at icon"></i>{{ record.author }}
     </div>
+
     <div class="image">
-      <img width="290" src="https://api.mapbox.com/v4/mapbox.run-bike-hike/pin-s-camera+21ba45({{ record.getRawLocation }})/{{ record.getRawLocation }},13/290x80@2x.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg" alt="Mapbox Map of {{ record.getRawLocation }}">
-    </div>
-    <div class="image">
+
+      <div class="player">
+        <i class="play icon"></i>
+        <audio preload="none">
+          <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
 
       <a><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
 
-          <!--<audio controls>
-           <source src="{{ attachment.url }}" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>-->
-
     </div>
-    <div class="extra content">
-      {{ record.about }}
+    <div class="content">
+      {{ record.getLongPlace }}
     </div>
+    <!--
+    <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},13/300x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');">
+    </div>    -->
   </div>
 
   {% endfor %}

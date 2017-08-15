@@ -18,7 +18,7 @@ class RecordsListView(ListView):
     template_name = 'record_list.html'
 
     def get_queryset(self):
-        queryset = super(RecordsListView, self).get_queryset()
+        queryset = super(RecordsListView, self).get_queryset().order_by('-created_at')
         return queryset.filter(channel__slug=self.kwargs['channel'])
 
     def get_context_data(self, **kwargs):
