@@ -109,7 +109,9 @@ class Record(TimeBot):
 		return self.address + ", " + self.region + ", " + self.city + ", " + self.country
 
 	def getAttachedImage(self):
-		return Attachment.objects.values('url').filter(attachment_type=0).filter(related_record__uniqueID=self.uniqueID).first()
+		queryset = Attachment.objects.values('url').filter(attachment_type=0).filter(related_record__uniqueID=self.uniqueID).first()
+		print(queryset)
+		return queryset if queryset != None else {'url': "/static/img/image.png"}
 
 	def getAttachedAudio(self):
 		return Attachment.objects.values('url').filter(attachment_type=3).filter(related_record__uniqueID=self.uniqueID).first()

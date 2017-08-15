@@ -29,7 +29,7 @@ class RecordsListView(ListView):
         response = collections.OrderedDict()
         iterator = iter(dates[::-1])
         for d in iterator:
-            response[d] = Record.objects.all().filter(created_at__year=int(d[:4])).filter(created_at__month=int(d[5:]))
+            response[d] = Record.objects.all().filter(created_at__year=int(d[:4])).filter(created_at__month=int(d[5:])).order_by('created_at')
 
     	return response
 
