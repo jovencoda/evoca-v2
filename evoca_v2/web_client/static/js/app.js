@@ -35,15 +35,16 @@ $(document)
          toogleIcon(icon, 'stop');
          audio.pause();
        }
-       // ON end toggle icon
-       audio.onended = function(){
-         toogleIcon(icon, 'stop');
-         progress.progress({percent: 0});
-       }
      });
 
      $("audio").each(function(i){
        this.ontimeupdate = function() {updateProgress(this)};
+       this.onended = function(){
+         progress = $(this).parent().parent().parent().find(".progress");
+         icon = $(this).parent().find(".icon");
+         toogleIcon(icon, 'stop');
+         progress.progress({percent: 0});
+       }
      });
 
      function updateProgress(audio){
@@ -55,7 +56,6 @@ $(document)
      function toogleIcon(icon, value){
        if(value=='play'){
          icon.removeClass("play");
-         
          icon.addClass("pause");
        }else{
          icon.removeClass("pause");
