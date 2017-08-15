@@ -7,6 +7,7 @@
 .card-img{
   width: 100%;
   height: 200px;
+  margin-bottom: -6px;
 }
 
 audio, video {
@@ -26,13 +27,11 @@ audio, video {
 }
 
 .player{
-  color: #fff;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  top: 45%;
-  font-size: 50px;
+  position: absolute !important;
+  left: 10px;
+  bottom: 10px;
 }
+
 
 .card-location{
   position: absolute;
