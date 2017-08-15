@@ -114,7 +114,6 @@ class Record(TimeBot):
 	def getAttachedAudio(self):
 		return Attachment.objects.values('url').filter(attachment_type=3).filter(related_record__uniqueID=self.uniqueID).first()
 
-
 	def __unicode__(self):
 		return unicode(self.uniqueID)
 

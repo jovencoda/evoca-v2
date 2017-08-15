@@ -7,7 +7,12 @@
 <h1 class="ui header"><i class="hashtag icon"></i>{{ active_channel_name }}</h1>
 
 <div class="ui link cards">
-  {% for record in object_list %}
+
+  {% for x, y in object_list.items %}
+  <h4 class="ui horizontal divider header">
+    {{ x }}
+  </h4>
+  {% for record in y %}
 
   <div class="ui card">
     <div class="content">
@@ -32,13 +37,13 @@
       {{ record.getLongPlace }}
     </div>
 
-    <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},13/300x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
+    <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},13/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
 
     <div class="ui bottom attached green progress"  data-percent="0">
       <div class="bar"></div>
     </div>
   </div>
-
+  {% endfor %}
   {% endfor %}
   </div>
 
