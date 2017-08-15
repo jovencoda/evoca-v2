@@ -110,7 +110,6 @@ class Record(TimeBot):
 
 	def getAttachedImage(self):
 		queryset = Attachment.objects.values('url').filter(attachment_type=0).filter(related_record__uniqueID=self.uniqueID).first()
-		print(queryset)
 		return queryset if queryset != None else {'url': "/static/img/image.png"}
 
 	def getAttachedAudio(self):
