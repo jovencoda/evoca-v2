@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.views.generic import DetailView, ListView
 from django.shortcuts import render
 from datetime import datetime
+import collections
 
 # Import models
 from core.models import Channel, Record
@@ -25,8 +26,9 @@ class RecordsListView(ListView):
             k, v = _s.rsplit("-", 1)
             if(k not in dates):
                 dates.append(k)
-        response = {}
-        for d in dates:
+        response = collections.OrderedDict()
+        iterator = iter(dates[::-1])
+        for d in iterator:
             response[d] = Record.objects.all().filter(created_at__year=int(d[:4])).filter(created_at__month=int(d[5:]))
 
     	return response
