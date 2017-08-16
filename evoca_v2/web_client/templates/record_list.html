@@ -4,7 +4,93 @@
 
 {% block body %}
 
-<h1 class="ui header" id="channel-header"><i class="hashtag icon"></i>{{ active_channel_name }}</h1>
+
+
+<h1 class="ui header" id="channel-header">
+
+  <i class="hashtag icon"></i>
+  <div class="content">
+    {{ active_channel_name }}
+    <div class="sub header">
+
+      <span>
+        Filtrar por el usuario
+        <div class="ui inline dropdown">
+          <div class="text">
+            ninguno
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/jenny.jpg">
+              Jenny Hess
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
+              Elliot Fu
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
+              Stevie Feliciano
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/christian.jpg">
+              Christian
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/matt.jpg">
+              Matt
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/justen.jpg">
+              Justen Kitsune
+            </div>
+          </div>
+        </div>
+      </span>
+
+      <span>
+        Filtrar por la etiqueta
+        <div class="ui inline dropdown">
+          <div class="text">
+            ninguna
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/jenny.jpg">
+              Jenny Hess
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/elliot.jpg">
+              Elliot Fu
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/stevie.jpg">
+              Stevie Feliciano
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/christian.jpg">
+              Christian
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/matt.jpg">
+              Matt
+            </div>
+            <div class="item">
+              <img class="ui avatar image" src="/images/avatar/small/justen.jpg">
+              Justen Kitsune
+            </div>
+          </div>
+        </div>
+      </span>
+
+    </div>
+  </div>
+
+</h1>
+
+
 
 <div class="ui link cards">
 
@@ -24,7 +110,7 @@
 
       <button class="ui compact labeled icon button green player">
         <i class="play icon"></i>
-        <span class="audio-label">Play</span>
+        <span class="audio-label">Reproducir</span>
         <audio preload="none">
           <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
           Your browser does not support the audio element.
@@ -37,7 +123,7 @@
       {{ record.getLongPlace }}
     </div>
 
-    <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},13/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
+    <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
 
     <div class="ui bottom attached green progress"  data-percent="0">
       <div class="bar"></div>

@@ -2,6 +2,7 @@ $(document)
    .ready(function() {
 
      $('.ui.dropdown').dropdown();
+     $('.ui.accordion').accordion();
      $('.ui.menu a.item')
        .on('click', function() {
          $(this)
