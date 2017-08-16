@@ -1,10 +1,7 @@
 $(document)
    .ready(function() {
 
-     $('.ui.menu .ui.dropdown').dropdown({
-       on: 'hover'
-     });
-
+     $('.ui.dropdown').dropdown();
      $('.ui.menu a.item')
        .on('click', function() {
          $(this)
@@ -14,11 +11,29 @@ $(document)
          ;
        });
 
+    populateMenu();
     audioPlayers();
 
-
-
    });
+
+   function populateMenu(){
+   menu = d3.select("#channel-menu");
+    $.ajax({
+        url: "http://192.168.33.10:8080/api/v1/channel/?format=json"
+    }).then(function(data) {
+      channels = []
+      $(data).each(function(i){
+          channels.push({name: data[i]['name'], value:data[i]['uniqueID'], selected: true})
+          menu.append("a")
+              .attr("class", "item")
+              .attr("href", "/" + data[i]['slug'] )
+              .html(data[i]['name']);
+      });
+      console.log(channels);
+
+    });
+
+   }
 
    function audioPlayers(){
      audio = null;
@@ -56,9 +71,11 @@ $(document)
      function toogleIcon(icon, value){
        if(value=='play'){
          icon.removeClass("play");
+         icon.parent().find(".audio-label").html("Pause");
          icon.addClass("pause");
        }else{
          icon.removeClass("pause");
+         icon.parent().find(".audio-label").html("Play");
          icon.addClass("play");
        }
      }
