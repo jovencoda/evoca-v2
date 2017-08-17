@@ -17,7 +17,7 @@
         Filtrar por el usuario
         <div class="ui inline dropdown">
           <div class="text">
-            ninguno
+            {{ filtered_by_user }}
           </div>
           <i class="dropdown icon"></i>
           <div class="menu">
@@ -26,8 +26,11 @@
                 <input placeholder="Buscar usuario..." type="text">
               </div>
           <div class="scrolling menu">
+            <a href="/{{ active_channel_slug }}/" class="item" style="font-weight:600;">
+              ninguno
+            </a>
               {% for user in channel_users %}
-              <a href="{{ user }}/" class="item">
+              <a href="/{{ active_channel_slug }}/{{ user }}/" class="item">
                 {{ user }}
               </a>
               {% endfor %}

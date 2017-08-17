@@ -41,7 +41,7 @@ class RecordsListView(ListView):
             if user not in response:
                 response.append(user)
         return response
-        
+
     def get_queryset(self):
         queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel'])
 
@@ -59,4 +59,10 @@ class RecordsListView(ListView):
         context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
         context['channel_users'] = self.getChannelUsers
         context['active_channel_slug'] = slug=self.kwargs['channel']
+        context['filtered_by_user'] = "ninguno"
+        try:
+            if self.kwargs['user']:
+                context['filtered_by_user'] = self.kwargs['user']
+        except Exception as e:
+            print(e)
         return context
