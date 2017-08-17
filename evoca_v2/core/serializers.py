@@ -1,5 +1,6 @@
 
 from rest_framework import serializers as serial
+from django.contrib.auth.models import User
 from core.models import *
 
 class DimensionSerializer(serial.ModelSerializer):

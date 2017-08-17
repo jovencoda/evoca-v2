@@ -35,7 +35,7 @@ router.register(r'records', RecordAPIView)
 # ------ API Second level routing ------
 
 channel_router = routers.NestedSimpleRouter(router, r'channel', lookup='channel')
-channel_router.register(r'records', RecordAPIView, base_name='records')
+channel_router.register(r'records', RecordAPIView, base_name='channel-records')
 
 
 urlpatterns = [
@@ -48,6 +48,7 @@ urlpatterns = [
     # ----------- Web-Client URLS ---------
 
     url(r'^$', ChannelsListView.as_view(), name='channel-view'),
-    url(r'^(?P<channel>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view')
+    url(r'^(?P<channel>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view'),
+    url(r'^(?P<channel>[-_\w]+)/(?P<user>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view-user')
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

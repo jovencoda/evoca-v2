@@ -2,7 +2,6 @@ $(document)
    .ready(function() {
 
      $('.ui.dropdown').dropdown();
-     $('.ui.accordion').accordion();
      $('.ui.menu a.item')
        .on('click', function() {
          $(this)
@@ -20,7 +19,7 @@ $(document)
    function populateMenu(){
    menu = d3.select("#channel-menu");
     $.ajax({
-        url: "http://192.168.33.10:8080/api/v1/channel/?format=json"
+        url: "http://192.168.33.10:8000/api/v1/channel/?format=json"
     }).then(function(data) {
       channels = []
       $(data).each(function(i){
@@ -30,8 +29,6 @@ $(document)
               .attr("href", "/" + data[i]['slug'] )
               .html(data[i]['name']);
       });
-      console.log(channels);
-
     });
 
    }
@@ -72,11 +69,11 @@ $(document)
      function toogleIcon(icon, value){
        if(value=='play'){
          icon.removeClass("play");
-         icon.parent().find(".audio-label").html("Pause");
+         icon.parent().find(".audio-label").html("Pausar");
          icon.addClass("pause");
        }else{
          icon.removeClass("pause");
-         icon.parent().find(".audio-label").html("Play");
+         icon.parent().find(".audio-label").html("Reproducir");
          icon.addClass("play");
        }
      }
