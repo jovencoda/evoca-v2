@@ -10,6 +10,9 @@
 
     {% for channel in object_list %}
       <a class="ui card" href="/{{ channel.slug }}">
+        <div class="image">
+          <img src="/{{ channel.image }}" alt="">
+        </div>
         <div class="content">
           <div class="header">{{ channel.name }}</div>
           <div class="meta">{{ channel.created_at }}</div>

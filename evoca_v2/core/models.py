@@ -43,6 +43,7 @@ class Channel(TimeBot):
 	about = models.TextField(max_length=255, blank=True)
 	members = models.ManyToManyField(User, through='Membership', through_fields=('channel', 'user'), related_name='channel_members')
 	dimensions = models.ManyToManyField(Dimension, related_name='channel_dimensions', blank=True)
+	image = models.ImageField(upload_to='static/img/', blank=True, null=True)
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.name)
