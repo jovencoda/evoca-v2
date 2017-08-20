@@ -24,6 +24,7 @@ class TimeBot(models.Model):
 	class Meta:
 		abstract = True
 
+
 class Dimension(models.Model):
 	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=255)
@@ -40,6 +41,7 @@ class Channel(TimeBot):
 	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
 	name = models.CharField(max_length=255)
 	slug = models.SlugField(blank=True, null=True)
+	isActive = models.BooleanField(default=True)
 	about = models.TextField(max_length=255, blank=True)
 	members = models.ManyToManyField(User, through='Membership', through_fields=('channel', 'user'), related_name='channel_members')
 	dimensions = models.ManyToManyField(Dimension, related_name='channel_dimensions', blank=True)
@@ -49,6 +51,9 @@ class Channel(TimeBot):
 	    self.slug = slugify(self.name)
 	    super(Channel, self).save(*args, **kwargs)
 
+	def getChannelTags(self):
+		return ChannelTag.objects.all().values().filter(related_channel__uniqueID=self.uniqueID).order_by('-created_at')
+
 	def __unicode__(self):
 		return self.name
 
@@ -56,12 +61,30 @@ class Membership(TimeBot):
     channel = models.ForeignKey(Channel)
     user = models.ForeignKey(User)
 
+# ----------- TAGS ------------->
+
+class ChannelTag(models.Model):
+	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
+	name = models.CharField(max_length=255)
+	slug = models.SlugField(blank=True, null=True)
+	isActive = models.BooleanField(default=True)
+	related_channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='related_channel')
+
+	def save(self, *args, **kwargs):
+	    self.slug = slugify(self.name)
+	    super(ChannelTag, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+		return self.name
+
 # ----------- RECORD ------------->
 
 class Record(TimeBot):
 	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='record_author')
+	isActive = models.BooleanField(default=True)
 	channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='record_channel')
+	tags = models.ManyToManyField(ChannelTag, related_name='record_tags', blank=True)
 	location = modelsGIS.PointField(max_length=40, null=False)
 	country = models.CharField(max_length=50, blank=True)
 	region = models.CharField(max_length=50, blank=True)
@@ -118,7 +141,6 @@ class Record(TimeBot):
 
 	def __unicode__(self):
 		return unicode(self.uniqueID)
-
 
 # ----------- ATTACHMENTS ------------->
 

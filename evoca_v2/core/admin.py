@@ -7,8 +7,9 @@ from core.models import *
 from world.models import WorldBorder, VeredasColombia
 
 # Register your models here.
-admin.site.register(Dimension)
-admin.site.register(ChannelType)
+#admin.site.register(Dimension)
+admin.site.register(ChannelTag)
+#admin.site.register(ChannelType)
 admin.site.register(Attachment)
 admin.site.register(WorldBorder, geoAdmin.OSMGeoAdmin)
 admin.site.register(VeredasColombia, geoAdmin.OSMGeoAdmin)
