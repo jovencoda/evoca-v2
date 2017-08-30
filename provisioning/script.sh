@@ -69,8 +69,42 @@ echo "### Patch profile ###"
 PROFILE_PATCH='source /var/www/html/evoca/provisioning/user_profile.sh'
 echo $PROFILE_PATCH >> /home/vagrant/.profile
 
-# install react cli for web-client
-cd /var/www/html/evoca/web-client
-sudo npm cache clean -f
-sudo npm install -g n
-sudo n stable
+# Remove previous php PPA and add the new one
+apt-get install ppa-purge
+ppa-purge -y ppa:ondrej/php5-5.6
+add-apt-repository -y ppa:ondrej/php
+
+echo "### Install npm ###"
+apt-get purge -y nodejs
+apt-get -y autoremove
+rm -rf /usr/local/bin/npm /usr/local/share/man/man1/node* /usr/local/lib/dtrace/node.d ~/.npm ~/.node-gyp /opt/local/bin/node opt/local/include/node /opt/local/lib/node_modules /usr/bin/node /usr/local/bin/node
+# Install nodejs and npm
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+apt-get install -y nodejs
+ln -s /usr/bin/nodejs /usr/local/bin/node
+
+# Update and upgrade everything
+apt-get -y update
+apt-get -y upgrade
+apt-get -y autoremove
+
+# ===================
+# FUTURE WORK
+# ===================
+
+#echo "### Npm requirements ###"
+#cd /var/www/html/evoca/evoca_v2/web_client/static/
+#ls
+#rm -rf node_modules
+
+#echo "### Install gulp ###"
+#npm install gulp-cli -g
+#npm install gulp -D
+
+#npm install -g graceful-fs graceful-fs@latest
+#npm install semantic-ui
+#npm install
+
+#echo "### Build Semantic ###"
+#cd /var/www/html/evoca/evoca_v2/web_client/static/semantic/
+#gulp build
