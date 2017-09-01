@@ -6,7 +6,7 @@ from datetime import datetime
 import collections
 
 # Import models
-from core.models import Channel, Record
+from core.models import Channel, Record, Tag
 from django.contrib.auth.models import User
 
 class ChannelsListView(ListView):
@@ -42,12 +42,18 @@ class RecordsListView(ListView):
                 response.append(user)
         return response
 
+    def getChannelTags(self):
+        queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
+        return queryset
+
     def get_queryset(self):
         queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel'])
 
         try:
             if self.kwargs['user']:
                 queryset = queryset.filter(author__username=self.kwargs['user'])
+            if self.kwargs['tag']:
+                queryset = queryset.filter(tags__slug__in=self.kwargs['tag'], allowed=True)
         except Exception as e:
             print(e)
 
@@ -58,6 +64,7 @@ class RecordsListView(ListView):
         # Pass channel data to context
         context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
         context['channel_users'] = self.getChannelUsers
+        context['channel_tags'] = self.getChannelTags
         context['active_channel_slug'] = slug=self.kwargs['channel']
         context['filtered_by_user'] = "ninguno"
         try:

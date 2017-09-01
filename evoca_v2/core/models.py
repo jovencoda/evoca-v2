@@ -52,9 +52,6 @@ class Channel(TimeBot):
 	    self.slug = slugify(self.name)
 	    super(Channel, self).save(*args, **kwargs)
 
-	def getChannelTags(self):
-		return ChannelTag.objects.all().values().filter(related_channel__uniqueID=self.uniqueID).order_by('-created_at')
-
 	def __unicode__(self):
 		return self.name
 
