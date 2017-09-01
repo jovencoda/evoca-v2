@@ -24,6 +24,7 @@ class TimeBot(models.Model):
 	class Meta:
 		abstract = True
 
+# ----------- CHANNEL ------------->
 
 class Dimension(models.Model):
 	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
@@ -61,30 +62,28 @@ class Membership(TimeBot):
     channel = models.ForeignKey(Channel)
     user = models.ForeignKey(User)
 
-# ----------- TAGS ------------->
+# ----------- RECORD ------------->
 
-class ChannelTag(models.Model):
+class Tag(TimeBot):
 	uniqueID = models.UUIDField(default=uuid.uuid4, editable=False)
+	related_channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='related_channel')
 	name = models.CharField(max_length=255)
 	slug = models.SlugField(blank=True, null=True)
 	isActive = models.BooleanField(default=True)
-	related_channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='related_channel')
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.name)
-	    super(ChannelTag, self).save(*args, **kwargs)
+	    super(Tag, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.name
 
-# ----------- RECORD ------------->
-
 class Record(TimeBot):
+
 	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='record_author')
 	isActive = models.BooleanField(default=True)
 	channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='record_channel')
-	tags = models.ManyToManyField(ChannelTag, related_name='record_tags', blank=True)
 	location = modelsGIS.PointField(max_length=40, null=False)
 	country = models.CharField(max_length=50, blank=True)
 	region = models.CharField(max_length=50, blank=True)
@@ -93,6 +92,7 @@ class Record(TimeBot):
 	neighborhood = models.CharField(max_length=50, blank=True)
 	address = models.CharField(max_length=50, blank=True)
 	description = models.TextField(max_length=255, blank=True)
+	tags = models.ManyToManyField(Tag, related_name='record_tags', blank=True)
 
 	def save(self, *args, **kwargs):
 		try:
@@ -132,6 +132,13 @@ class Record(TimeBot):
 	def getLongPlace(self):
 		return self.address + ", " + self.region + ", " + self.city + ", " + self.country
 
+	def getTags(self):
+		tags = []
+		for tag in self.tags.all():
+			queryset = Tag.objects.get(uniqueID=tag.uniqueID)
+			tags.append(queryset)
+		return tags
+
 	def getAttachedImage(self):
 		queryset = Attachment.objects.values('url').filter(attachment_type=0).filter(related_record__uniqueID=self.uniqueID).first()
 		return queryset if queryset != None else {'url': "/static/img/image.png"}
@@ -141,6 +148,7 @@ class Record(TimeBot):
 
 	def __unicode__(self):
 		return unicode(self.uniqueID)
+
 
 # ----------- ATTACHMENTS ------------->
 

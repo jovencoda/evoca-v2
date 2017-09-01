@@ -8,7 +8,7 @@ from world.models import WorldBorder, VeredasColombia
 
 # Register your models here.
 #admin.site.register(Dimension)
-admin.site.register(ChannelTag)
+admin.site.register(Tag)
 #admin.site.register(ChannelType)
 admin.site.register(Attachment)
 admin.site.register(WorldBorder, geoAdmin.OSMGeoAdmin)
@@ -29,7 +29,7 @@ class ChannelAdmin(admin.ModelAdmin):
 admin.site.register(Channel, ChannelAdmin)
 
 class RecordAdmin(geoAdmin.OSMGeoAdmin):
-	list_display = ('uniqueID', 'author', 'channel', 'created_at', 'updated_at', 'location' )
+	list_display = ('author', 'channel', 'uniqueID', 'created_at', 'updated_at', 'location' )
 	list_display_links = ('uniqueID',)
 	search_fields = ('uniqueID',)
 	list_per_page = 50

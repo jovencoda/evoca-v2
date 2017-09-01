@@ -98,6 +98,7 @@
 
     <div class="image">
 
+      {% if record.getAttachedAudio.url %}
       <button class="ui compact labeled icon button green player">
         <i class="play icon"></i>
         <span class="audio-label">Reproducir</span>
@@ -106,6 +107,7 @@
           Your browser does not support the audio element.
         </audio>
       </button>
+      {% endif %}
 
       <a><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
     </div>
@@ -113,6 +115,13 @@
       {{ record.getLongPlace }}
     </div>
 
+    {% if record.getTags %}
+    <div class="content">
+      {% for tag in record.getTags %}
+        <a href="/{{ tag.slug }}" class="ui label">{{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
     <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
 
     <div class="ui bottom attached green progress"  data-percent="0">
