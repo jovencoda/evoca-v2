@@ -18,7 +18,6 @@ EVOCA .v2
 ### PostgreSQL
 
 - Hostname: localhost or 127.0.0.1
--
 - Username: root
 - Password: root
 - Database: evocaDB
