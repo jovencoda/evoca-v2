@@ -7,5 +7,5 @@ if [ -n "$BASH_VERSION" ]; then
     #sudo npm install
     # Back to main folder
   	cd /var/www/html/evoca
-	  fish
+    fish
 fi
