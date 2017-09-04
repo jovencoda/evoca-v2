@@ -48,15 +48,6 @@ class RecordsListView(ListView):
 
     def get_queryset(self):
         queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel'])
-
-        try:
-            if self.kwargs['user']:
-                queryset = queryset.filter(author__username=self.kwargs['user'])
-            if self.kwargs['tag']:
-                queryset = queryset.filter(tags__slug__in=self.kwargs['tag'], allowed=True)
-        except Exception as e:
-            print(e)
-
         return self.orderQueryByDate(queryset)
 
     def get_context_data(self, **kwargs):
@@ -67,9 +58,37 @@ class RecordsListView(ListView):
         context['channel_tags'] = self.getChannelTags
         context['active_channel_slug'] = slug=self.kwargs['channel']
         context['filtered_by_user'] = "ninguno"
-        try:
-            if self.kwargs['user']:
-                context['filtered_by_user'] = self.kwargs['user']
-        except Exception as e:
-            print(e)
+        context['filtered_by_tag'] = "ninguna"
+        return context
+
+class RecordsFilteredViewByUser(RecordsListView):
+    def get_queryset(self):
+        queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel']).filter(author__username=self.kwargs['user'])
+        return self.orderQueryByDate(queryset)
+
+    def get_context_data(self, **kwargs):
+        context = super(RecordsListView, self).get_context_data(**kwargs)
+        # Pass channel data to context
+        context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
+        context['channel_users'] = self.getChannelUsers
+        context['channel_tags'] = self.getChannelTags
+        context['active_channel_slug'] = slug=self.kwargs['channel']
+        context['filtered_by_user'] = self.kwargs['user']
+        context['filtered_by_tag'] = "ninguna"
+        return context
+
+class RecordsFilteredViewByTag(RecordsListView):
+    def get_queryset(self):
+        queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel']).filter(tags__slug=self.kwargs['tag'])
+        return self.orderQueryByDate(queryset)
+
+    def get_context_data(self, **kwargs):
+        context = super(RecordsListView, self).get_context_data(**kwargs)
+        # Pass channel data to context
+        context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
+        context['channel_users'] = self.getChannelUsers
+        context['channel_tags'] = self.getChannelTags
+        context['active_channel_slug'] = slug=self.kwargs['channel']
+        context['filtered_by_tag'] = self.kwargs['tag']
+        context['filtered_by_user'] = "ninguno"
         return context

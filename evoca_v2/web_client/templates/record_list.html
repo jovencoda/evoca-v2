@@ -30,7 +30,7 @@
               ninguno
             </a>
               {% for user in channel_users %}
-              <a href="/{{ active_channel_slug }}/{{ user }}/" class="item">
+              <a href="/{{ active_channel_slug }}/user/{{ user }}/" class="item">
                 {{ user }}
               </a>
               {% endfor %}
@@ -43,7 +43,7 @@
         Filtrar por la etiqueta
         <div class="ui inline dropdown">
           <div class="text">
-            ninguna
+            {{ filtered_by_tag }}
           </div>
           <i class="dropdown icon"></i>
           <div class="menu">
@@ -56,8 +56,8 @@
               ninguno
             </a>
               {% for tag in channel_tags %}
-              <a href="/{{ active_channel_slug }}/{{ tag }}/" class="item">
-                {{ tag }}
+              <a href="/{{ active_channel_slug }}/tag/{{ tag.slug }}/" class="item">
+                {{ tag.slug }}
               </a>
               {% endfor %}
           </div>
@@ -108,7 +108,7 @@
     {% if record.getTags %}
     <div class="content">
       {% for tag in record.getTags %}
-        <a href="/{{ tag.slug }}" class="ui label">{{ tag }}</a>
+        <a href="/tag/{{ tag.slug }}" class="ui label">{{ tag.slug }}</a>
       {% endfor %}
     </div>
     {% endif %}
