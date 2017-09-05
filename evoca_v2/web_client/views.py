@@ -22,8 +22,10 @@ class RecordsMapView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(RecordsMapView, self).get_context_data(**kwargs)
         # Pass channel data to context
-        context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
+        channel = Channel.objects.get(slug=self.kwargs['channel'])
+        context['active_channel_name'] = channel.name
         context['active_channel_slug'] = slug=self.kwargs['channel']
+        context['active_channel_ID'] = channel.uniqueID
         return context
 
 class RecordsListView(ListView):
