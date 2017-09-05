@@ -5,12 +5,49 @@
   <head>
     <meta charset="utf-8">
     <title>Evoca v2 | {% block title %}{% endblock %}</title>
+    {% block header %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/semantic/source/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-    {% block header %}{% endblock %}
   </head>
   <body>
-      {% include 'menu.html' with channels=get_channels_list %}
+
+      {% block menu %}
+      <div class="ui borderless green inverted top fixed menu">
+        <div class="ui container">
+          <a href="/" class="header item">
+            EVOCA
+          </a>
+
+          <div class="ui dropdown item">
+            canales&nbsp;<i class="angle down icon"></i>
+            <div class="menu" id="channel-menu">
+            </div>
+          </div>
+
+          {% block sub_menu %}
+          {% endblock %}
+          <!--<div class="right menu">
+            <div class="ui right aligned category search item">
+              <div class="ui transparent icon input">
+                <input class="prompt" placeholder="Search animals..." type="text">
+                <i class="search link icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+          </div>-->
+
+        </div>
+      </div>
+
+      <div class="ui borderless bottom fixed menu">
+        <div class="ui container">
+           <div class="item">
+            EVOCA is licensed under the GNU General Public License v3.0 and available at &nbsp;<a href="https://github.com/jovencoda/evoca-v2">Github</a>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+
       <div class="ui container" id="main-container">
         {% block body %}
         {% endblock %}
@@ -24,8 +61,8 @@
           crossorigin="anonymous"></script>
         <script src="/static/semantic/source/semantic.min.js"></script>
         <script src="https://fastcdn.org/D3.js/3.5.6/d3.min.js"></script>
+        {% block footer %}{% endblock %}
         <script src="/static/js/app.js"></script>
       {% endblock%}
-      {% block footer %}{% endblock %}
   </footer>
 </html>

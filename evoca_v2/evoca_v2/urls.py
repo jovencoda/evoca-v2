@@ -49,6 +49,7 @@ urlpatterns = [
 
     url(r'^$', ChannelsListView.as_view(), name='channel-view'),
     url(r'^(?P<channel>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view'),
+    url(r'^(?P<channel>[-_\w]+)/map/$', RecordsMapView.as_view(), name='records-map-view'),
     url(r'^(?P<channel>[-_\w]+)/user/(?P<user>[-_\w]+)/$', RecordsFilteredViewByUser.as_view(), name='records-list-view-user'),
     url(r'^(?P<channel>[-_\w]+)/tag/(?P<tag>[-_\w]+)/$', RecordsFilteredViewByTag.as_view(), name='records-list-view-tag')
 

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+  crossorigin=""/>
+{% endblock %}
+
+{% block title %}# {{ active_channel_name }} | Map{% endblock %}
+
+{% block sub_menu %}
+
+<div class="ui borderless green inverted menu">
+  <a href="/{{ active_channel_slug }}/" class="item">
+    Linea de tiempo
+  </a>
+  <a href="/{{ active_channel_slug }}/map/" class="item active">
+    Mapa
+  </a>
+  <a href="/{{ active_channel_slug }}/stats/" class="item">
+    Estadísticas
+  </a>
+</div>
+
+{% endblock%}
+
+{% block body %}
+ <div id="channel-map"></div>
+{% endblock %}
+
+{% block footer %}
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+  crossorigin=""></script>
+{% endblock %}

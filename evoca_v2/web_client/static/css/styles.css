@@ -63,3 +63,5 @@ audio, video {
   font-size: 16px;
   font-weight: 700;
 }
+
+#channel-map { height: 600px; }

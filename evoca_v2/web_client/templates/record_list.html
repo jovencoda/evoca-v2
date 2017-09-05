@@ -1,10 +1,26 @@
 {% extends "base.html" %}
+
 {% load web_client_tags %}
 {% block title %}# {{ active_channel_name }}{% endblock %}
 
+
+{% block sub_menu %}
+
+<div class="ui borderless green inverted menu">
+  <a href="/{{ active_channel_slug }}/" class="item active">
+    Linea de tiempo
+  </a>
+  <a href="/{{ active_channel_slug }}/map/" class="item">
+    Mapa
+  </a>
+  <a href="/{{ active_channel_slug }}/stats/" class="item">
+    Estadísticas
+  </a>
+</div>
+
+{% endblock%}
+
 {% block body %}
-
-
 
 <h1 class="ui header" id="channel-header">
 
