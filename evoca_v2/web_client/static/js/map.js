@@ -81,6 +81,7 @@ $(document)
               '</div>';
 
               $('#map-popup').html(popupContent);
+              audioPlayers();
 
           });
 
