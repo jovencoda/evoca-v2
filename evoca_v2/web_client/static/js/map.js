@@ -24,38 +24,66 @@ $(document)
         var popup = this._popup._content;
 
         $.ajax({
-            url: "http://192.168.33.10:8000/api/v1/channel/"+ channelID + "/records/" + report.uniqueID
+            url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID
         }).then(function(report) {
-
           console.log(report);
-          var popupContent = '<div class="ui card">'+
-          '<div class="content">'+
-          '<div class="right floated meta">' + report.created_at + '</div>'+
-          '<i class="at icon"></i>'+ report.author +
-          '</div>'+
-          '<div class="image">'+
-                '<button class="ui compact labeled icon button green player">'+
-                 ' <i class="play icon"></i>'+
-                  '<span class="audio-label">Reproducir</span>'+
-                  '<audio preload="none">'+
-                    '<source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">'+
-                   ' Your browser does not support the audio element.'+
-                  '</audio>'+
-                '</button>'+
-                '<a><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>'+
-              '</div>'+
-              '<div class="content">'+
-                report.address + ", " + report.region + ", " + report.city + ", " + report.country +
-              '</div>'+
-              '<div class="content">'+
-                  '<a href="/tag/{{ tag.slug }}" class="ui label">{{ tag.slug }}</a>'+
-              '</div>'+
-              '<div class="ui bottom attached green progress"  data-percent="0">'+
-                '<div class="bar"></div>'+
-              '</div>'+
-            '</div>';
+          var tags = '';
 
-            $('#map-popup').html(popupContent);
+          // Get tags and create html
+          if( report.tags.length > 0){
+             tags += '<div class="content">';
+            $(report.tags).each(function(i){
+                tags += '<a href="/tag/' + report.tags[i] + '" class="ui label">' + report.tags[i] + '</a>';
+            });
+            tags += "</div>";
+          }
+          // Get attachments and create html
+          $.ajax({
+              url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID + "/attachments/"
+          }).then(function(attachments) {
+
+            var image_url = '/static/img/image.png';
+            var audio_url = '';
+
+            $(attachments).each(function(i){
+
+              if(attachments[i].attachment_type == 0){ // is image
+                image_url = attachments[i].url;
+                console.log(image_url);
+              }else if(attachments[i].attachment_type == 3){ // is audio
+                audio_url = attachments[i].url;
+              }
+            });
+
+            var popupContent = '<div class="ui card">'+
+            '<div class="content">'+
+            '<div class="right floated meta">' + report.created_at + '</div>'+
+            '<i class="at icon"></i>'+ report.author +
+            '</div>'+
+            '<div class="image">'+
+                  '<button class="ui compact labeled icon button green player">'+
+                   ' <i class="play icon"></i>'+
+                    '<span class="audio-label">Reproducir</span>'+
+                    '<audio preload="none">'+
+                      '<source src="' + audio_url + '" type="audio/mpeg">'+
+                     ' Your browser does not support the audio element.'+
+                    '</audio>'+
+                  '</button>'+
+                  '<a><img class="card-img" src="' + image_url + '"></a>'+
+                '</div>'+
+                '<div class="content">'+
+                  report.address + ", " + report.region + ", " + report.city + ", " + report.country +
+                '</div>'+
+                tags +
+                '<div class="ui bottom attached green progress"  data-percent="0">'+
+                  '<div class="bar"></div>'+
+                '</div>'+
+              '</div>';
+
+              $('#map-popup').html(popupContent);
+
+          });
+
 
         });
 
@@ -66,7 +94,7 @@ $(document)
 
    // Make data petition
    $.ajax({
-       url: "http://192.168.33.10:8000/api/v1/channel/"+ channelID +"/records/?format=json"
+       url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/?format=json"
    }).then(function(data) {
      var reports = data.slice(0);
 

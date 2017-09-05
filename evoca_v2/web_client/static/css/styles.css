@@ -80,7 +80,7 @@ audio, video {
 
 .leaflet-popup-content {
     margin: 0px;
-    min-height: 350px;
+    min-height: 180px;
     min-width: 270px;
 }
 

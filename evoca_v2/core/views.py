@@ -29,7 +29,7 @@ class ChannelAPIView(viewsets.ModelViewSet):
 		return Response(serializer.data)
 
 class RecordAPIView(viewsets.ViewSet):
-	
+
 	def list(self, request, channel_pk=None):
 		queryset = Record.objects.all().order_by('created_at').filter(channel__uniqueID=channel_pk)
 		serializer = RecordSerializer(queryset, many=True)
@@ -39,4 +39,18 @@ class RecordAPIView(viewsets.ViewSet):
 		queryset = Record.objects.all().order_by('created_at').filter(uniqueID=pk, channel__uniqueID=channel_pk)
 		record = get_object_or_404(queryset, uniqueID=pk)
 		serializer = RecordFullSerializer(record)
+		return Response(serializer.data)
+
+class AttachmentAPIView(viewsets.ViewSet):
+	serializer_class = AttachmentSerializer
+
+	def list(self, request, channel_pk=None, records_pk=None):
+		queryset = Attachment.objects.all().order_by('created_at').filter(related_record__uniqueID=records_pk)
+		serializer = AttachmentSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+	def retrieve(self, request, pk=None):
+		queryset = Attachment.objects.filter(related_record__uniqueID=pk)
+		attachment = get_object_or_404(queryset, related_record__uniqueID=pk)
+		serializer = AttachmentSerializer(attachment)
 		return Response(serializer.data)

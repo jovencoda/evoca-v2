@@ -30,12 +30,14 @@ from web_client.views import *
 
 router = SimpleRouter()
 router.register(r'channel', ChannelAPIView)
-#router.register(r'records', RecordAPIView)
 
 # ------ API Second level routing ------
 
 channel_router = routers.NestedSimpleRouter(router, r'channel', lookup='channel')
 channel_router.register(r'records', RecordAPIView, base_name='channel-records')
+
+record_router = routers.NestedSimpleRouter(channel_router, r'records', lookup='records')
+record_router.register(r'attachments', AttachmentAPIView, base_name='record-attachments')
 
 
 urlpatterns = [
@@ -44,6 +46,7 @@ urlpatterns = [
 	url(r'^api-token-auth/', views.obtain_auth_token),
 	url(r'^api/v1/', include(router.urls)),
 	url(r'^api/v1/', include(channel_router.urls)),
+    url(r'^api/v1/', include(record_router.urls)),
 
     # ----------- Web-Client URLS ---------
 

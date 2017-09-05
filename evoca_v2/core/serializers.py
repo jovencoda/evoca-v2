@@ -25,7 +25,7 @@ class RecordSerializer(serial.ModelSerializer):
 class AttachmentSerializer(serial.ModelSerializer):
 	class Meta:
 		model = Attachment
-		fields = ('pk', 'author', 'url', 'hashName', 'isActive', 'related_record')
+		fields = ('hashName', 'attachment_type', 'related_record', 'url')
 
 class RecordFullSerializer(serial.ModelSerializer):
 	tags = serial.SlugRelatedField(
