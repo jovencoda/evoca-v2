@@ -51,7 +51,14 @@ $(document)
                 image_url = attachments[i].url;
                 console.log(image_url);
               }else if(attachments[i].attachment_type == 3){ // is audio
-                audio_url = attachments[i].url;
+                  audio_url = '<button class="ui compact labeled icon button green player">'+
+                 ' <i class="play icon"></i>'+
+                  '<span class="audio-label">Reproducir</span>'+
+                  '<audio preload="none">'+
+                    '<source src="' + attachments[i].url + '" type="audio/mpeg">'+
+                   ' Your browser does not support the audio element.'+
+                  '</audio>'+
+                '</button>';
               }
             });
 
@@ -61,14 +68,7 @@ $(document)
             '<i class="at icon"></i>'+ report.author +
             '</div>'+
             '<div class="image">'+
-                  '<button class="ui compact labeled icon button green player">'+
-                   ' <i class="play icon"></i>'+
-                    '<span class="audio-label">Reproducir</span>'+
-                    '<audio preload="none">'+
-                      '<source src="' + audio_url + '" type="audio/mpeg">'+
-                     ' Your browser does not support the audio element.'+
-                    '</audio>'+
-                  '</button>'+
+                  audio_url+
                   '<a><img class="card-img" src="' + image_url + '"></a>'+
                 '</div>'+
                 '<div class="content">'+
