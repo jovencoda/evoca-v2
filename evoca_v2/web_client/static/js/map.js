@@ -13,12 +13,15 @@ $(document)
        accessToken: 'pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg'
    }).addTo(mymap);
 
-   function addMarker(location){
+   var markers = L.markerClusterGroup({ chunkedLoading: true });
+
+   function addMarker(location, markers){
      var str = location.slice(17, -1);
      var coordinates = str.split(" ");
-     marker = new L.marker([parseFloat(coordinates[1]), parseFloat(coordinates[0])])
-     .bindPopup("Content")
-     .addTo(mymap);
+     var marker = new L.marker([parseFloat(coordinates[1]), parseFloat(coordinates[0])])
+      .bindPopup("Content");
+      
+     return marker;
    }
 
    // Make data petition
@@ -26,9 +29,12 @@ $(document)
        url: "http://192.168.33.10:8000/api/v1/channel/"+ channelID +"/records/?format=json"
    }).then(function(data) {
      var reports = data.slice(0);
+
      $(reports).each(function(i){
-       addMarker(reports[i].location);
+       markers.addLayer(addMarker(reports[i].location));
      });
+
+     mymap.addLayer(markers);
 
    });
 
