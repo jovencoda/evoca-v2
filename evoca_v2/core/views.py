@@ -29,9 +29,7 @@ class ChannelAPIView(viewsets.ModelViewSet):
 		return Response(serializer.data)
 
 class RecordAPIView(viewsets.ViewSet):
-	#queryset = Record.objects.all().order_by('created_at')
-	serializer_class = RecordSerializer
-
+	
 	def list(self, request, channel_pk=None):
 		queryset = Record.objects.all().order_by('created_at').filter(channel__uniqueID=channel_pk)
 		serializer = RecordSerializer(queryset, many=True)
@@ -40,5 +38,5 @@ class RecordAPIView(viewsets.ViewSet):
 	def retrieve(self, request, pk=None, channel_pk=None):
 		queryset = Record.objects.all().order_by('created_at').filter(uniqueID=pk, channel__uniqueID=channel_pk)
 		record = get_object_or_404(queryset, uniqueID=pk)
-		serializer = RecordSerializer(record)
+		serializer = RecordFullSerializer(record)
 		return Response(serializer.data)

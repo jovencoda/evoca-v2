@@ -77,3 +77,14 @@ audio, video {
 #channel-map {
   height: 100%;
 }
+
+.leaflet-popup-content {
+    margin: 0px;
+    min-height: 350px;
+    min-width: 270px;
+}
+
+.leaflet-popup-content-wrapper {
+    padding: 0px;
+    border-radius: 0px;
+}

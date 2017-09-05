@@ -76,7 +76,7 @@ class Tag(TimeBot):
 	    super(Tag, self).save(*args, **kwargs)
 
 	def __unicode__(self):
-		return self.name
+		return self.slug
 
 class Record(TimeBot):
 

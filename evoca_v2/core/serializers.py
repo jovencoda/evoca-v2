@@ -19,5 +19,23 @@ class RecordSerializer(serial.ModelSerializer):
 
 	class Meta:
 		model = Record
-		fields = ('uniqueID', 'author', 'channel', 'location', 'description', 'created_at', 'updated_at', )
+		fields = ('uniqueID', 'location')
+		read_only_fields = ('created_at', 'updated_at',)
+
+class AttachmentSerializer(serial.ModelSerializer):
+	class Meta:
+		model = Attachment
+		fields = ('pk', 'author', 'url', 'hashName', 'isActive', 'related_record')
+
+class RecordFullSerializer(serial.ModelSerializer):
+	tags = serial.SlugRelatedField(
+		many=True,
+		read_only=True,
+		slug_field='slug'
+	)
+	author = serial.StringRelatedField()
+
+	class Meta:
+		model = Record
+		fields = ('uniqueID', 'author', 'channel', 'location', 'description', 'country', 'region', 'city', 'neighborhood', 'address', 'tags', 'created_at', 'updated_at', )
 		read_only_fields = ('created_at', 'updated_at',)
