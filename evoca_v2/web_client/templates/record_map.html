@@ -6,12 +6,18 @@
   crossorigin=""/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.css" crossorigin=""/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.1.0/dist/MarkerCluster.Default.css" crossorigin=""/>
-  
+
 {% endblock %}
 
 {% block title %}# {{ active_channel_name }} | Map{% endblock %}
 
 {% block sub_menu %}
+
+<div class="ui dropdown item">
+  {{ active_channel_name }}&nbsp;<i class="angle down icon"></i>
+  <div class="menu" id="channel-menu">
+  </div>
+</div>
 
 <div class="ui borderless green inverted menu">
   <a href="/{{ active_channel_slug }}/" class="item">
