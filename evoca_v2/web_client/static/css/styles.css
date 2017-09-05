@@ -64,4 +64,8 @@ audio, video {
   font-weight: 700;
 }
 
-#channel-map { height: 600px; }
+#channel-map {
+  z-index: 1;
+  height: 100%;
+  margin-top: 40px;
+}

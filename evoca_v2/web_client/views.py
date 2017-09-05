@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 from django.shortcuts import render
 from datetime import datetime
 import collections
@@ -16,8 +16,7 @@ class ChannelsListView(ListView):
         context = super(ChannelsListView, self).get_context_data(**kwargs)
         return context
 
-class RecordsMapView(ListView):
-    model = Record
+class RecordsMapView(TemplateView):
     template_name = 'record_map.html'
 
     def get_context_data(self, **kwargs):

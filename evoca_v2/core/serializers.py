@@ -19,5 +19,5 @@ class RecordSerializer(serial.ModelSerializer):
 
 	class Meta:
 		model = Record
-		fields = ('uniqueID', 'author', 'channel', 'location', 'about', 'image', 'created_at', 'updated_at', )
+		fields = ('uniqueID', 'author', 'channel', 'location', 'description', 'created_at', 'updated_at', )
 		read_only_fields = ('created_at', 'updated_at',)
