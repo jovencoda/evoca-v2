@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 from rest_framework_nested import routers
 from rest_framework.authtoken import views
 
@@ -28,9 +28,9 @@ from web_client.views import *
 
 # ------ API First level routing ------
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r'channel', ChannelAPIView)
-router.register(r'records', RecordAPIView)
+#router.register(r'records', RecordAPIView)
 
 # ------ API Second level routing ------
 

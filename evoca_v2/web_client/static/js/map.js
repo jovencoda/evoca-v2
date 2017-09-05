@@ -46,9 +46,10 @@ $(document)
      var str = location.slice(17, -1);
      var coordinates = str.split(" ");
      var marker = new L.marker([parseFloat(coordinates[1]), parseFloat(coordinates[0])])
-      .bindPopup(popupContent)
+      .bindPopup('<div class="ui segment"><div class="ui active inverted dimmer"><div class="ui text loader">Loading</div></div><p></p></div>')
       .on('click', function(i){
-        console.log("open")
+
+        console.log(this._popup._content)
       });
 
      return marker;
