@@ -33,6 +33,72 @@
 
 {% endblock%}
 
+{% block body %}
+<h1 class="ui header" id="channel-header">
+
+  <i class="hashtag icon"></i>
+  <div class="content">
+    {{ active_channel_name }}
+    <div class="sub header">
+
+      <span>
+        Filtrar por el usuario
+        <div class="ui inline dropdown">
+          <div class="text">
+            {{ filtered_by_user }}
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+              <div class="ui icon search input">
+                <i class="search icon"></i>
+                <input placeholder="Buscar usuario..." type="text">
+              </div>
+          <div class="scrolling menu">
+            <a href="/{{ active_channel_slug }}/" class="item" style="font-weight:600;">
+              ninguno
+            </a>
+              {% for user in channel_users %}
+              <a href="/{{ active_channel_slug }}/user/{{ user }}/" class="item">
+                {{ user }}
+              </a>
+              {% endfor %}
+          </div>
+          </div>
+        </div>
+      </span>
+
+      <span>
+        Filtrar por la etiqueta
+        <div class="ui inline dropdown">
+          <div class="text">
+            {{ filtered_by_tag }}
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+              <div class="ui icon search input">
+                <i class="search icon"></i>
+                <input placeholder="Buscar usuario..." type="text">
+              </div>
+          <div class="scrolling menu">
+            <a href="/{{ active_channel_slug }}/" class="item" style="font-weight:600;">
+              ninguna
+            </a>
+              {% for tag in channel_tags %}
+              <a href="/{{ active_channel_slug }}/tag/{{ tag.slug }}/" class="item">
+                {{ tag.slug }}
+              </a>
+              {% endfor %}
+          </div>
+          </div>
+        </div>
+      </span>
+
+    </div>
+  </div>
+
+</h1>
+{% endblock%}
+
 {% block wrapper %}
 <div class="map-wrapper">
   <div id="channel-map" uniqueID="{{ active_channel_ID }}"></div>
