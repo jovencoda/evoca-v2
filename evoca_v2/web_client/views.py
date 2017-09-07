@@ -16,18 +16,6 @@ class ChannelsListView(ListView):
         context = super(ChannelsListView, self).get_context_data(**kwargs)
         return context
 
-class RecordsMapView(TemplateView):
-    template_name = 'record_map.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(RecordsMapView, self).get_context_data(**kwargs)
-        # Pass channel data to context
-        channel = Channel.objects.get(slug=self.kwargs['channel'])
-        context['active_channel_name'] = channel.name
-        context['active_channel_slug'] = slug=self.kwargs['channel']
-        context['active_channel_ID'] = channel.uniqueID
-        return context
-
 class RecordsListView(ListView):
     model = Record
     template_name = 'record_list.html'
@@ -69,6 +57,35 @@ class RecordsListView(ListView):
         context['channel_users'] = self.getChannelUsers
         context['channel_tags'] = self.getChannelTags
         context['active_channel_slug'] = slug=self.kwargs['channel']
+        context['filtered_by_user'] = "ninguno"
+        context['filtered_by_tag'] = "ninguna"
+        return context
+
+class RecordsMapView(TemplateView):
+    template_name = 'record_map.html'
+
+    def getChannelUsers(self):
+        queryset = Record.objects.all().filter(channel__slug=self.kwargs['channel'])
+        response = []
+        for s in queryset:
+            user = User.objects.get(pk=s.author.pk).username
+            if user not in response:
+                response.append(user)
+        return response
+
+    def getChannelTags(self):
+        queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super(RecordsMapView, self).get_context_data(**kwargs)
+        # Pass channel data to context
+        channel = Channel.objects.get(slug=self.kwargs['channel'])
+        context['channel_users'] = self.getChannelUsers
+        context['channel_tags'] = self.getChannelTags
+        context['active_channel_name'] = channel.name
+        context['active_channel_slug'] = slug=self.kwargs['channel']
+        context['active_channel_ID'] = channel.uniqueID
         context['filtered_by_user'] = "ninguno"
         context['filtered_by_tag'] = "ninguna"
         return context

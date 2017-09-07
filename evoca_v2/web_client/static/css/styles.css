@@ -69,7 +69,7 @@ audio, video {
   position: absolute;
   width: 100%;
   height: calc(100% - 45px);
-  z-index: 1;
+  z-index: 0;
   padding-top: 165px;
   overflow: hidden;
 }

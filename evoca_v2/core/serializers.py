@@ -16,10 +16,14 @@ class ChannelSerializer(serial.ModelSerializer):
 		read_only_fields = ('created_at', 'updated_at',)
 
 class RecordSerializer(serial.ModelSerializer):
-
+	tags = serial.SlugRelatedField(
+		many=True,
+		read_only=True,
+		slug_field='slug'
+	)
 	class Meta:
 		model = Record
-		fields = ('uniqueID', 'location')
+		fields = ('uniqueID', 'location', 'tags')
 		read_only_fields = ('created_at', 'updated_at',)
 
 class AttachmentSerializer(serial.ModelSerializer):
