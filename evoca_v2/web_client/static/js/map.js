@@ -6,28 +6,31 @@ $(document)
 
 });
 
-function generateMapFilters(map){
-  var markers = d3.select(map);
+function generateMapFilters(map, markers, _markers){
+
+  //var markers = d3.select(map);
   var userFilter = d3.selectAll(".user-filter").on('click', function(i){
-  var htmlContent = $(this).html();
+  var query = $(this).html().replace(/\s/g,'');
 
-    //console.log(markers);
-    getAllMarkers(map);
-
+    markers.clearLayers();
+    filterMarkers(query, markers, _markers);
+    //filterMarkers(query, _markers);
   });
 
 }
 
-function getAllMarkers(map) {
-    var allMarkersObjArray = []; // for marker objects
-    var allMarkersGeoJsonArray = []; // for readable geoJson markers
-    $.each(map._layers, function (ml) {
-        if (map._layers[ml].feature) {
-            allMarkersObjArray.push(this)
-            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
-        }
-    })
-    console.log(allMarkersObjArray);
+function filterMarkers(query, markers, _markers){
+  //console.log(query);
+  //var markers = L.markerClusterGroup({ chunkedLoading: true });
+  //filtered_markers = []
+  $(_markers).each(function(i){
+    if(_markers[i].author == query){
+      //.push(markers[i]);
+      markers.addLayer(_markers[i]);
+    }
+  });
+  //console.log(markers);
+  //return markers;
 }
 
 
@@ -54,12 +57,10 @@ function generateMap() {
      .on('popupopen', function(i){
        var popup = this._popup._content;
 
-       console.log(this.tags);
-
        $.ajax({
            url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID
        }).then(function(report) {
-         console.log(report);
+
          var tags = '';
 
          // Get tags and create html
@@ -136,15 +137,19 @@ function generateMap() {
   }).then(function(data) {
     var reports = data.slice(0);
 
+    var _markers = []
     $(reports).each(function(i){
       markers.addLayer(addMarker(reports[i]));
+      _markers.push(addMarker(reports[i]))
     });
 
+    //var markers_layer = L.layerGroup(_markers);
     mymap.addLayer(markers);
+
+    // Create map filtering options
+    generateMapFilters(mymap, markers, _markers);
 
   });
 
-  // Create map filtering options
-  generateMapFilters(mymap);
 
 }

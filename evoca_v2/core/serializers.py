@@ -21,9 +21,11 @@ class RecordSerializer(serial.ModelSerializer):
 		read_only=True,
 		slug_field='slug'
 	)
+	author = serial.StringRelatedField()
+	
 	class Meta:
 		model = Record
-		fields = ('uniqueID', 'location', 'tags')
+		fields = ('uniqueID', 'location', 'tags', 'author')
 		read_only_fields = ('created_at', 'updated_at',)
 
 class AttachmentSerializer(serial.ModelSerializer):
