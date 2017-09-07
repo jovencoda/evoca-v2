@@ -3,9 +3,32 @@ $(document)
    .ready(function() {
 
     generateMap();
-    //sgenerateMapFilters();
 
 });
+
+function generateMapFilters(map){
+  var markers = d3.select(map);
+  var userFilter = d3.selectAll(".user-filter").on('click', function(i){
+  var htmlContent = $(this).html();
+
+    //console.log(markers);
+    getAllMarkers(map);
+
+  });
+
+}
+
+function getAllMarkers(map) {
+    var allMarkersObjArray = []; // for marker objects
+    var allMarkersGeoJsonArray = []; // for readable geoJson markers
+    $.each(map._layers, function (ml) {
+        if (map._layers[ml].feature) {
+            allMarkersObjArray.push(this)
+            allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+        }
+    })
+    console.log(allMarkersObjArray);
+}
 
 
 function generateMap() {
@@ -100,8 +123,9 @@ function generateMap() {
 
      });
 
-   // Add tags to marker
-   marker.tags = report.tags;
+    // Add filtering metadata to marker
+    marker.tags = report.tags;
+    marker.author = report.author;
 
     return marker;
   }
@@ -119,5 +143,8 @@ function generateMap() {
     mymap.addLayer(markers);
 
   });
+
+  // Create map filtering options
+  generateMapFilters(mymap);
 
 }

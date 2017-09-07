@@ -53,12 +53,12 @@
                 <i class="search icon"></i>
                 <input placeholder="Buscar usuario..." type="text">
               </div>
-          <div class="scrolling menu">
-            <a href="/{{ active_channel_slug }}/" class="item" style="font-weight:600;">
+          <div id="user-filter" class="scrolling menu">
+            <a class="item user-filter" style="font-weight:600;">
               ninguno
             </a>
               {% for user in channel_users %}
-              <a href="/{{ active_channel_slug }}/user/{{ user }}/" class="item">
+              <a class="item user-filter">
                 {{ user }}
               </a>
               {% endfor %}
@@ -79,12 +79,12 @@
                 <i class="search icon"></i>
                 <input placeholder="Buscar usuario..." type="text">
               </div>
-          <div class="scrolling menu">
-            <a href="/{{ active_channel_slug }}/" class="item" style="font-weight:600;">
+          <div id="tag-filter" class="scrolling menu">
+            <a class="item" style="font-weight:600;">
               ninguna
             </a>
               {% for tag in channel_tags %}
-              <a href="/{{ active_channel_slug }}/tag/{{ tag.slug }}/" class="item">
+              <a class="item">
                 {{ tag.slug }}
               </a>
               {% endfor %}
