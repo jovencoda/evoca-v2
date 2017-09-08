@@ -104,10 +104,10 @@
 
   <div class="ui card">
     <div class="content">
-      <div class="right floated meta">{{ record.created_at }}</div>
+      <div class="right floated meta time">{{ record.created_at|date:"D, d M Y H:i" }}</div>
       <i class="at icon"></i>{{ record.author }}
     </div>
-
+{{ record.created_at|date:"D, d M Y H:i" }}
     <div class="image">
 
       {% if record.getAttachedAudio.url %}

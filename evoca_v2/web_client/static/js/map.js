@@ -105,7 +105,7 @@ function generateMap() {
 
            var popupContent = '<div class="ui card">'+
            '<div class="content">'+
-           '<div class="right floated meta">' + report.created_at + '</div>'+
+           '<div class="right floated meta time">' + report.created_at + '</div>'+
            '<i class="at icon"></i>'+ report.author +
            '</div>'+
            '<div class="image">'+
@@ -123,6 +123,7 @@ function generateMap() {
 
              $('#map-popup').html(popupContent);
              audioPlayers();
+              parseTimes();
 
          });
 

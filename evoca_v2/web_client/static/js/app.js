@@ -13,8 +13,20 @@ $(document)
 
     populateMenu();
     audioPlayers();
+    parseTimes();
 
    });
+
+   function parseTimes(){
+     var formatTime = d3.timeFormat("%B %d, %I:%M");
+     var times = d3.selectAll(".time")
+
+     $(times).each(function(i){
+       console.log($(this).html());
+       var date = new Date($(this).html());
+       $(this).html(formatTime(date));
+     });
+   }
 
    function populateMenu(){
    menu = d3.select("#channel-menu");
