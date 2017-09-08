@@ -71,23 +71,26 @@ class RecordsStatsView(TemplateView):
             user = User.objects.get(pk=s.author.pk).username
             if user not in response:
                 response.append(user)
-        return response
+        return len(response)
 
     def getChannelTags(self):
         queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
-        return queryset
+        return len(queryset)
+
+    def getChannelRecords(self):
+        return Record.objects.all().filter(channel__slug=self.kwargs['channel']).count()
 
     def get_context_data(self, **kwargs):
         context = super(RecordsStatsView, self).get_context_data(**kwargs)
         # Pass channel data to context
         channel = Channel.objects.get(slug=self.kwargs['channel'])
-        context['channel_users'] = self.getChannelUsers
-        context['channel_tags'] = self.getChannelTags
+        context['channel_records_count'] = self.getChannelRecords
+        context['channel_users_count'] = self.getChannelUsers
+        context['channel_users_count'] = self.getChannelUsers
+        context['channel_tags_count'] = self.getChannelTags
         context['active_channel_name'] = channel.name
         context['active_channel_slug'] = slug=self.kwargs['channel']
         context['active_channel_ID'] = channel.uniqueID
-        context['filtered_by_user'] = "ninguno"
-        context['filtered_by_tag'] = "ninguna"
         return context
 
 
