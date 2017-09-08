@@ -8,29 +8,36 @@ $(document)
 
 function generateMapFilters(map, markers, _markers){
 
-  //var markers = d3.select(map);
-  var userFilter = d3.selectAll(".user-filter").on('click', function(i){
+  var userFilter = d3.selectAll(".map-filter").on('click', function(i){
+  var type = $(this).attr('type');
   var query = $(this).html().replace(/\s/g,'');
 
     markers.clearLayers();
-    filterMarkers(query, markers, _markers);
-    //filterMarkers(query, _markers);
+    filterMarkers(type, query, markers, _markers);
+
   });
 
 }
 
-function filterMarkers(query, markers, _markers){
-  //console.log(query);
-  //var markers = L.markerClusterGroup({ chunkedLoading: true });
-  //filtered_markers = []
+function filterMarkers(type, query, markers, _markers){
+
   $(_markers).each(function(i){
-    if(_markers[i].author == query){
-      //.push(markers[i]);
-      markers.addLayer(_markers[i]);
+    switch (type) {
+      case 'author':
+        if(_markers[i].author == query){ // author filter
+          markers.addLayer(_markers[i]);
+        }
+        break;
+      case 'tag':
+        if(_markers[i].tags.includes(query)){ // author filter
+          markers.addLayer(_markers[i]);
+        }
+        break;
+      case 'null':
+          markers.addLayer(_markers[i]);
+        break;
     }
   });
-  //console.log(markers);
-  //return markers;
 }
 
 

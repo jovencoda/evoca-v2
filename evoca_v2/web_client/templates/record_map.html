@@ -54,11 +54,11 @@
                 <input placeholder="Buscar usuario..." type="text">
               </div>
           <div id="user-filter" class="scrolling menu">
-            <a class="item user-filter" style="font-weight:600;">
+            <a class="item map-filter" type="null" style="font-weight:600;">
               ninguno
             </a>
               {% for user in channel_users %}
-              <a class="item user-filter">
+              <a class="item map-filter" type="author">
                 {{ user }}
               </a>
               {% endfor %}
@@ -80,11 +80,11 @@
                 <input placeholder="Buscar usuario..." type="text">
               </div>
           <div id="tag-filter" class="scrolling menu">
-            <a class="item" style="font-weight:600;">
+            <a class="item map-filter" type="tag" style="font-weight:600;">
               ninguna
             </a>
               {% for tag in channel_tags %}
-              <a class="item">
+              <a class="item map-filter" type="null">
                 {{ tag.slug }}
               </a>
               {% endfor %}
