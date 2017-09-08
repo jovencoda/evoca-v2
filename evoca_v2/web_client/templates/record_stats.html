@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block header %}
+<link href="/static/css/c3.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}# {{ active_channel_name }} | Stats{% endblock %}
+
+{% block sub_menu %}
+
+<div class="ui dropdown item">
+  {{ active_channel_name }}&nbsp;<i class="angle down icon"></i>
+  <div class="menu" id="channel-menu">
+  </div>
+</div>
+
+<div class="ui borderless green inverted menu">
+  <a href="/{{ active_channel_slug }}/" class="item">
+    Linea de tiempo
+  </a>
+  <a href="/{{ active_channel_slug }}/map/" class="item">
+    Mapa
+  </a>
+  <a href="/{{ active_channel_slug }}/stats/" class="item active">
+    Estadísticas
+  </a>
+</div>
+
+{% endblock%}
+
+{% block body %}
+<h1 class="ui header" id="channel-header">
+
+  <i class="hashtag icon"></i>
+  <div class="content">
+    {{ active_channel_name }}
+    <div class="sub header">
+      Estadisticas y tendencias del canal
+    </div>
+  </div>
+
+</h1>
+
+<!-- Main body -->
+
+<!-- Stats -->
+
+<h4 class="ui horizontal divider header">
+  Vista previa
+</h4>
+
+    <div class="ui three statistics">
+
+      <div class="ui statistic">
+        <div class="value">
+          5,550
+        </div>
+        <div class="label">
+          Users
+        </div>
+      </div>
+
+      <div class="ui statistic">
+        <div class="value">
+          5,550
+        </div>
+        <div class="label">
+          Records
+        </div>
+      </div>
+
+      <div class="ui statistic">
+        <div class="value">
+          5,550
+        </div>
+        <div class="label">
+          Tags
+        </div>
+      </div>
+
+    </div>
+
+
+<!-- Charts -->
+
+<h4 class="ui horizontal divider header">
+  Diagramas
+</h4>
+
+<div class="ui two column grid">
+
+  <div class="row">
+    <div class="column">
+
+      1
+
+    </div>
+    <div class="column">
+
+      2
+
+    </div>
+  </div>
+</div>
+
+{% endblock%}
+
+
+
+{% block footer %}
+<script src="/static/js/c3.min.js"></script>
+{% endblock %}
