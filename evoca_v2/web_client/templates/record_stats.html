@@ -9,7 +9,7 @@
 {% block sub_menu %}
 
 <div class="ui dropdown item">
-  {{ active_channel_name }}&nbsp;<i class="angle down icon"></i>
+  <strong>{{ active_channel_name }}</strong>&nbsp;<i class="angle down icon"></i>
   <div class="menu" id="channel-menu">
   </div>
 </div>
@@ -52,7 +52,7 @@
     <div class="ui three statistics">
 
       <div class="ui statistic">
-        <div class="value">
+        <div class="value l">
           {{ channel_records_count }}
         </div>
         <div class="label">

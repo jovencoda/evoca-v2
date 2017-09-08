@@ -26,6 +26,9 @@ $(document)
        var date = new Date($(this).html());
        $(this).html(formatTime(date));
      });
+
+
+
    }
 
    function populateMenu(){
