@@ -81,11 +81,11 @@
                 <input placeholder="Buscar usuario..." type="text">
               </div>
           <div id="tag-filter" class="scrolling menu">
-            <a class="item map-filter" type="tag" style="font-weight:600;">
+            <a class="item map-filter" type="null" style="font-weight:600;">
               ninguna
             </a>
               {% for tag in channel_tags %}
-              <a class="item map-filter" type="null">
+              <a class="item map-filter" type="tag">
                 {{ tag.slug }}
               </a>
               {% endfor %}
