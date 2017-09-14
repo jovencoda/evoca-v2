@@ -1,6 +1,7 @@
 
 from django import template
-
+from django.conf import settings
+from rest_framework.authtoken.models import Token
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 from hashlib import md5
@@ -28,3 +29,12 @@ def flavatar(value):
     hash_values = (hash[:8], hash[8:16], hash[16:24])
     number = tuple(int(value, 16)%256 for value in hash_values)
     return mark_safe('<div class="label flavatar" style="background: rgb%s;">%s</div>' % (number, fistchar))
+
+
+@register.simple_tag(name='get_map_token')
+def get_map_token():
+    return settings.MAPBOX_ACCESS_TOKEN
+
+@register.simple_tag(name='get_api_token')
+def get_api_token():
+    return Token.objects.get(user__username='root')

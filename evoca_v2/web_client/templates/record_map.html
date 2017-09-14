@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load web_client_tags %}
 
 {% block header %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
@@ -110,5 +111,9 @@
   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
   crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.1.0/dist/leaflet.markercluster.js" crossorigin=""></script>
+<script type="text/javascript">
+    var api_token = '{% get_api_token %}';
+    var mapbox_token = '{% get_map_token %}';
+</script>
 <script src="/static/js/map.js"></script>
 {% endblock %}

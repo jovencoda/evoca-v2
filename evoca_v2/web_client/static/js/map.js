@@ -6,6 +6,7 @@ $(document)
 
 });
 
+
 function generateMapFilters(map, markers, _markers){
 
   var userFilter = d3.selectAll(".map-filter").on('click', function(i){
@@ -51,7 +52,7 @@ function generateMap() {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'mapbox.outdoors',
-      accessToken: 'pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg'
+      accessToken: mapbox_token
   }).addTo(mymap);
 
   var markers = L.markerClusterGroup({ chunkedLoading: true });
@@ -63,9 +64,20 @@ function generateMap() {
      .bindPopup('<div id="map-popup" class="ui" style="width:270px;"><div class="ui active inverted dimmer"><div class="ui text loader">Cargando</div></div><p></p></div>')
      .on('popupopen', function(i){
        var popup = this._popup._content;
-
+       $.ajaxSetup({
+         beforeSend: function(xhr, settings) {
+             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
+             }
+         }
+       });
        $.ajax({
-           url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID
+           url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID,
+           headers: {
+               'Authorization':'Token ' + api_token,
+               'X_CSRF_TOKEN': csrftoken,
+               'Content-Type':'application/json'
+           },
        }).then(function(report) {
 
          var tags = '';
@@ -79,8 +91,20 @@ function generateMap() {
            tags += "</div>";
          }
          // Get attachments and create html
+         $.ajaxSetup({
+           beforeSend: function(xhr, settings) {
+               if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                   xhr.setRequestHeader("X-CSRFToken", csrftoken);
+               }
+           }
+         });
          $.ajax({
-             url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID + "/attachments/"
+             url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID + "/attachments/",
+             headers: {
+                 'Authorization':'Token ' + api_token,
+                 'X_CSRF_TOKEN': csrftoken,
+                 'Content-Type':'application/json'
+             },
          }).then(function(attachments) {
 
            var image_url = '/static/img/image.png';
@@ -90,7 +114,6 @@ function generateMap() {
 
              if(attachments[i].attachment_type == 0){ // is image
                image_url = attachments[i].url;
-               console.log(image_url);
              }else if(attachments[i].attachment_type == 3){ // is audio
                  audio_url = '<button class="ui compact labeled icon button green player">'+
                 ' <i class="play icon"></i>'+
@@ -141,7 +164,12 @@ function generateMap() {
 
   // Make data petition
   $.ajax({
-      url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/?format=json"
+      url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/?format=json",
+      headers: {
+          'Authorization':'Token ' + api_token,
+          'X_CSRF_TOKEN': csrftoken,
+          'Content-Type':'application/json'
+      },
   }).then(function(data) {
     var reports = data.slice(0);
 

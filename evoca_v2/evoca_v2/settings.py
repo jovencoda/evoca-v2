@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Django Rest Framework config
 
 REST_FRAMEWORK = {
-	'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication', 'rest_framework.authentication.TokenAuthentication'),
+	'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication'),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.AllowAny',
@@ -157,6 +157,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),
 ]
+
 
 MAPBOX_ACCESS_TOKEN="pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg"
 GOOGLE_MAPS_ACCESS_TOKEN="AIzaSyC8gIGQkcZWvX_ElaxJdujhhRHxNcN_FNc"
