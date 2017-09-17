@@ -9,9 +9,8 @@ $(document)
 
 
 function generateRecordsChart(){
-
   var chart = c3.generate({
-      bindto: '#tags-chart',
+      bindto: '#timeline-chart',
       data: {
         columns: [
           ['data1', 30, 200, 100, 400, 150, 250],
@@ -20,46 +19,41 @@ function generateRecordsChart(){
       }
   });
 
+
 }
 
 function generateTagsChart(){
-
-  var chart = c3.generate({
-      bindto: '#timeline-chart',
-      data: {
-          columns: [
-              ['data1', 30],
-              ['data2', 120],
-          ],
-          type : 'donut',
-          onclick: function (d, i) { console.log("onclick", d, i); },
-          onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-          onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+  // Make data petition
+  $.ajax({
+      url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/tags/",
+      headers: {
+          'Authorization':'Token ' + api_token,
+          'X_CSRF_TOKEN': csrftoken,
+          'Content-Type':'application/json'
       },
-      donut: {
-          title: "Iris Petal Width"
-      }
+  }).then(function(data) {
+
+    var chart = c3.generate({
+        bindto: '#tags-chart',
+        data: {
+            json: data,
+            type : 'donut',
+            onclick: function (d, i) { console.log("onclick", d, i); },
+            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+        },
+        donut: {
+            title: "% categoría"
+        }
+    });
+
+    var c = $("#tags-chart").parent().children().first();
+
+    c.removeClass('active');
+    c.addClass('disabled');
+
+
   });
-
-  setTimeout(function () {
-      chart.load({
-          columns: [
-              ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
-              ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
-              ["virginica", 2.5, 1.9, 2.1, 1.8, 2.2, 2.1, 1.7, 1.8, 1.8, 2.5, 2.0, 1.9, 2.1, 2.0, 2.4, 2.3, 1.8, 2.2, 2.3, 1.5, 2.3, 2.0, 2.0, 1.8, 2.1, 1.8, 1.8, 1.8, 2.1, 1.6, 1.9, 2.0, 2.2, 1.5, 1.4, 2.3, 2.4, 1.8, 1.8, 2.1, 2.4, 2.3, 1.9, 2.3, 2.5, 2.3, 1.9, 2.0, 2.3, 1.8],
-          ]
-      });
-  }, 1500);
-
-  setTimeout(function () {
-      chart.unload({
-          ids: 'data1'
-      });
-      chart.unload({
-          ids: 'data2'
-      });
-  }, 2500);
-
 
 
 }

@@ -146,7 +146,7 @@ function generateMap() {
 
              $('#map-popup').html(popupContent);
              audioPlayers();
-              parseTimes();
+             parseTimes();
 
          });
 

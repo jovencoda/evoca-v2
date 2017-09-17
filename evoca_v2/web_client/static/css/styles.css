@@ -88,3 +88,7 @@ audio, video {
     padding: 0px;
     border-radius: 0px;
 }
+
+.chart{
+  min-height: 300px;
+}

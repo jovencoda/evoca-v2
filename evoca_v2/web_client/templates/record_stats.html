@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load web_client_tags %}
 
 {% block header %}
 <link href="/static/css/c3.min.css" rel="stylesheet">
@@ -90,12 +91,22 @@
 <div class="ui two column grid">
 
   <div class="row">
+
     <div class="column">
-      <div id="tags-chart"></div>
+      <div class="chart" id="timeline-chart"></div>
     </div>
+    
     <div class="column">
-      <div id="timeline-chart">        </div>
+      <!-- Tags chart -->
+      <div class="ui basic segment">
+        <div class="ui active inverted dimmer">
+          <div class="ui medium text loader">Loading</div>
+        </div>
+        <div class="chart" id="tags-chart"></div>
+      </div>
+      <!-- end -->
     </div>
+
   </div>
 </div>
 
@@ -105,5 +116,9 @@
 
 {% block footer %}
 <script src="/static/js/c3.min.js"></script>
+<script type="text/javascript">
+    var api_token = '{% get_api_token %}';
+    var channelID='{{ active_channel_ID }}';
+</script>
 <script src="/static/js/charts.js"></script>
 {% endblock %}

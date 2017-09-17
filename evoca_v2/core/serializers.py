@@ -22,7 +22,7 @@ class RecordSerializer(serial.ModelSerializer):
 		slug_field='slug'
 	)
 	author = serial.StringRelatedField()
-	
+
 	class Meta:
 		model = Record
 		fields = ('uniqueID', 'location', 'tags', 'author')
