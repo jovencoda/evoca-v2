@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from core.models import *
 from core.serializers import *
+import collections
 
 # API VIEWS.
 
@@ -63,5 +64,24 @@ class TagStatsAPIView(APIView):
 		channel_tags_count = {}
 		for tag in queryset:
 			channel_tags_count[tag.slug] = Record.objects.all().filter(tags__slug=tag.slug).count()
-		print(channel_tags_count)
 		return Response(channel_tags_count)
+
+class TimeStatsAPIView(APIView):
+	def get(self, request, channel_pk=None, format=None):
+		queryset = Record.objects.all().order_by('created_at').filter(channel__uniqueID=channel_pk)
+
+		dates = []
+		#dates.append('time');
+		for s in queryset:
+		    _s = "" + str(s.created_at)
+		    k, v = _s.rsplit("-", 1)
+		    if(k not in dates):
+		        dates.append(k)
+
+		ammount = []
+
+		response = collections.OrderedDict()
+		#iterator = iter(dates[::-1])
+		for d in dates:
+		    response[d] = queryset.filter(created_at__year=int(d[:4])).filter(created_at__month=int(d[5:])).order_by('created_at').count()
+		return Response(response)

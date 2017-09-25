@@ -48,6 +48,7 @@ urlpatterns = [
 	url(r'^api/v1/', include(channel_router.urls)),
     url(r'^api/v1/', include(record_router.urls)),
     url(r'^api/v1/channel/(?P<channel_pk>[^/.]+)/tags/$', TagStatsAPIView.as_view(), name='channel-tags-view'),
+    url(r'^api/v1/channel/(?P<channel_pk>[^/.]+)/time/$', TimeStatsAPIView.as_view(), name='channel-time-view'),
 
     # ----------- Web-Client URLS ---------
 

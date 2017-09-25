@@ -9,14 +9,61 @@ $(document)
 
 
 function generateRecordsChart(){
-  var chart = c3.generate({
-      bindto: '#timeline-chart',
-      data: {
-        columns: [
-          ['data1', 30, 200, 100, 400, 150, 250],
-          ['data2', 50, 20, 10, 40, 15, 25]
-        ]
+
+  $.ajax({
+      url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/time/",
+      headers: {
+          'Authorization':'Token ' + api_token,
+          'X_CSRF_TOKEN': csrftoken,
+          'Content-Type':'application/json'
+      },
+  }).then(function(data) {
+
+    var c = $("#timeline-chart").parent().children().first();
+
+    if(JSON.stringify(data)!='{}'){
+
+      var date = [];
+      var count = [];
+
+      date.push('date');
+      count.push('x');
+
+      for (var prop in data) {
+       date.push(prop + "-01");
+       count.push(data[prop]);
       }
+
+      var chart = c3.generate({
+          bindto: '#timeline-chart',
+          data: {
+              x: 'date',
+              columns: [date, count],
+              names: {
+                y: 'Fecha',
+                x: 'Número de Registros'
+              }
+          },
+          axis: {
+              x: {
+                  type: 'timeseries',
+                  tick: {
+                      format: '%Y-%m'
+                  }
+              }
+          }
+      });
+
+      c.removeClass('active');
+      c.addClass('disabled');
+
+    }else{
+
+      console.log(c.children().first());
+      c.children().first().html("No hay suficientes datos");
+
+    }
+
   });
 
 
@@ -33,25 +80,31 @@ function generateTagsChart(){
       },
   }).then(function(data) {
 
-    var chart = c3.generate({
-        bindto: '#tags-chart',
-        data: {
-            json: data,
-            type : 'donut',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-        },
-        donut: {
-            title: "% categoría"
-        }
-    });
-
     var c = $("#tags-chart").parent().children().first();
 
-    c.removeClass('active');
-    c.addClass('disabled');
+    if(JSON.stringify(data)!='{}'){
+      var chart = c3.generate({
+          bindto: '#tags-chart',
+          data: {
+              json: data,
+              type : 'donut',
+              //onclick: function (d, i) { console.log("onclick", d, i); },
+              //onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+              //onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+          },
+          donut: {
+              title: "% por categoría"
+          }
+      });
 
+      c.removeClass('active');
+      c.addClass('disabled');
+
+    }else{
+
+      c.children().first().html("No hay suficientes datos");
+
+    }
 
   });
 
