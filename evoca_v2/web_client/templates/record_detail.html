@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load web_client_tags %}
+{% block title %}# {{ active_channel_name }} | Record{% endblock %}
+
+{% block sub_menu %}
+
+<div class="ui dropdown item">
+  <strong><!-- {{ active_channel_name }}-->Canal</strong>&nbsp;<i class="angle down icon"></i>
+  <div class="menu" id="channel-menu">
+  </div>
+</div>
+
+<div class="ui borderless green inverted menu">
+  <a href="/{{ active_channel_slug }}/" class="item active">
+    Linea de tiempo
+  </a>
+  <a href="/{{ active_channel_slug }}/map/" class="item">
+    Mapa
+  </a>
+  <a href="/{{ active_channel_slug }}/stats/" class="item">
+    Estadísticas
+  </a>
+</div>
+
+{% endblock%}
+
+{% block body %}
+
+<h1 class="ui header" id="channel-header">
+
+  <i class="hashtag icon"></i>
+  <div class="content">
+    <!--{{ active_channel_name }}-->
+    Canal
+    <div class="ui page grid">
+      <div class="two column row">
+        <div class="column">
+          <div class="image">
+
+            <!--{% if record.getAttachedAudio.url %}-->
+            <button class="ui compact labeled icon button green player">
+              <i class="play icon"></i>
+              <span class="audio-label">Reproducir</span>
+              <audio preload="none">
+                <!--<source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">-->
+                Your browser does not support the audio element.
+              </audio>
+            </button>
+            <!--{% endif %}-->
+
+            <a><img class="card-img" src=""></a>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui segment">
+            <div class="ui vertical segment">
+              <p>by <strong>autor</strong> &#8212; Posted on <strong>fecha</strong></p>
+            </div>
+            <div class="ui vertical segment">
+              <p>mapa</p>
+            </div>
+            <div class="ui vertical segment">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dui risus,
+                placerat congue pellentesque ut, fringilla sit amet velit. Donec a lacinia enim.
+                Nulla porttitor bibendum purus sit amet ullamcorper. Etiam ac tristique nisi,
+                eu sodales turpis.
+              </p>
+            </div>
+			    </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+</h1>
+
+{% endblock%}
