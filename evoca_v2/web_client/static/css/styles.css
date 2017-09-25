@@ -92,3 +92,8 @@ audio, video {
 .chart{
   min-height: 300px;
 }
+
+.statistics{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
