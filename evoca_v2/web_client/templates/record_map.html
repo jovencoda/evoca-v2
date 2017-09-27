@@ -114,6 +114,10 @@
 <script type="text/javascript">
     var api_token = '{% get_api_token %}';
     var mapbox_token = '{% get_map_token %}';
+    var mapCenterLocation = '{{ mapCenterLocation }}'.slice(17, -1).split(" ");
+    var maxZoom = '{{ maxZoom }}';
+    var defaultZoom = '{{ defaultZoom }}';
+    console.log(mapCenterLocation)
 </script>
 <script src="/static/js/map.js"></script>
 {% endblock %}

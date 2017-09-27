@@ -45,12 +45,14 @@ function filterMarkers(type, query, markers, _markers){
 function generateMap() {
 
   // Load channel id
+
+
   channelID = $("#channel-map").attr('uniqueID');
   // Create Map
-  var mymap = L.map('channel-map').setView([3.44, -76.52], 13);
+  var mymap = L.map('channel-map').setView([parseFloat(mapCenterLocation[1]), parseFloat(mapCenterLocation[0])], defaultZoom);
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
+      maxZoom: maxZoom,
       id: 'mapbox.outdoors',
       accessToken: mapbox_token
   }).addTo(mymap);
@@ -58,8 +60,7 @@ function generateMap() {
   var markers = L.markerClusterGroup({ chunkedLoading: true });
 
   function addMarker(report, markers){
-    var str = report.location.slice(17, -1);
-    var coordinates = str.split(" ");
+    var coordinates =  report.location.slice(17, -1).split(" ");
     var marker = new L.marker([parseFloat(coordinates[1]), parseFloat(coordinates[0])])
      .bindPopup('<div id="map-popup" class="ui" style="width:270px;"><div class="ui active inverted dimmer"><div class="ui text loader">Cargando</div></div><p></p></div>')
      .on('popupopen', function(i){

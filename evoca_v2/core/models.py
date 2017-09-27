@@ -47,9 +47,9 @@ class Channel(TimeBot):
 	members = models.ManyToManyField(User, through='Membership', through_fields=('channel', 'user'), related_name='channel_members')
 	dimensions = models.ManyToManyField(Dimension, related_name='channel_dimensions', blank=True)
 	image = models.ImageField(upload_to='static/img/', blank=True, null=True)
-	#maxZoom
-	#defaultZoom
-	#mapCenterLocation
+	maxZoom = models.SmallIntegerField(default=18, blank=False)
+	defaultZoom = models.SmallIntegerField(default=13, blank=False)
+	mapCenterLocation = modelsGIS.PointField(max_length=40, blank=False)
 
 	def save(self, *args, **kwargs):
 	    self.slug = slugify(self.name)
