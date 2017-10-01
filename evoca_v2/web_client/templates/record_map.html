@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="ui borderless green inverted menu">
+<div class="ui borderless green inverted stackable menu">
   <a href="/{{ active_channel_slug }}/" class="item">
     Linea de tiempo
   </a>
@@ -114,6 +114,9 @@
 <script type="text/javascript">
     var api_token = '{% get_api_token %}';
     var mapbox_token = '{% get_map_token %}';
+    var mapCenterLocation = '{{ mapCenterLocation }}'.slice(17, -1).split(" ");
+    var maxZoom = '{{ maxZoom }}';
+    var defaultZoom = '{{ defaultZoom }}';
 </script>
 <script src="/static/js/map.js"></script>
 {% endblock %}

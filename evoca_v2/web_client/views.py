@@ -126,6 +126,9 @@ class RecordsMapView(TemplateView):
         context['active_channel_ID'] = channel.uniqueID
         context['filtered_by_user'] = "ninguno"
         context['filtered_by_tag'] = "ninguna"
+        context['mapCenterLocation'] = channel.mapCenterLocation
+        context['defaultZoom'] = channel.defaultZoom
+        context['maxZoom'] = channel.maxZoom
         return context
 
 class RecordsFilteredViewByUser(RecordsListView):

@@ -21,8 +21,8 @@ class MembershipAdmin(admin.ModelAdmin):
 
 admin.site.register(Membership, MembershipAdmin)
 
-class ChannelAdmin(admin.ModelAdmin):
-	list_display = ('id', 'uniqueID', 'name', 'about', 'created_at', 'updated_at' )
+class ChannelAdmin(geoAdmin.OSMGeoAdmin):
+	list_display = ('id', 'uniqueID', 'name', 'about', 'created_at' )
 	list_display_links = ('uniqueID',)
 	search_fields = ('uniqueID',)
 	list_per_page = 50
@@ -30,7 +30,7 @@ class ChannelAdmin(admin.ModelAdmin):
 admin.site.register(Channel, ChannelAdmin)
 
 class RecordAdmin(geoAdmin.OSMGeoAdmin):
-	list_display = ('author', 'channel', 'uniqueID', 'created_at', 'updated_at', 'location' )
+	list_display = ('author', 'channel', 'uniqueID', 'created_at', 'location' )
 	list_display_links = ('uniqueID',)
 	search_fields = ('uniqueID',)
 	list_per_page = 50
