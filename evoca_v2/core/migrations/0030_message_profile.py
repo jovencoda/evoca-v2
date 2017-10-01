@@ -12,7 +12,11 @@ from core.models import Profile
 def createProfiles():
     queryset = User.objects.all()
     for user in queryset:
-        Profile.objects.create(user=user)
+        try:
+            Profile.objects.create(user=user)
+        except Exception as e:
+            pass 
+
 
 class Migration(migrations.Migration):
 
