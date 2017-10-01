@@ -65,6 +65,7 @@ class RecordsDetailView(DetailView):
     model = Record
     template_name = 'record_detail.html'
 
+
 class RecordsStatsView(TemplateView):
     template_name = 'record_stats.html'
 
