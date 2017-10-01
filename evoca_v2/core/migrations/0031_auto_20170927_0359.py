@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='channel',
             name='mapCenterLocation',
-            field=django.contrib.gis.db.models.fields.PointField(max_length=40, srid=4326),
+            field=django.contrib.gis.db.models.fields.PointField(blank=True, null=True, max_length=40, srid=4326),
         ),
     ]
