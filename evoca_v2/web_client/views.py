@@ -65,6 +65,13 @@ class RecordsDetailView(DetailView):
     model = Record
     template_name = 'record_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(RecordsDetailView, self).get_context_data(**kwargs)
+        # Pass channel data to context
+        context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
+        context['active_channel_slug'] = slug=self.kwargs['channel']
+        return context
+
 
 class RecordsStatsView(TemplateView):
     template_name = 'record_stats.html'
