@@ -9,6 +9,7 @@ from world.models import WorldBorder, VeredasColombia
 # Register your models here.
 #admin.site.register(Dimension)
 admin.site.register(Tag)
+admin.site.register(Message)
 #admin.site.register(ChannelType)
 admin.site.register(Attachment)
 admin.site.register(WorldBorder, geoAdmin.OSMGeoAdmin)
@@ -35,3 +36,4 @@ class RecordAdmin(geoAdmin.OSMGeoAdmin):
 	list_per_page = 50
 
 admin.site.register(Record, RecordAdmin)
+admin.site.register(Profile)

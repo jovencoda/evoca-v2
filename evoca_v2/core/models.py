@@ -7,6 +7,9 @@ from django.contrib.gis.db import models as modelsGIS
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 # Import GIS data
 import googlemaps
 
@@ -148,6 +151,37 @@ class Record(TimeBot):
 
 	def __unicode__(self):
 		return unicode(self.uniqueID)
+
+
+# ----------- USERS/PROFILE ------------->
+
+
+class Profile(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    birth_date = models.DateField(null=True, blank=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+# ----------- MESSAGE ------------->
+
+
+class Message(TimeBot):
+
+	uniqueID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_author')
+	isCheck = models.BooleanField(default=False)
+	channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='message_channel')
+	record = models.ForeignKey(Record, on_delete=models.CASCADE, null=False, related_name='message_record')
+	body = models.TextField(max_length=250, blank=True)
 
 
 # ----------- ATTACHMENTS ------------->
