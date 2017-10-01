@@ -6,7 +6,13 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import uuid
+from django.contrib.auth.models import User
+from core.models import Profile
 
+def createProfiles():
+    queryset = User.objects.all()
+    for user in queryset:
+        Profile.objects.create(user=user)
 
 class Migration(migrations.Migration):
 
@@ -41,4 +47,5 @@ class Migration(migrations.Migration):
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
+        createProfiles()
     ]
