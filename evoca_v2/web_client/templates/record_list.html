@@ -103,7 +103,7 @@
   {% for record in y %}
 
   <div class="ui card">
-    <a href="/{{ active_channel_slug }}/record/{{ record.uniqueID }}/">
+
       <div class="content">
         <div class="right floated meta time">{{ record.created_at|date:"D, d M Y H:i" }}</div>
         <i class="at icon"></i>{{ record.author }}
@@ -121,7 +121,7 @@
         </button>
         {% endif %}
 
-        <a><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
+        <a href="/{{ active_channel_slug }}/record/{{ record.uniqueID }}/"><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
       </div>
       <div class="content">
         {{ record.getLongPlace }}
@@ -139,7 +139,6 @@
       <div class="ui bottom attached green progress"  data-percent="0">
         <div class="bar"></div>
       </div>
-    </a>
 
   </div>
   {% endfor %}
