@@ -31,34 +31,48 @@
 
   <i class="hashtag icon"></i>
   <div class="content">
-    <!--{{ active_channel_name }}-->
+    {{ active_channel_name }}
     Canal
     <div class="ui page grid">
       <div class="two column row">
         <div class="column">
           <div class="image">
 
-            <!--{% if record.getAttachedAudio.url %}-->
+            {% if record.getAttachedAudio.url %}
             <button class="ui compact labeled icon button green player">
               <i class="play icon"></i>
               <span class="audio-label">Reproducir</span>
               <audio preload="none">
-                <!--<source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">-->
+                <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
                 Your browser does not support the audio element.
               </audio>
             </button>
-            <!--{% endif %}-->
+            {% endif %}
 
-            <a><img class="card-img" src=""></a>
+            <img class="card-img" src="{{ record.getAttachedImage.url }}">
           </div>
         </div>
         <div class="column">
           <div class="ui segment">
             <div class="ui vertical segment">
-              <p>by <strong>autor</strong> &#8212; Posted on <strong>fecha</strong></p>
+              <p>by <strong>{{ record.author }}</strong> &#8212; Posted on <strong>{{ record.created_at|date:"D, d M Y H:i" }}</strong></p>
             </div>
+            {% if record.getTags %}
+            <div class="content">
+              {% for tag in record.getTags %}
+                <a href="/tag/{{ tag.slug }}" class="ui label">{{ tag.slug }}</a>
+              {% endfor %}
+            </div>
+            <div class="content">
+              {{ record.getLongPlace }}
+            </div>
+            {% endif %}
             <div class="ui vertical segment">
-              <p>mapa</p>
+              <div class="extra content" style="height:80px; width: 100%; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
+
+              <div class="ui bottom attached green progress"  data-percent="0">
+                <div class="bar"></div>
+              </div>
             </div>
             <div class="ui vertical segment">
               <p>
@@ -71,9 +85,6 @@
 			    </div>
         </div>
       </div>
-
-
-
     </div>
   </div>
 
