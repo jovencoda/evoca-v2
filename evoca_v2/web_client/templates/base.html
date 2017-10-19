@@ -24,6 +24,9 @@
             <a href="/admin/" class="item">
                <i class="setting icon"></i> admin
             </a>
+            {% if user.is_authenticated %}
+            <a href="/cerrar/" class="item">Salir</a>
+            {% endif %}
           </div>
 
         </div>

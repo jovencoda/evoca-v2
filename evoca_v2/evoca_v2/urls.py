@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.views import login
+from django.contrib.auth.views import logout_then_login
 from rest_framework.routers import SimpleRouter
 from rest_framework_nested import routers
 from rest_framework.authtoken import views
@@ -52,7 +54,9 @@ urlpatterns = [
 
     # ----------- Web-Client URLS ---------
 
-    url(r'^$', ChannelsListView.as_view(), name='channel-view'),
+    url(r'^channels', ChannelsListView.as_view(), name='channel-view'),
+    url(r'^$', login, {'template_name':'login.html'}, name='login'),
+    url(r'^cerrar/$', logout_then_login, name='logout'),
     url(r'^(?P<channel>[-_\w]+)/$', RecordsListView.as_view(), name='records-list-view'),
     url(r'^(?P<channel>[-_\w]+)/record/(?P<pk>[^/.]+)/$', RecordsDetailView.as_view(), name='records-detail-view'),
     url(r'^(?P<channel>[-_\w]+)/map/$', RecordsMapView.as_view(), name='records-map-view'),
