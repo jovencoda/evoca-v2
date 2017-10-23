@@ -5,10 +5,11 @@
 
 {% block body %}
 {{user.username}}
-<div class = "ui middle aligned center aligned grid">
-  <div class = "column" style = "max-width: 450px">
+<div class = "ui middle aligned center aligned grid contenedor">
+  <div class = "column login">
     <form class="ui large form" method="POST">{% csrf_token %}
       <div class = "ui stacked segment">
+        <div class="h2cont"><h2>EVOCA Login</h2></div>
         <div class="field">
           <div class = "ui left icon input">
             <i class = "user icon"></i>
@@ -22,6 +23,7 @@
           </div>
         </div>
         <button class = "ui fluid large teal submit button" type="submit">Login</button>
+        <div>¿Has olvidado tu contraseña? <a href="">click aqui</a></div>
       </div>
     </form>
   </div>

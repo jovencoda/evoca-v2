@@ -5,24 +5,36 @@
 
 {% block body %}
 
-  <h1 class="ui header"><i class="hashtag icon"></i>Channels</h1>
-  <div class="ui cards">
+<div class="banner"><img class="img-banner"src="static/img/img.jpg" alt=""></div>
 
-    {% for channel in object_list %}
-      <a class="ui card" href="/{{ channel.slug }}">
-        <div class="image">
-          <img src="/{{ channel.image }}" alt="">
-        </div>
-        <div class="content">
-          <div class="header">{{ channel.name }}</div>
-          <div class="meta">{{ channel.created_at }}</div>
-          <div class="description">
-            {{ channel.about }}
-          </div>
-        </div>
-      </a>
-    {% endfor %}
+<div class="cont-cent">
+  <div><span class="subtitle">TODO LO QUE DEBES SABER</span></div>
+  <div><h1 class="ui horizontal divider header titulo">¿Qué es EVOCA?</h1></div>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere lectus non accumsan porttitor. Suspendisse dignissim, justo eu convallis blandit, erat ex feugiat urna, sagittis ultricies nulla augue vel nibh. Nulla facilisi. Praesent ultricies pretium felis non sollicitudin. Etiam venenatis quam non est auctor accumsan. Nunc sapien risus, vulputate non eros et, dignissim egestas justo. Etiam erat erat, ultrices fringilla odio pulvinar, lacinia faucibus quam. Phasellus sit amet scelerisque diam, eget ultricies nisi. Sed feugiat vehicula convallis. In tempus fermentum sem in cursus. Maecenas rhoncus, lectus at imperdiet ullamcorper, tellus velit accumsan risus, rutrum semper nisi sapien eget justo. Sed vel nisl vitae augue venenatis efficitur. Aenean ex libero, congue mattis lectus ut, vestibulum suscipit felis. Nulla et orci dui.</p>
 
-  </div>
+<div class="cont-cent">
+  <div><h1 class="ui horizontal divider header titulo">¿Cómo funciona?</h1></div>
+  <div><span class="subtitle">PASOS PARA COLABORAR</span></div>
+</div>
+
+<div class="cont-cent"><h1 class="ui horizontal divider header titulo"><i class="hashtag icon"></i>Nuestros Proyectos</h1></div>
+<div class="ui cards">
+
+  {% for channel in object_list %}
+    <a class="ui card" href="/{{ channel.slug }}">
+      <div class="image">
+        <img src="/{{ channel.image }}" alt="">
+      </div>
+      <div class="content">
+        <div class="header">{{ channel.name }}</div>
+        <div class="meta">{{ channel.created_at }}</div>
+        <div class="description">
+          {{ channel.about }}
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
 
 {% endblock %}

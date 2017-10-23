@@ -10,12 +10,55 @@
   margin-bottom: 50px;
 }
 
+.contenedor{
+  padding-top: 25%;
+}
+
 .card{
   width: 270px !important;
 }
 
-.column{
+.h2cont{
+  margin-top: 20%;
+  margin-bottom: 13%;
+}
+
+.login{
   max-width: 450px !important;
+  top: 50px;
+}
+
+.ui.form .field{
+  clear: both;
+  width: 80%;
+  margin: 2em auto;
+}
+
+.banner{
+  text-align: center;
+}
+
+.img-banner{
+  background-size: cover;
+  width: 100%;
+}
+
+.subtitle{
+  color: #8a8a8a;
+  font-size: 1rem;
+}
+
+.cont-cent{
+  text-align: center;
+  margin: 1.5em auto;
+}
+
+p{
+  text-align: justify !important;
+}
+
+.titulo{
+  color: #21ba45 !important;
 }
 
 .card-img{
@@ -24,7 +67,7 @@
   margin-bottom: -6px;
 }
 
-audio, video {
+audio, video{
     width: 100%;
     margin-bottom: -6px;
     margin-top: -6px;
@@ -44,6 +87,18 @@ audio, video {
   position: absolute !important;
   left: 10px;
   bottom: 10px;
+}
+
+.detail{
+  top: 205px;
+  left: 14px;
+  max-height: 30px;
+}
+
+.ui.teal.button, .ui.teal.buttons .button{
+  background-color: #21ba45;
+  width: 50%;
+  margin: 1em auto;
 }
 
 .card-location{

@@ -6,12 +6,12 @@
 {% block sub_menu %}
 
 <div class="ui dropdown item">
-  <strong><!-- {{ active_channel_name }}-->Canal</strong>&nbsp;<i class="angle down icon"></i>
+  <strong> {{ active_channel_name }} </strong>&nbsp;<i class="angle down icon"></i>
   <div class="menu" id="channel-menu">
   </div>
 </div>
 
-<div class="ui borderless green inverted menu">
+<div class="ui borderless green inverted stackable menu">
   <a href="/{{ active_channel_slug }}/" class="item active">
     Linea de tiempo
   </a>
@@ -27,19 +27,22 @@
 
 {% block body %}
 
-<h1 class="ui header" id="channel-header">
-
+<h1 class="ui header titulo" id="channel-header">
   <i class="hashtag icon"></i>
   <div class="content">
     {{ active_channel_name }}
-    Canal
+  </div>
+</h1>
+
+<h1 class="ui header" id="channel-header">
+  <div class="content">
     <div class="ui page grid">
       <div class="two column row">
         <div class="column">
           <div class="image">
 
             {% if record.getAttachedAudio.url %}
-            <button class="ui compact labeled icon button green player">
+            <button class="ui compact labeled icon button green player detail">
               <i class="play icon"></i>
               <span class="audio-label">Reproducir</span>
               <audio preload="none">
@@ -69,25 +72,19 @@
             {% endif %}
             <div class="ui vertical segment">
               <div class="extra content" style="height:80px; width: 100%; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
-
-              <div class="ui bottom attached green progress"  data-percent="0">
-                <div class="bar"></div>
-              </div>
             </div>
             <div class="ui vertical segment">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dui risus,
-                placerat congue pellentesque ut, fringilla sit amet velit. Donec a lacinia enim.
-                Nulla porttitor bibendum purus sit amet ullamcorper. Etiam ac tristique nisi,
-                eu sodales turpis.
+                {{ record.description }}
               </p>
             </div>
-			    </div>
+    	    </div>
+          <div class="ui bottom attached green progress"  data-percent="0">
+            <div class="bar"></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </h1>
-
 {% endblock%}
