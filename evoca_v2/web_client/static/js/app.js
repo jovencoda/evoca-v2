@@ -1,6 +1,18 @@
 $(document)
    .ready(function() {
 
+      $(window).bind('scroll', function () {
+          if ($(window).scrollTop() > 80) {
+              $('.menug').addClass('fixed');
+          } else {
+              $('.menug').removeClass('fixed');
+          }
+      });
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar').sidebar('attach events', '.toc.item');
+
+
 
      $('.ui.dropdown').dropdown();
      $('.ui.menu a.item')
