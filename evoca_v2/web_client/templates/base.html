@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div class="navegation">
+      <div class="navegation masthead">
         <div class="ui secondary borderless green inverted pointing menu menug">
           <div class="ui container">
             <a class="toc item">
@@ -80,7 +80,12 @@
         <script src="https://d3js.org/d3-time.v1.min.js"></script>
         <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
         <script src="/static/js/app.js"></script>
-        {% block footer %}{% endblock %}
+
+        {% block footer %}
+        <div class="footer">
+          EVOCA is licensed under the GNU General Public License v3.0 - 2017
+        </div>
+        {% endblock %}
       {% endblock%}
   </footer>
 </html>

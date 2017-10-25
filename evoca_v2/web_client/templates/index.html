@@ -3,47 +3,74 @@
 
 {% block title %}Channels{% endblock %}
 
-{% block body %}
+{% block wrapper %}
 <div class="ui inverted vertical masthead center aligned segment">
   <div class="ui text container">
-    <h1 class="ui inverted header">
-      Imagine-a-Company
+    <h1 class="ui inverted header text-banner">
+      CONTRIBUYE CON PROBLEMÁTICAS SOCIO-AMBIENTALES
     </h1>
-    <h2>Do whatever you want when you want to.</h2>
-    <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+    <h2 class="text-small-banner">Proyectos socio-ambientales de comunicación alternativa al alcance de la mano</h2>
   </div>
 </div>
+{% endblock %}
 
-<!--<div class="banner"><img class="img-banner"src="static/img/back.jpg" alt=""></div>-->
+{% block body %}
 
 <div class="cont-cent">
   <div><span class="subtitle">TODO LO QUE DEBES SABER</span></div>
   <div><h1 class="ui horizontal divider header titulo">¿Qué es EVOCA?</h1></div>
 </div>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In posuere lectus non accumsan porttitor. Suspendisse dignissim, justo eu convallis blandit, erat ex feugiat urna, sagittis ultricies nulla augue vel nibh. Nulla facilisi. Praesent ultricies pretium felis non sollicitudin. Etiam venenatis quam non est auctor accumsan. Nunc sapien risus, vulputate non eros et, dignissim egestas justo. Etiam erat erat, ultrices fringilla odio pulvinar, lacinia faucibus quam. Phasellus sit amet scelerisque diam, eget ultricies nisi. Sed feugiat vehicula convallis. In tempus fermentum sem in cursus. Maecenas rhoncus, lectus at imperdiet ullamcorper, tellus velit accumsan risus, rutrum semper nisi sapien eget justo. Sed vel nisl vitae augue venenatis efficitur. Aenean ex libero, congue mattis lectus ut, vestibulum suscipit felis. Nulla et orci dui.</p>
+<p class="normal-text"><strong>Evoca</strong> es una plataforma digital que permite la creación de proyectos de temática
+  socio-ambiental relacionados a un lugar geográfico especifico. La recolección de información para cada
+  proyecto se realiza desde la aplicación móvil de <strong>Evoca</strong>, la cual puede ser posteriormente analizada por
+  los investigadores a cargo del proyecto desde la aplicación web. Logrando así una mejor toma de decisiones
+  en los proyectos.</p>
 
 <div class="cont-cent">
   <div><h1 class="ui horizontal divider header titulo">¿Cómo funciona?</h1></div>
   <div><span class="subtitle">PASOS PARA COLABORAR</span></div>
 </div>
 
-<div class="cont-cent"><h1 class="ui horizontal divider header titulo"><i class="hashtag icon"></i>Nuestros Proyectos</h1></div>
-<div class="ui cards">
-
-  {% for channel in object_list %}
-    <a class="ui card" href="/{{ channel.slug }}">
-      <div class="image">
-        <img src="/{{ channel.image }}" alt="">
-      </div>
-      <div class="content">
-        <div class="header">{{ channel.name }}</div>
-        <div class="meta">{{ channel.created_at }}</div>
-        <div class="description">
-          {{ channel.about }}
-        </div>
-      </div>
-    </a>
-  {% endfor %}
+<div class="ui three column grid">
+  <div class="column cent">
+    <div class="ico"></div>
+    <div>
+      <h4>1. Escoge un proyecto</h4>
+    </div>
+  </div>
+  <div class="column cent">
+    <div class="ico"></div>
+    <div>
+      <h4>2. Inscribete en él</h4>
+    </div>
+  </div>
+  <div class="column cent">
+    <div class="ico"></div>
+    <div>
+      <h4>3. !Colabora¡</h4>
+    </div>
+  </div>
 </div>
+<div class="gray">
+  <div class="cont-cent"><h1 class="ui horizontal divider header titulo"><i class="hashtag icon"></i>Nuestros Proyectos</h1></div>
+  <div class="ui cards">
+
+    {% for channel in object_list %}
+      <a class="ui card" href="/{{ channel.slug }}">
+        <div class="image">
+          <img src="/{{ channel.image }}" alt="">
+        </div>
+        <div class="content">
+          <div class="header">{{ channel.name }}</div>
+          <div class="meta">{{ channel.created_at }}</div>
+          <div class="description">
+            {{ channel.about }}
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
 
 {% endblock %}
