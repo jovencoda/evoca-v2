@@ -92,6 +92,13 @@
           </div>
         </div>
       </span>
+      <div>
+        {% for tagInfo in channel_tags_count %}
+          {% for key, value in tagInfo.items %}
+            <h4>{{key}} - {{value}}</h4>
+          {% endfor %}
+        {% endfor %}
+      </div>
 
     </div>
   </div>

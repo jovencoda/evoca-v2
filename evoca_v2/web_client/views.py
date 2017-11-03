@@ -46,6 +46,18 @@ class RecordsListView(ListView):
         queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
         return queryset
 
+    def getRecordsByTag(self):
+        queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
+        response = []
+        """for s in queryset:
+            tagName = s.slug
+            listRecord = Record.objects.all().filter(channel__slug=self.kwargs['channel'])
+            listTag = listRecord.filter(tags=s.slug)
+            numTag = listTag.count()
+            tagInfo = {'name' : s.name, 'count' : numTag}
+            response.append(tagInfo)"""
+        return response
+
     def get_queryset(self):
         queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel'])
         return self.orderQueryByDate(queryset)
@@ -56,6 +68,7 @@ class RecordsListView(ListView):
         context['active_channel_name'] = Channel.objects.get(slug=self.kwargs['channel']).name
         context['channel_users'] = self.getChannelUsers
         context['channel_tags'] = self.getChannelTags
+        context['channel_tags_count'] = self.getRecordsByTag
         context['active_channel_slug'] = slug=self.kwargs['channel']
         context['filtered_by_user'] = "ninguno"
         context['filtered_by_tag'] = "ninguna"
