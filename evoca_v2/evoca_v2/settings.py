@@ -25,9 +25,6 @@ SECRET_KEY = 'w80%6*2#=vtpxme6q*6y#4i32xa9l!gz#26gx0z))9n$dpan10'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -101,7 +98,7 @@ DATABASES = {
 }
 
 POSTGIS_VERSION = (2, 1, 3)
-ALLOWED_HOSTS = ['192.168.33.10']
+ALLOWED_HOSTS = ['*']
 
 
 # Password validation
@@ -155,8 +152,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 
 
 MAPBOX_ACCESS_TOKEN="pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg"
