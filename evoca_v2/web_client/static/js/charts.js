@@ -41,7 +41,7 @@ function generateRecordsChart(){
               columns: [date, count],
               names: {
                 y: 'Fecha',
-                x: 'Número de Registros'
+                x: 'Número de Reportes'
               }
           },
           axis: {

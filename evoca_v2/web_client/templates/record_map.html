@@ -22,7 +22,7 @@
 
 <div class="ui borderless green inverted stackable menu">
   <a href="/{{ active_channel_slug }}/" class="item">
-    Linea de tiempo
+    Lista de reportes
   </a>
   <a href="/{{ active_channel_slug }}/map/" class="item active">
     Mapa
@@ -41,59 +41,92 @@
   <div class="content titulo">
     {{ active_channel_name }}
     <div class="sub header">
+      <div><h3  class="filtertitle">FILTROS</h3></div>
 
-      <span>
-        Filtrar por el usuario
-        <div class="ui inline dropdown">
-          <div class="text">
-            {{ filtered_by_user }}
-          </div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-              <div class="ui icon search input">
-                <i class="search icon"></i>
-                <input placeholder="Buscar usuario..." type="text">
-              </div>
-          <div id="user-filter" class="scrolling menu">
-            <a class="item map-filter" type="null" style="font-weight:600;">
-              ninguno
-            </a>
-              {% for user in channel_users %}
-              <a class="item map-filter" type="author">
-                {{ user }}
+      <div class="filterbar">
+        <span class="filteroption">
+          Filtrar por el usuario
+          <div class="ui inline dropdown">
+            <div class="text">
+              {{ filtered_by_user }}
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="ui icon search input">
+                  <i class="search icon"></i>
+                  <input placeholder="Buscar usuario..." type="text">
+                </div>
+            <div id="user-filter" class="scrolling menu">
+              <a class="item map-filter" type="null" style="font-weight:600;">
+                ninguno
               </a>
-              {% endfor %}
+                {% for user in channel_users %}
+                <a class="item map-filter" type="author">
+                  {{ user }}
+                </a>
+                {% endfor %}
+            </div>
+            </div>
           </div>
-          </div>
-        </div>
-      </span>
+        </span>
 
-      <span>
-        Filtrar por la etiqueta
-        <div class="ui inline dropdown">
-          <div class="text">
-            {{ filtered_by_tag }}
-          </div>
-          <i class="dropdown icon"></i>
-          <div class="menu">
-              <div class="ui icon search input">
-                <i class="search icon"></i>
-                <input placeholder="Buscar usuario..." type="text">
-              </div>
-          <div id="tag-filter" class="scrolling menu">
-            <a class="item map-filter" type="null" style="font-weight:600;">
-              ninguna
-            </a>
-              {% for tag in channel_tags %}
-              <a class="item map-filter" type="tag">
-                {{ tag.slug }}
+        <span class="filteroption">
+          Filtrar por Categoría
+          <div class="ui inline dropdown">
+            <div class="text">
+              {{ filtered_by_tag }}
+            </div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="ui icon search input">
+                  <i class="search icon"></i>
+                  <input placeholder="Buscar usuario..." type="text">
+                </div>
+            <div id="tag-filter" class="scrolling menu">
+              <a class="item map-filter" type="null" style="font-weight:600;">
+                ninguna
               </a>
-              {% endfor %}
+                {% for tag in channel_tags %}
+                <a class="item map-filter" type="tag">
+                  {{ tag.slug }}
+                </a>
+                {% endfor %}
+            </div>
+            </div>
           </div>
-          </div>
-        </div>
-      </span>
+        </span>
+      </div>
 
+      <div><h4>Cantidad reportes por Categoría</h4></div>
+
+      <div class="countrecords">
+
+        <div class="ui label countlab">
+          <span>Acciones comunitarias</span> 100
+        </div>
+        <div class="ui label countlab">
+          <span>Problematicas ciudadanas</span> 15
+        </div>
+        <div class="ui label countlab">
+          <span>Turismo</span> 6
+        </div>
+        <div class="ui label countlab">
+          <span>Basura</span> 6
+        </div>
+        <div class="ui label countlab">
+          <span>Construccion</span> 3
+        </div>
+        <div class="ui label countlab">
+          <span>Movilidad</span> 1
+        </div>
+
+
+        {% for tagInfo in channel_tags_count %}
+          {% for key, value in tagInfo.items %}
+            <h4>{{key}} - {{value}}</h4>
+          {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 
