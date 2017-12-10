@@ -42,7 +42,11 @@ def getChannelsFromProfile(profile):
 
 @csrf_exempt
 def userToken(request, username):
-    data = JSONParser().parse(request)
+    data = {}
+    if request.body:
+        data = JSONParser().parse(request)
+    else:
+        data['type']="login"
     if request.method == 'GET' or (data['type']=="login"):
         try:
             profile = User.objects.get(username=username)
@@ -56,7 +60,7 @@ def userToken(request, username):
         cds_str+=']'
         error = ''
         token = Token.objects.get(user__username=username)
-        info= '{"username": "'+ profile.username + '", "token": "' + token + '", "error": "' + error + '", "channels": ' + cds_str + '}'
+        info= '{"username": "'+ profile.username + '", "token": "' + token.key + '", "error": "' + error + '", "channels": ' + cds_str + '}'
         js=json.loads(info)
         return JSONResponse(js)
 
