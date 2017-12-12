@@ -4,12 +4,14 @@ from models import *
 from core.models import *
 
 class RecordSerializer(serial.ModelSerializer):
-	img_url = serial.CharField()
-	audio_url = serial.CharField()
-	hora = serial.CharField()
-	fecha = serial.CharField()
-	latitud = serial.DecimalField(max_digits=40, decimal_places=30)
-	longitud = serial.DecimalField(max_digits=40, decimal_places=30)
+	img_url = serial.SerializerMethodField()
+	audio_url = serial.SerializerMethodField()
+	hora = serial.SerializerMethodField()
+	fecha = serial.SerializerMethodField()
+	latitud = serial.SerializerMethodField()
+	longitud = serial.SerializerMethodField()
+	#latitud = serial.DecimalField(max_digits=40, decimal_places=30)
+	#longitud = serial.DecimalField(max_digits=40, decimal_places=30)
 	class Meta:
 		model = Record
 		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud')
