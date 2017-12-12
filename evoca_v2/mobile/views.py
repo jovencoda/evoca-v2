@@ -167,7 +167,7 @@ def record_list(request, channel, username):
 
 
 # # ------------ UPLOAD FILES ------------
-@csrf_exempt
+
 class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Imagen.objects.all()
@@ -175,7 +175,7 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
 
     def get(self, request, *args, **kwargs):
     	return self.list(request, *args, **kwargs)
-
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         # print("imagennnn")
         # return HttpResponse("asd")
@@ -194,7 +194,7 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
             imgURL=im.img.url
         print(imgURL)
         return HttpResponse(imgURL)
-@csrf_exempt
+
 class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Audio.objects.all()
@@ -202,7 +202,7 @@ class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-    
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         ch=self.kwargs["channel"]
         audioSer = AudioSerializer(data=request.data)
