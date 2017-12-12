@@ -14,6 +14,20 @@ class RecordSerializer(serial.ModelSerializer):
 		model = Record
 		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud')
 
+	def get_img_url(self, obj):
+		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type='image');
+		url ='none'
+		if len(atts) > 0:
+			url = atts[0].url
+		return url
+	def get_audio_url(self, obj):
+		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type='sound');
+		url ='none'
+		if len(atts) > 0:
+			url = atts[0].url
+		return url
+
+
 class imagenSerializer(serial.ModelSerializer):
     class Meta:
         model = Imagen
