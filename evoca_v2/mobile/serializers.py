@@ -6,9 +6,13 @@ from core.models import *
 class RecordSerializer(serial.ModelSerializer):
 	img_url = serial.CharField()
 	audio_url = serial.CharField()
+	hora = serial.CharField()
+	fecha = serial.CharField()
+	latitud = serializers.DecimalField(max_digits=40, decimal_places=30)
+	longitud = serializers.DecimalField(max_digits=40, decimal_places=30)
 	class Meta:
 		model = Record
-		fields = ('pk', 'img_url',	'audio_url', 'descripcion',	'fecha', 'hora', 'latitud',	'longitud')
+		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud')
 
 class imagenSerializer(serial.ModelSerializer):
     class Meta:

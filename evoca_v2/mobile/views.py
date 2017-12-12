@@ -180,8 +180,10 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
         # print("imagennnn")
         # return HttpResponse("asd")
         ch=self.kwargs["channel"]
+        print(ch)
         imgSer=imagenSerializer(data=request.data)
         file = request.FILES;
+        print(file)
         imgURL="null"
         if imgSer.is_valid():
             imgSer.save()
