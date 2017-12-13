@@ -18,7 +18,7 @@ class RecordSerializer(serial.ModelSerializer):
 		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud')
 
 	def get_img_url(self, obj):
-		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type=3)
+		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type=0)
 		url ='none'
 		if len(atts) > 0:
 			url = atts[0].url
@@ -30,9 +30,9 @@ class RecordSerializer(serial.ModelSerializer):
 			url = atts[0].url
 		return url
 	def get_fecha(self, ob):
-		return str(ob.created_at).split(":")[0]
+		return str(ob.created_at).split(" ")[0]
 	def get_hora(self, ob):
-		return str(ob.created_at).split(":")[1]
+		return str(ob.created_at).split(" ")[1]
 	def get_latitud(self, ob):
 		return str(ob.getRawLocation()).split(",")[0]
 	def get_longitud(self, ob):
