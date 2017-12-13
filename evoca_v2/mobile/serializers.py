@@ -6,10 +6,10 @@ from core.models import *
 class RecordSerializer(serial.ModelSerializer):
 	img_url = serial.SerializerMethodField()
 	audio_url = serial.SerializerMethodField()
-	hora = serial.SerializerMethodField(method_name=None)
-	fecha = serial.SerializerMethodField(method_name=None)
-	latitud = serial.SerializerMethodField(method_name=None)
-	longitud = serial.SerializerMethodField(method_name=None)
+	hora = serial.SerializerMethodField()
+	fecha = serial.SerializerMethodField()
+	latitud = serial.SerializerMethodField()
+	longitud = serial.SerializerMethodField()
 	#latitud = serial.DecimalField(max_digits=40, decimal_places=30)
 	#longitud = serial.DecimalField(max_digits=40, decimal_places=30)
 	class Meta:
@@ -28,6 +28,15 @@ class RecordSerializer(serial.ModelSerializer):
 		if len(atts) > 0:
 			url = atts[0].url
 		return url
+	def get_fecha(self, ob):
+		return str(ob.created_at).split(“:”)[0]
+	def get_hora(self, ob):
+		return str(ob.created_at).split(“:”)[1]
+	def get_latitud(self, ob):
+		return obj.getRawLocation().split(“,”)[0]
+	def get_longitud(self, ob):
+		return obj.getRawLocation().split(“,”)[1]
+
 
 
 class imagenSerializer(serial.ModelSerializer):
