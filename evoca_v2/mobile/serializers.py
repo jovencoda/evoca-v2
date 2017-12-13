@@ -33,9 +33,9 @@ class RecordSerializer(serial.ModelSerializer):
 	def get_hora(self, ob):
 		return ob.created_at
 	def get_latitud(self, ob):
-		return obj.getRawLocation().split(“,”)[0]
+		return str(obj.getRawLocation()).split(“,”)[0]
 	def get_longitud(self, ob):
-		return obj.getRawLocation().split(“,”)[1]
+		return str(obj.getRawLocation()).split(“,”)[1]
 
 
 
