@@ -156,6 +156,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'media')
+
 
 MAPBOX_ACCESS_TOKEN="pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg"
 GOOGLE_MAPS_ACCESS_TOKEN="AIzaSyC8gIGQkcZWvX_ElaxJdujhhRHxNcN_FNc"
