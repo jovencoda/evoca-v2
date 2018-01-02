@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import status, permissions
@@ -176,7 +177,7 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(Upload_Image_View, self).dispatch(request, *args, **kwargs)
-    
+
     def get(self, request, *args, **kwargs):
     	return self.list(request, *args, **kwargs)
     
