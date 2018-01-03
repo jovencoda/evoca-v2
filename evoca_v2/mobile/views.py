@@ -169,7 +169,7 @@ def record_list(request, channel, username):
 
 # # ------------ UPLOAD FILES ------------
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name='post')
 class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Imagen.objects.all()
@@ -197,7 +197,7 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
         print(imgURL)
         return HttpResponse(imgURL)
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name='post')
 class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Audio.objects.all()
