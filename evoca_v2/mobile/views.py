@@ -181,6 +181,7 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
     def get(self, request, *args, **kwargs):
     	return self.list(request, *args, **kwargs)
     
+    @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         # print("imagennnn")
         # return HttpResponse("asd")
@@ -212,6 +213,7 @@ class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
     
+    @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         ch=self.kwargs["channel"]
         audioSer = AudioSerializer(data=request.data)
