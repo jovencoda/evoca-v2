@@ -174,10 +174,6 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
     queryset = Imagen.objects.all()
     serializer_class = imagenSerializer
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(Upload_Image_View, self).dispatch(request, *args, **kwargs)
-
     def get(self, request, *args, **kwargs):
     	return self.list(request, *args, **kwargs)
     
@@ -205,10 +201,6 @@ class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Audio.objects.all()
     serializer_class = AudioSerializer
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super(Upload_Audio_View, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
