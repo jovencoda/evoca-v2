@@ -169,15 +169,22 @@ def record_list(request, channel, username):
 
 # # ------------ UPLOAD FILES ------------
 
-@method_decorator(csrf_exempt, name='post')
+
+#@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt)
 class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Imagen.objects.all()
     serializer_class = imagenSerializer
 
+    # @method_decorator(csrf_exempt)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(Upload_Image_View, self).dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
     	return self.list(request, *args, **kwargs)
     
+  #  @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         # print("imagennnn")
         # return HttpResponse("asd")
@@ -197,15 +204,21 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
         print(imgURL)
         return HttpResponse(imgURL)
 
-@method_decorator(csrf_exempt, name='post')
+#@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt)
 class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Audio.objects.all()
     serializer_class = AudioSerializer
 
+    # @method_decorator(csrf_exempt)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(Upload_Audio_View, self).dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
     
+ #   @method_decorator(csrf_exempt)
     def post(self, request, *args, **kwargs):
         ch=self.kwargs["channel"]
         audioSer = AudioSerializer(data=request.data)
