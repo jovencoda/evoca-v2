@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.views.decorators.csrf import csrf_exempt
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import SimpleRouter
@@ -63,8 +64,8 @@ urlpatterns = [
     # ----------- Mobile URLS ---------
 
     url(r'^api/v1/user_token/(?P<username>[-_\w]+)/$', mobile.userToken, name='user_token'),
-    url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/upload_audio/$', Upload_Audio_View.as_view(), name='upload_audio'),
-    url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/upload_image/$', Upload_Image_View.as_view(), name='upload_image'),
+    url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/upload_audio/$', csrf_exempt(Upload_Audio_View.as_view()), name='upload_audio'),
+    url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/upload_image/$', csrf_exempt(Upload_Image_View.as_view()), name='upload_image'),
     #url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/(?P<pk>[0-9]+)/record/$', views.record_detail, name='record'),
     url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/record_list/$', mobile.record_list, name='record_list')
 
