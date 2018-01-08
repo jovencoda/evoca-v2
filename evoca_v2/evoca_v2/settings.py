@@ -55,8 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+#    'corsheaders.middleware.CorsMiddleware',
+ #   'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 ]
@@ -122,14 +122,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Django Rest Framework config
 
-REST_FRAMEWORK = {
-	'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication'),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
-}
+# REST_FRAMEWORK = {
+# 	'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication'),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#         'rest_framework.permissions.AllowAny',
+#     ),
+#     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+# }
 
 
 # CORS_ORIGIN_ALLOW_ALL = True
