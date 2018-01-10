@@ -117,7 +117,7 @@ def record_list(request, channel, username):
         #print(request)
         #print(data)
         #serializer = RecordSerializer(data=data)
-        serializer = ReporteSerializer(data=data)
+        serializer = RecordSerializer(data=data)
         #print(serializer.validate(data))
         #print(" --- ")
         ##print(serializer.is_valid())
