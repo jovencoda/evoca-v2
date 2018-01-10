@@ -125,7 +125,7 @@ def record_list(request, channel, username):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         else :
-
+            print(data)
             #rep=Reporte(hora= data['hora'], latitud=data['latitud'], fecha=data['fecha'], descripcion=data['descripcion'],  longitud=data['longitud'] )
             record = create_record(username, channel, Point(float(data['longitud']), float(data['latitud'])), data['fecha'], data['descripcion'])
             create_attachment(data['audio_url'], username, record, 3)
