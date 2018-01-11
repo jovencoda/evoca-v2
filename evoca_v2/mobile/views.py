@@ -122,9 +122,11 @@ def record_list(request, channel, username):
         #print(" --- ")
         ##print(serializer.is_valid())
         if serializer.is_valid():
+            print("serializer is valid");
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         else :
+            print("serializer is not valid");
             print(data)
             #rep=Reporte(hora= data['hora'], latitud=data['latitud'], fecha=data['fecha'], descripcion=data['descripcion'],  longitud=data['longitud'] )
             record = create_record(username, channel, Point(float(data['longitud']), float(data['latitud'])), data['fecha'], data['descripcion'])
