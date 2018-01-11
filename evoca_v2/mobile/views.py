@@ -121,7 +121,7 @@ def record_list(request, channel, username):
         #print(serializer.validate(data))
         #print(" --- ")
         ##print(serializer.is_valid())
-        if serializer.is_valid():
+        if False and serializer.is_valid():
             print("serializer is valid");
             serializer.save()
             return JSONResponse(serializer.data, status=201)
