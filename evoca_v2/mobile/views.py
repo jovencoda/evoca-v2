@@ -95,7 +95,7 @@ def userToken(request, username):
               t = Token.objects.create(user=u)
               error = ''
               u.save()
-              info= '{"username": "'+u.username+'","token":"'+t.key+'", "error": "'+error+'", "channels": [{"name": "Default", "slug":"default" }]}'
+              info= '{"username": "'+u.username+'","token":"'+t.key+'", "error": "'+error+'", "channels": [{"name": "Default", "slug":"default", "tags":[] }]}'
            else:
                info= '{"error": "Ya existe un usario con el nombre elegido."}'
               # user was retrieved
