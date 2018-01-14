@@ -11,11 +11,12 @@ class RecordSerializer(serial.ModelSerializer):
 	fecha = serial.SerializerMethodField()
 	latitud = serial.SerializerMethodField()
 	longitud = serial.SerializerMethodField()
+	tags = serial.SerializerMethodField()
 	#latitud = serial.DecimalField(max_digits=40, decimal_places=30)
 	#longitud = serial.DecimalField(max_digits=40, decimal_places=30)
 	class Meta:
 		model = Record
-		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud')
+		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud', 'tags')
 
 	def get_img_url(self, obj):
 		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type=0)
@@ -37,7 +38,9 @@ class RecordSerializer(serial.ModelSerializer):
 		return str(ob.getRawLocation()).split(",")[0]
 	def get_longitud(self, ob):
 		return str(ob.getRawLocation()).split(",")[1]
-
+	def get_tags(self, ob):
+		# retornar lista de tags del reporte
+		return str("")
 
 
 class imagenSerializer(serial.ModelSerializer):

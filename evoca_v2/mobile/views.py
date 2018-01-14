@@ -41,6 +41,20 @@ def getChannelsFromProfile(profile):
     channels=Membership.objects.filter(user__username=profile)
     return channels
 
+def getChannelsTagsString(channel):
+    # TODO  retornar strings en fotmato json con los slugs de los tags  pertenecientes al canal
+    # '{ "slug":"nombre-tag", "name":"Nombre TAG" }'
+    #  Ejemplo : '[ {"slug":"basura", "name":"Basura"}, {"slug":"turismo", "name":"Turismo"}, {"slug":"acciones-comunitarias", "name":"Acciones comunitarias"}, {"slug":"construccion", "name":"Construcción"}, {"slug":"movilidad", "name":"Movilidad"}, {"slug":"problematicas-ciudadanas", "name":"Problemáticas ciudadanas"} ]'
+
+    return ""
+
+def getReporteTagsFromString(tags):
+    # tags: string con los slugs pertencientes a tags separados por espacios
+    # TODO retorna una lista con los tags correspondientes a los slugs
+    return ""
+
+
+
 @csrf_exempt
 def userToken(request, username):
     data = {}
@@ -55,9 +69,9 @@ def userToken(request, username):
             return HttpResponse(status=404)
         chs = getChannelsFromProfile(profile)
         cds_str='['
-        cds_str+='{"name": "Default", "slug":"default" }'
+        cds_str+='{"name": "Default", "slug":"default", "tags":[] }'
         for c in chs:
-            cds_str+=',{"name": "'+c.channel.name+'", "slug":"'+c.channel.slug+'" }'
+            cds_str+=',{"name": "'+c.channel.name+'", "slug":"'+c.channel.slug+'", "tags":['+getChannelsTagsString(c.channel)+'] }'
         cds_str+=']'
         error = ''
         token = Token.objects.get(user__username=username)
