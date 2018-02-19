@@ -27,64 +27,79 @@
 
 {% block body %}
 
-<h1 class="ui header titulo" id="channel-header">
-  <i class="hashtag icon"></i>
-  <div class="content">
-    {{ active_channel_name }}
-  </div>
-</h1>
+<div class="ui container" id="main-container">
+  <h1 class="ui header titulo" id="channel-header">
+    <i class="hashtag icon"></i>
+    <div class="content">
+      {{ active_channel_name }}
+    </div>
+  </h1>
 
-<h1 class="ui header" id="channel-header">
-  <div class="content">
-    <div class="ui page grid">
-      <div class="two column row">
-        <div class="column">
-          <div class="image">
+  <h1 class="ui header" id="channel-header">
+    <div class="content">
+      <div class="ui page grid">
+        <div class="two column row">
+          <div class="column">
+            <div class="image">
 
-            {% if record.getAttachedAudio.url %}
-            <button class="ui compact labeled icon button green player detail">
-              <i class="play icon"></i>
-              <span class="audio-label">Reproducir</span>
-              <audio preload="none">
-                <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-              </audio>
-            </button>
-            {% endif %}
+              {% if record.getAttachedAudio.url %}
+              <button class="ui compact labeled icon button green player detail">
+                <i class="play icon"></i>
+                <span class="audio-label">Reproducir</span>
+                <audio preload="none">
+                  <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </button>
+              {% endif %}
 
-            <img class="card-img" src="{{ record.getAttachedImage.url }}">
+              <img class="card-img" src="{{ record.getAttachedImage.url }}">
+            </div>
+
+            <form class="ui form">
+              <div class="field">
+                <label>Escriba un Mensaje</label>
+                <textarea></textarea>
+              </div>
+              <button class="ui fluid large teal submit button" type="submit">Enviar</button>
+            </form>
+
           </div>
-        </div>
-        <div class="column">
-          <div class="ui segment">
-            <div class="ui vertical segment">
-              <p>by <strong>{{ record.author }}</strong> &#8212; Posted on <strong>{{ record.created_at|date:"D, d M Y H:i" }}</strong></p>
+          <div class="column">
+            <div class="ui segment">
+              <div class="ui vertical segment">
+                <p>by <strong>{{ record.author }}</strong> &#8212; Posted on <strong>{{ record.created_at|date:"D, d M Y H:i" }}</strong></p>
+              </div>
+              {% if record.getTags %}
+              <div class="content">
+                {% for tag in record.getTags %}
+                  <a href="#" class="ui label">{{ tag.slug }}</a>
+                {% endfor %}
+              </div>
+              <div class="content">
+                {{ record.getLongPlace }}
+              </div>
+              {% endif %}
+              <div class="ui vertical segment">
+                <div class="extra content" style="height:80px; width: 100%; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
+              </div>
+              <div class="ui vertical segment">
+                <p>
+                  {{ record.description }}
+                </p>
+              </div>
+      	    </div>
+            <div class="ui bottom attached green progress"  data-percent="0">
+              <div class="bar"></div>
             </div>
-            {% if record.getTags %}
-            <div class="content">
-              {% for tag in record.getTags %}
-                <a href="/tag/{{ tag.slug }}" class="ui label">{{ tag.slug }}</a>
-              {% endfor %}
-            </div>
-            <div class="content">
-              {{ record.getLongPlace }}
-            </div>
-            {% endif %}
-            <div class="ui vertical segment">
-              <div class="extra content" style="height:80px; width: 100%; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
-            </div>
-            <div class="ui vertical segment">
-              <p>
-                {{ record.description }}
-              </p>
-            </div>
-    	    </div>
-          <div class="ui bottom attached green progress"  data-percent="0">
-            <div class="bar"></div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</h1>
+  </h1>
+</div>
+
+
+
+
 {% endblock%}

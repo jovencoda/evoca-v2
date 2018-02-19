@@ -10,6 +10,55 @@
   margin-bottom: 50px;
 }
 
+.relat{
+  position: relative;
+}
+
+.bod{
+  width: 84%;
+  margin: 0 auto;
+
+}
+
+.logico{
+  height: 200px;
+  position: absolute;
+  right: 120px;
+  z-index: 10;
+}
+
+.logoimg{
+  width: 7em!important;
+}
+
+.backlog{
+  background: url(/static/img/loginback-16.png);
+  background-size: cover;
+  height: 700px;
+}
+
+.leftt{
+  margin-left: 50px!important;
+  text-align: left;
+  margin-top: 150px;
+
+}
+
+.corrizq{
+  margin-left: 40px;
+}
+
+.tit{
+  margin-bottom: 30px!important;
+}
+
+.verde{
+  background-color: #21ba45;
+  color: #fff!important;
+  padding-top: 5px!important;
+  padding-bottom: 5px!important;
+}
+
 .contenedor{
   padding-top: 25%;
 }
@@ -56,6 +105,15 @@
 .login{
   max-width: 450px !important;
   top: 50px;
+  position: absolute;
+  right: 50px;
+  width: 360px;
+  top: 100px;
+}
+
+.cuerpologi{
+  background-color: rgb(68, 68, 68)!important;
+  color: #fff!important;
 }
 
 .ui.form .field{
@@ -84,7 +142,7 @@
 .img-banner{
   background-size: cover;
   width: 100%;
-  height: 300px;
+  height: 500px;
 }
 
 .masthead h1.ui.header {
@@ -95,7 +153,7 @@
 }
 
 .ui.inverted.segment, .ui.primary.inverted.segment {
-    background: url(/static/img/back.jpg);
+    background: url(/static/img/homeimg-16.png);
     background-size: cover;
     height: 500px;
 }
@@ -123,7 +181,7 @@
 }
 
 .text-small-banner{
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 p{
@@ -147,11 +205,7 @@ p{
 
 .ico{
   height: 100px;
-  width: 100px;
-  background-color: aqua;
   margin: 0 auto;
-  margin-bottom: 15px;
-  border-radius: 100%;
 }
 
 .card-img{
@@ -218,11 +272,11 @@ audio, video{
 }
 
 .map-wrapper{
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 45px);
+  position: relative;
+  margin: 0 auto;
+  width: 90%;
+  height: 600px;
   z-index: 0;
-  padding-top: 300px;
   overflow: hidden;
 }
 
@@ -252,6 +306,8 @@ audio, video{
 
 .footer{
   text-align: center;
+  background-color: #444;
+  color: #fff;
   padding: 13px 20px;
 }
 

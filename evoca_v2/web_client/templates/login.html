@@ -4,12 +4,16 @@
 {% endblock %}
 
 {% block body %}
+<div class="ui backlog" id="main-container">
 {{user.username}}
-<div class = "ui middle aligned center aligned grid contenedor">
-  <div class = "column login">
+<div class = "ui relat">
+  <img src="/static/img/logologin-16.png" alt="" class="logico">
+  <div class = "login">
+
     <form class="ui large form" method="POST">{% csrf_token %}
-      <div class = "ui stacked segment">
-        <div class="h2cont"><h2>EVOCA Inicio</h2></div>
+      <div class = "ui stacked segment cuerpologi">
+
+        <div class="h2cont"><h2></h2></div>
         <div class="field">
           <div class = "ui left icon input">
             <i class = "user icon"></i>
@@ -27,5 +31,6 @@
       </div>
     </form>
   </div>
+</div>
 </div>
 {% endblock %}

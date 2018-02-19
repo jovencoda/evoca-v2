@@ -9,6 +9,7 @@
     {% block header %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="/static/semantic/source/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+    <link rel="icon" href="/static/img/logologin-16.png">
   </head>
   <body>
 
@@ -20,7 +21,7 @@
         <a class="item">Signup</a>
         <div class="right menu">
           <a href="/channels" class="header item">
-            EVOCA
+            <img src="/static/img/logoblanco-16.png" alt="" class="logoimg">
           </a>
         </div>
       </div>
@@ -32,7 +33,7 @@
               <i class="sidebar icon"></i>
             </a>
             <a href="/channels" class="header item">
-              EVOCA
+              <img src="/static/img/logoblanco-16.png" alt="" class="logoimg">
             </a>
             {% block sub_menu %}
             {% endblock %}
@@ -63,11 +64,23 @@
       {% block wrapper %}
       {% endblock %}
 
-      <div class="ui container" id="main-container">
+      {% block prebody %}
+      {% endblock %}
+
+      {% block map %}
+      {% endblock %}
+
+
         <!-- Contained -->
         {% block body %}
         {% endblock %}
-      </div>
+
+
+      {% block postbody %}
+      {% endblock %}
+
+
+
   </body>
   <footer>
       {% block scripts%}

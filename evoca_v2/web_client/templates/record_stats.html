@@ -30,92 +30,119 @@
 {% endblock%}
 
 {% block body %}
-<h1 class="ui header" id="channel-header">
 
-  <i class="hashtag icon titulo"></i>
-  <div class="content titulo">
-    {{ active_channel_name }}
-    <div class="sub header">
-      Estadisticas y tendencias del proyecto
-    </div>
-  </div>
+<div class="ui container" id="main-container">
+  <h1 class="ui header" id="channel-header">
 
-</h1>
-
-<!-- Main body -->
-
-
-<!-- Charts -->
-
-<h4 class="ui horizontal divider header">
-  Diagramas
-</h4>
-
-<div class="ui two column grid">
-
-  <div class="row">
-
-    <div class="column">
-      <!-- Timeline chart -->
-      <div class="ui basic segment">
-        <div class="ui active inverted dimmer">
-          <div class="ui medium text loader">Cargando</div>
-        </div>
-        <div class="chart" id="timeline-chart"></div>
+    <i class="hashtag icon titulo"></i>
+    <div class="content titulo">
+      {{ active_channel_name }}
+      <div class="sub header">
+        Estadisticas y tendencias del proyecto
       </div>
-      <!-- end -->
     </div>
 
-    <div class="column">
-      <!-- Tags chart -->
-      <div class="ui basic segment">
-        <div class="ui active inverted dimmer">
-          <div class="ui medium text loader">Cargando</div>
+  </h1>
+
+  <!-- Main body -->
+  <!-- Stats -->
+
+  <h4 class="ui horizontal divider header">
+    Vista previa
+  </h4>
+
+      <div class="ui three statistics">
+
+        <div class="ui statistic">
+          <div class="value l">
+            {{ channel_records_count }}
+          </div>
+          <div class="label">
+            Reportes
+          </div>
         </div>
-        <div class="chart" id="tags-chart"></div>
+
+        <div class="ui statistic">
+          <div class="value">
+            {{ channel_users_count }}
+          </div>
+          <div class="label">
+            Usuarios
+          </div>
+        </div>
+
+        <div class="ui statistic">
+          <div class="value">
+            {{ channel_tags_count }}
+          </div>
+          <div class="label">
+            Categorías
+          </div>
+        </div>
+
       </div>
-      <!-- end -->
+
+  <!-- Charts -->
+
+  <h4 class="ui horizontal divider header">
+    Diagramas
+  </h4>
+
+  <div class="ui column grid">
+
+    <div class="row">
+
+      <div class="column">
+        <div class="cont-cent">
+          <div><h5 class="ui horizontal divider header titulo">Línea de tiempo</h5></div>
+        </div>
+        <p class="normal-text">Línea de tiempo en la que se puede visualizar la cantidad de reportes
+        creados en una fecha particular. Es posible observar que el proyecto se encueentra en un periodo
+      de inactividad, y que la mayor cantidad de reportes realizados se hicieron hace varios meses.</p>
+        <!-- Timeline chart -->
+        <div class="ui basic segment">
+          <div class="ui active inverted dimmer">
+            <div class="ui medium text loader">Cargando</div>
+          </div>
+          <div class="chart" id="timeline-chart"></div>
+        </div>
+        <!-- end -->
+      </div>
+
+    </div>
+
+
+
+
+
+
+    <div class="row">
+
+      <div class="column">
+        <div class="cont-cent">
+          <div><h5 class="ui horizontal divider header titulo">Diagrama de anillo</h5></div>
+        </div>
+        <p class="normal-text">Diagrama de anillo que muestra el porcentaje de reportes en el Proyecto Pance
+        por cada categoría. Puede observarse que la mayor cantidad de reportes realizados en el proyecto
+      son de la tematica acciones comunitarias, representando más del 70%.</p>
+        <!-- Tags chart -->
+        <div class="ui basic segment">
+          <div class="ui active inverted dimmer">
+            <div class="ui medium text loader">Cargando</div>
+          </div>
+          <div class="chart" id="tags-chart"></div>
+        </div>
+        <!-- end -->
+      </div>
+
     </div>
 
   </div>
 </div>
 
-<!-- Stats -->
 
-<h4 class="ui horizontal divider header">
-  Vista previa
-</h4>
 
-    <div class="ui three statistics">
 
-      <div class="ui statistic">
-        <div class="value l">
-          {{ channel_records_count }}
-        </div>
-        <div class="label">
-          Reportes
-        </div>
-      </div>
-
-      <div class="ui statistic">
-        <div class="value">
-          {{ channel_users_count }}
-        </div>
-        <div class="label">
-          Usuarios
-        </div>
-      </div>
-
-      <div class="ui statistic">
-        <div class="value">
-          {{ channel_tags_count }}
-        </div>
-        <div class="label">
-          Categorías
-        </div>
-      </div>
-
-    </div>
 
 {% endblock%}
 

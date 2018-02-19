@@ -27,22 +27,25 @@
 {% endblock%}
 
 {% block wrapper %}
-<div class="banner"><img class="img-banner"src="/static/img/img.jpg" alt=""></div>
+<div class="banner"><img class="img-banner"src="/static/img/proyimg-16.png" alt=""></div>
 {% endblock %}
 
-{% block body %}
 
 
 
+{% block prebody %}
+<br>
 <h1 class="ui header titulo" id="channel-header">
 
-  <i class="hashtag icon"></i>
-  <div class="content">
-    {{ active_channel_name }}
-    <div class="sub header">
+
+    <div class="tit bod">
+      <i class="hashtag icon"></i>{{ active_channel_name }}
+    </div>
+    <div class="sub header verde">
+    <div class="bod">
       <div><h3  class="filtertitle">FILTROS</h3></div>
 
-      <div class="filterbar">
+      <div class="filterbar corrizq">
         <span class="filteroption">
           Filtrar por el usuario
           <div class="ui inline dropdown">
@@ -96,7 +99,7 @@
         </span>
       </div>
 
-      <div><h4>Cantidad reportes por Categoría</h4></div>
+      <!--<div><h4>Cantidad reportes por Categoría</h4></div>
 
       <div class="countrecords">
 
@@ -124,64 +127,77 @@
             <h4>{{key}} - {{value}}</h4>
           {% endfor %}
         {% endfor %}
-      </div>
+      </div>-->
 
     </div>
   </div>
 
 </h1>
+{% endblock %}
 
 
 
-<div class="ui link cards">
 
-  {% for x, y in object_list.items %}
-  <h4 class="ui horizontal divider header">
-    {{ x }}
-  </h4>
-  {% for record in y %}
 
-  <div class="ui card">
+{% block body %}
 
-      <div class="content">
-        <div class="right floated meta time">{{ record.created_at|date:"D, d M Y H:i" }}</div>
-        <i class="at icon"></i>{{ record.author }}
-      </div>
-      <div class="image">
+<div class="ui container" id="main-container">
+  <div class="ui link cards">
 
-        {% if record.getAttachedAudio.url %}
-        <button class="ui compact labeled icon button green player">
-          <i class="play icon"></i>
-          <span class="audio-label">Reproducir</span>
-          <audio preload="none">
-            <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-          </audio>
-        </button>
+    {% for x, y in object_list.items %}
+    <h4 class="ui horizontal divider header">
+      {{ x }}
+    </h4>
+    {% for record in y %}
+
+    <div class="ui card">
+
+        <div class="content">
+          <div class="right floated meta time">{{ record.created_at|date:"D, d M Y H:i" }}</div>
+          <i class="at icon"></i>{{ record.author }}
+        </div>
+        <div class="image">
+
+          {% if record.getAttachedAudio.url %}
+          <button class="ui compact labeled icon button green player">
+            <i class="play icon"></i>
+            <span class="audio-label">Reproducir</span>
+            <audio preload="none">
+              <source src="{{ record.getAttachedAudio.url }}" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </button>
+          {% endif %}
+
+          <a href="/{{ active_channel_slug }}/record/{{ record.uniqueID }}/"><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
+        </div>
+        <div class="content">
+          {{ record.getLongPlace }}
+        </div>
+
+        {% if record.getTags %}
+        <div class="content">
+          {% for tag in record.getTags %}
+            <a href="#" class="ui label">{{ tag.slug }}</a>
+          {% endfor %}
+        </div>
         {% endif %}
+        <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
 
-        <a href="/{{ active_channel_slug }}/record/{{ record.uniqueID }}/"><img class="card-img" src="{{ record.getAttachedImage.url }}"></a>
-      </div>
-      <div class="content">
-        {{ record.getLongPlace }}
-      </div>
+        <div class="ui bottom attached green progress"  data-percent="0">
+          <div class="bar"></div>
+        </div>
 
-      {% if record.getTags %}
-      <div class="content">
-        {% for tag in record.getTags %}
-          <a href="/tag/{{ tag.slug }}" class="ui label">{{ tag.slug }}</a>
-        {% endfor %}
-      </div>
-      {% endif %}
-      <div class="extra content" style="height:80px; background-image: url('https://api.mapbox.com/v4/mapbox.outdoors/pin-s-camera+21ba45({{record.getRawLocation}})/{{record.getRawLocation}},15/270x80.png?access_token=pk.eyJ1Ijoiam92ZW5jb2RhIiwiYSI6ImNqNmIyZTYzdDE5YmQydm55eHduY2tqMm0ifQ.Uom9N7tSPmM0hqapPXAfFg');"></div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    </div>
+</div>
 
-      <div class="ui bottom attached green progress"  data-percent="0">
-        <div class="bar"></div>
-      </div>
 
-  </div>
-  {% endfor %}
-  {% endfor %}
-  </div>
+
+
+
+
 
 {% endblock %}

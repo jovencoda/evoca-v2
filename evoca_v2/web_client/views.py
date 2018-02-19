@@ -47,16 +47,16 @@ class RecordsListView(ListView):
         return queryset
 
     def getRecordsByTag(self):
-        queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
+        '''queryset = Tag.objects.all().filter(related_channel__slug=self.kwargs['channel'])
         response = []
-        """for s in queryset:
+        for s in queryset:
             tagName = s.slug
             listRecord = Record.objects.all().filter(channel__slug=self.kwargs['channel'])
-            listTag = listRecord.filter(tags=s.slug)
+            listTag = listRecord.filter(tags__in=s.slug)
             numTag = listTag.count()
             tagInfo = {'name' : s.name, 'count' : numTag}
-            response.append(tagInfo)"""
-        return response
+            response.append(tagInfo)
+        return response'''
 
     def get_queryset(self):
         queryset = super(RecordsListView, self).get_queryset().order_by('created_at').filter(channel__slug=self.kwargs['channel'])
