@@ -26,9 +26,6 @@ SECRET_KEY = 'w80%6*2#=vtpxme6q*6y#4i32xa9l!gz#26gx0z))9n$dpan10'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,7 +44,8 @@ INSTALLED_APPS = [
     'web_client',
     'world',
     'mapbox',
-    'googlemaps'
+    'googlemaps',
+    'mobile'
 ]
 
 MIDDLEWARE = [
@@ -58,8 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+#    'corsheaders.middleware.CorsMiddleware',
+ #   'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
 ]
@@ -102,7 +100,7 @@ DATABASES = {
 }
 
 POSTGIS_VERSION = (2, 1, 3)
-ALLOWED_HOSTS = ['192.168.33.10']
+ALLOWED_HOSTS = ['*']
 
 
 # Password validation
@@ -125,18 +123,18 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Django Rest Framework config
 
-REST_FRAMEWORK = {
-	'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication'),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
-}
+# REST_FRAMEWORK = {
+# 	'DEFAULT_AUTHENTICATION_CLASSES': ( 'rest_framework.authentication.TokenAuthentication', 'rest_framework.authentication.BasicAuthentication', 'rest_framework.authentication.SessionAuthentication'),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#         'rest_framework.permissions.AllowAny',
+#     ),
+#     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+# }
 
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_CREDENTIALS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -156,8 +154,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'media')
 
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('channel-view')

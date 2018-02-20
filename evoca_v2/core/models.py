@@ -64,6 +64,7 @@ class Channel(TimeBot):
 class Membership(TimeBot):
     channel = models.ForeignKey(Channel)
     user = models.ForeignKey(User)
+	
 
 # ----------- RECORD ------------->
 
