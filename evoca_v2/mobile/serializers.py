@@ -1,12 +1,47 @@
 
+# -*- coding: utf-8 -*-
 from rest_framework import serializers as serial
 from models import *
 from core.models import *
 
 class RecordSerializer(serial.ModelSerializer):
+	img_url = serial.SerializerMethodField()
+	audio_url = serial.SerializerMethodField()
+	hora = serial.SerializerMethodField()
+	fecha = serial.SerializerMethodField()
+	latitud = serial.SerializerMethodField()
+	longitud = serial.SerializerMethodField()
+	tags = serial.SerializerMethodField()
+	#latitud = serial.DecimalField(max_digits=40, decimal_places=30)
+	#longitud = serial.DecimalField(max_digits=40, decimal_places=30)
 	class Meta:
 		model = Record
-		fields = ('id', 'img_url',	'audio_url', 'descripcion',	'fecha', 'hora', 'latitud',	'longitud')
+		fields = ('pk', 'img_url',	'audio_url', 'description',	'fecha', 'hora', 'latitud',	'longitud', 'tags')
+
+	def get_img_url(self, obj):
+		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type=0)
+		url ='none'
+		if len(atts) > 0:
+			url = atts[0].url
+		return url
+	def get_audio_url(self, obj):
+		atts = Attachment.objects.filter(related_record=obj).filter(attachment_type=3)
+		url ='none'
+		if len(atts) > 0:
+			url = atts[0].url
+		return url
+	def get_fecha(self, ob):
+		return str(ob.created_at).split(" ")[0]
+	def get_hora(self, ob):
+		return str(ob.created_at).split(" ")[1].split(".")[0]
+	def get_latitud(self, ob):
+		return str(ob.getRawLocation()).split(",")[0]
+	def get_longitud(self, ob):
+		return str(ob.getRawLocation()).split(",")[1]
+	def get_tags(self, ob):
+		# retornar lista de tags del reporte
+		return str("")
+
 
 class imagenSerializer(serial.ModelSerializer):
     class Meta:

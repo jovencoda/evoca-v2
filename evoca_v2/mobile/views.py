@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 
 from django.http import HttpResponse
+
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import status, permissions
@@ -40,9 +41,27 @@ def getChannelsFromProfile(profile):
     channels=Membership.objects.filter(user__username=profile)
     return channels
 
+def getChannelsTagsString(channel):
+    # TODO  retornar strings en fotmato json con los slugs de los tags  pertenecientes al canal
+    # '{ "slug":"nombre-tag", "name":"Nombre TAG" }'
+    #  Ejemplo : '[ {"slug":"basura", "name":"Basura"}, {"slug":"turismo", "name":"Turismo"}, {"slug":"acciones-comunitarias", "name":"Acciones comunitarias"}, {"slug":"construccion", "name":"Construcción"}, {"slug":"movilidad", "name":"Movilidad"}, {"slug":"problematicas-ciudadanas", "name":"Problemáticas ciudadanas"} ]'
+
+    return ""
+
+def getReporteTagsFromString(tags):
+    # tags: string con los slugs pertencientes a tags separados por espacios
+    # TODO retorna una lista con los tags correspondientes a los slugs
+    return ""
+
+
+
 @csrf_exempt
 def userToken(request, username):
-    data = JSONParser().parse(request)
+    data = {}
+    if request.body:
+        data = JSONParser().parse(request)
+    else:
+        data['type']="login"
     if request.method == 'GET' or (data['type']=="login"):
         try:
             profile = User.objects.get(username=username)
@@ -50,13 +69,13 @@ def userToken(request, username):
             return HttpResponse(status=404)
         chs = getChannelsFromProfile(profile)
         cds_str='['
-        cds_str+='{"name": "Default", "slug":"default" }'
+        cds_str+='{"name": "Default", "slug":"default", "tags":[] }'
         for c in chs:
-            cds_str+=',{"name": "'+c.channel.name+'", "slug":"'+c.channel.slug+'" }'
+            cds_str+=',{"name": "'+c.channel.name+'", "slug":"'+c.channel.slug+'", "tags":['+getChannelsTagsString(c.channel)+'] }'
         cds_str+=']'
         error = ''
         token = Token.objects.get(user__username=username)
-        info= '{"username": "'+ profile.username + '", "token": "' + token + '", "error": "' + error + '", "channels": ' + cds_str + '}'
+        info= '{"username": "'+ profile.username + '", "token": "' + token.key + '", "error": "' + error + '", "channels": ' + cds_str + '}'
         js=json.loads(info)
         return JSONResponse(js)
 
@@ -76,7 +95,7 @@ def userToken(request, username):
               t = Token.objects.create(user=u)
               error = ''
               u.save()
-              info= '{"username": "'+u.username+'","token":"'+t.key+'", "error": "'+error+'", "channels": [{"name": "Default", "slug":"default" }]}'
+              info= '{"username": "'+u.username+'","token":"'+t.key+'", "error": "'+error+'", "channels": [{"name": "Default", "slug":"default", "tags":[] }]}'
            else:
                info= '{"error": "Ya existe un usario con el nombre elegido."}'
               # user was retrieved
@@ -112,17 +131,19 @@ def record_list(request, channel, username):
         #print(request)
         #print(data)
         #serializer = RecordSerializer(data=data)
-        serializer = ReporteSerializer(data=data)
+        serializer = RecordSerializer(data=data)
         #print(serializer.validate(data))
         #print(" --- ")
         ##print(serializer.is_valid())
-        if serializer.is_valid():
+        if False and serializer.is_valid():
+            print("serializer is valid");
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         else :
-
+            print("serializer is not valid");
+            print(data)
             #rep=Reporte(hora= data['hora'], latitud=data['latitud'], fecha=data['fecha'], descripcion=data['descripcion'],  longitud=data['longitud'] )
-            record = create_record(username, channel, Point(float(data['longitud']), float(data['latitud'])), data['fecha'], data['descripcion'])
+            record = create_record(username, channel, Point(float(data['longitud']), float(data['latitud'])), data['fecha'], data['description'])
             create_attachment(data['audio_url'], username, record, 3)
             create_attachment(data['img_url'], username, record, 0)
 
@@ -164,20 +185,31 @@ def record_list(request, channel, username):
 
 # # ------------ UPLOAD FILES ------------
 
+
+
+#@method_decorator(csrf_exempt, name='post')
 class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Imagen.objects.all()
     serializer_class = imagenSerializer
 
+    # @method_decorator(csrf_exempt)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(Upload_Image_View, self).dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
     	return self.list(request, *args, **kwargs)
-
+    
+  #  @method_decorator(csrf_exempt)
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         # print("imagennnn")
         # return HttpResponse("asd")
         ch=self.kwargs["channel"]
+        print(ch)
         imgSer=imagenSerializer(data=request.data)
         file = request.FILES;
+        print(file)
         imgURL="null"
         if imgSer.is_valid():
             imgSer.save()
@@ -189,14 +221,21 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
         print(imgURL)
         return HttpResponse(imgURL)
 
+#@method_decorator(csrf_exempt, name='post')
 class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     parser_classes = (JSONParser, MultiPartParser, FormParser,)
     queryset = Audio.objects.all()
     serializer_class = AudioSerializer
 
+    # @method_decorator(csrf_exempt)
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(Upload_Audio_View, self).dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-
+    
+ #   @method_decorator(csrf_exempt)
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         ch=self.kwargs["channel"]
         audioSer = AudioSerializer(data=request.data)
