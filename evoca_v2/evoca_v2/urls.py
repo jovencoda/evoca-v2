@@ -65,3 +65,4 @@ urlpatterns = [
     url(r'^(?P<channel>[-_\w]+)/tag/(?P<tag>[-_\w]+)/$', RecordsFilteredViewByTag.as_view(), name='records-list-view-tag')
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
