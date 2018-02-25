@@ -8,7 +8,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0031_auto_20170927_0359'),
+        #('core', '0031_auto_20170927_0359'),
         ('core', '0030_message_profile'),
     ]
 
