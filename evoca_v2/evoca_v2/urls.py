@@ -20,6 +20,8 @@ from django.contrib.auth.views import logout_then_login
 from rest_framework.routers import SimpleRouter
 from rest_framework_nested import routers
 from rest_framework.authtoken import views
+from mobile import views as mobile
+from mobile.views import *
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -62,7 +64,7 @@ urlpatterns = [
     url(r'^(?P<channel>[-_\w]+)/map/$', RecordsMapView.as_view(), name='records-map-view'),
     url(r'^(?P<channel>[-_\w]+)/stats/$', RecordsStatsView.as_view(), name='records-stats-view'),
     url(r'^(?P<channel>[-_\w]+)/user/(?P<user>[-_\w]+)/$', RecordsFilteredViewByUser.as_view(), name='records-list-view-user'),
-    url(r'^(?P<channel>[-_\w]+)/tag/(?P<tag>[-_\w]+)/$', RecordsFilteredViewByTag.as_view(), name='records-list-view-tag')
+    url(r'^(?P<channel>[-_\w]+)/tag/(?P<tag>[-_\w]+)/$', RecordsFilteredViewByTag.as_view(), name='records-list-view-tag'),
     
     # ----------- Mobile URLS ---------
 

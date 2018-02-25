@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'web_client',
     'world',
     'mapbox',
-    'googlemaps'
+    'googlemaps',
+    'mobile'
 ]
 
 MIDDLEWARE = [
