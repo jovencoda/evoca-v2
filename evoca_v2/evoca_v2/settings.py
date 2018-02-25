@@ -103,7 +103,7 @@ DATABASES = {
 }
 
 POSTGIS_VERSION = (2, 1, 3)
-ALLOWED_HOSTS = ['192.168.33.10']
+#ALLOWED_HOSTS = ['192.168.33.10']
 
 
 # Password validation
