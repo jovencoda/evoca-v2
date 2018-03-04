@@ -39,7 +39,13 @@ class RecordSerializer(serial.ModelSerializer):
 	def get_longitud(self, ob):
 		return str(ob.getRawLocation()).split(",")[1]
 	def get_tags(self, ob):
+        
+        
+        
 		# retornar lista de tags del reporte
+        
+        
+        
 		return str("")
 
 
