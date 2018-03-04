@@ -67,7 +67,7 @@ urlpatterns = [
     url(r'^(?P<channel>[-_\w]+)/tag/(?P<tag>[-_\w]+)/$', RecordsFilteredViewByTag.as_view(), name='records-list-view-tag'),
     
     # ----------- Mobile URLS ---------
-
+    
     url(r'^api/v1/user_token/(?P<username>[-_\w]+)/$', mobile.userToken, name='user_token'),
     url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/upload_audio/$', Upload_Audio_View.as_view(), name='upload_audio'),
     url(r'^api/v1/channel/(?P<channel>[-_\w]+)/(?P<username>[-_\w]+)/upload_image/$', Upload_Image_View.as_view(), name='upload_image'),
