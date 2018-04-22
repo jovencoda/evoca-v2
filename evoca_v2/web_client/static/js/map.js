@@ -1,4 +1,5 @@
-
+var baseURL = window.location.protocol
++'//'+window.location.hostname+(location.port ? ':'+location.port: '');
 $(document)
    .ready(function() {
 
@@ -73,7 +74,7 @@ function generateMap() {
          }
        });
        $.ajax({
-           url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID,
+           url: baseURL+"/api/v1/channel/" + channelID + "/records/" + report.uniqueID,
            headers: {
                'Authorization':'Token ' + api_token,
                'X_CSRF_TOKEN': csrftoken,
@@ -100,7 +101,7 @@ function generateMap() {
            }
          });
          $.ajax({
-             url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/" + report.uniqueID + "/attachments/",
+             url: baseURL+"/api/v1/channel/" + channelID + "/records/" + report.uniqueID + "/attachments/",
              headers: {
                  'Authorization':'Token ' + api_token,
                  'X_CSRF_TOKEN': csrftoken,
@@ -165,7 +166,7 @@ function generateMap() {
 
   // Make data petition
   $.ajax({
-      url: "http://192.168.33.10:8000/api/v1/channel/" + channelID + "/records/?format=json",
+      url: baseURL+"/api/v1/channel/" + channelID + "/records/?format=json",
       headers: {
           'Authorization':'Token ' + api_token,
           'X_CSRF_TOKEN': csrftoken,
