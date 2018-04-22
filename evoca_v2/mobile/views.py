@@ -211,13 +211,13 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
         file = request.FILES;
         print(file)
         imgURL="null"
-        if imgSer.is_valid():
-            imgSer.save()
-            imgURL=imgSer.data["img"]
-        else:
-            im = Imagen(channel=ch, img=file['upload'])
-            im.save();
-            imgURL=im.img.url
+#        if imgSer.is_valid():
+#            imgSer.save()
+#            imgURL=imgSer.data["img"]
+#        else:
+        im = Imagen(channel=ch, img=file['upload'])
+        im.save();
+        imgURL=im.img.url
         print(imgURL)
         return HttpResponse(imgURL)
 
@@ -241,15 +241,15 @@ class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
         audioSer = AudioSerializer(data=request.data)
         file = request.FILES;
         audioURL="null"
-        if audioSer.is_valid():
-            audioSer.save()
-            audioURL=audioSer.data["audio"]
-        else:
-            au = Audio(channel=ch, audio=file['upload'])
-            au.save();
-            audioURL=au.audio.url
-            print(audioURL)
-            return HttpResponse(audioURL)
+#        if audioSer.is_valid():
+#            audioSer.save()
+#            audioURL=audioSer.data["audio"]
+#        else:
+        au = Audio(channel=ch, audio=file['upload'])
+        au.save();
+        audioURL=au.audio.url
+        print(audioURL)
+        return HttpResponse(audioURL)
 
 def create_record(author, channel, location, date, description):
     record = Record(location=location)
