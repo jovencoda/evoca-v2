@@ -215,7 +215,7 @@ class Upload_Image_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
 #            imgSer.save()
 #            imgURL=imgSer.data["img"]
 #        else:
-        im = Imagen(channel=ch, img=file['upload'])
+        im = Imagen(channel=ch, img=file['img'])
         im.save();
         imgURL=im.img.url
         print(imgURL)
@@ -245,7 +245,7 @@ class Upload_Audio_View(mixins.ListModelMixin, mixins.CreateModelMixin, generics
 #            audioSer.save()
 #            audioURL=audioSer.data["audio"]
 #        else:
-        au = Audio(channel=ch, audio=file['upload'])
+        au = Audio(channel=ch, audio=file['audio'])
         au.save();
         audioURL=au.audio.url
         print(audioURL)
