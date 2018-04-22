@@ -1,3 +1,5 @@
+var baseURL = window.location.protocol
++'//'+window.location.hostname+(location.port ? ':'+location.port: '');
 $(document)
    .ready(function() {
 
@@ -66,7 +68,7 @@ $(document)
    function populateMenu(){
    menu = d3.select("#channel-menu");
     $.ajax({
-        url: "http://192.168.33.10:8000/api/v1/channel/?format=json"
+        url: baseURL+"/api/v1/channel/?format=json"
     }).then(function(data) {
       channels = []
       $(data).each(function(i){
